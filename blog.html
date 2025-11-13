@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href='https://fonts.googleapis.com/css?family=STIX Two Text' rel='stylesheet'>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"/>
+<style>
+body {
+    font-family: 'STIX Two Text';font-size: 22px;
+}
+img {
+  display: block;
+  margin: auto;
+}
+
+
+.clearfix {
+    clear: both;
+}
+
+.other-navbar {
+    display: flex; /* KEY CHANGE: Use Flexbox for layout */
+    width: 100%; /* Ensure it spans the full width of the container */
+    overflow: hidden;
+    background-color: #333 !important; /* Dark grey background */
+    padding: 0; 
+}
+
+/* Style the links in the new 'other' navbar */
+.other-navbar a {
+    /* Removed float: left; as Flexbox handles alignment */
+    display: block;
+    color: white; 
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    background-color: #333 !important; 
+}
+
+/* Active state for the currently selected page (Home) */
+.other-navbar a.active-page {
+    /* Slightly lighter background to show selection, simulating a 'pressed' look */
+    background-color: #555 !important; 
+    cursor: default; /* Indicates it's not a link to another page */
+}
+
+/* Change the background color on hover, only for non-active links */
+.other-navbar a:hover:not(.active-page) {
+    background-color: #666 !important; /* Lighter grey on hover */
+    color: white;
+}/* ------------------------------------------- */
+
+
+</style>
+<title>Blog</title>
+</head>
+
+
+<div class="other-navbar">
+	<a href="index.html">Home</a>
+	<a href="research.html">Research</a>
+	<a href="blog.html" class="active-page">Blog</a>
+	<a href="Pranav-Acharya-CV.pdf" download>CV</a>
+	<a href="https://github.com/Pranav-Acharya1/MOOC-Certificates">Certificates</a> <!--Improve-->
+
+</div>
+
+<h2>October 2025: PhD publication</h2>
+<p>My PhD was <a href="https://theses.gla.ac.uk/85532/">published</a>!
+My thesis is a simulation study of Resonant Tunneling Diodes (RTDs) performed with the Non-equilibrium Green's Function (NEGF) formalism.
+Specifically, it focusses on device variation in RTDs, and how this allows RTDs to compose Physical Unclonable Function (PUFs) which can uniquely identify devices they are placed on, in order to fight counterfeiting.
+As part of this, I improved the device variation capabilities of Nano-electronic Simulation Software (<a href="https://www.gla.ac.uk/research/az/devmod/software/">NESS</a>). 
+</p>
+
+<!--Expand and explain-->
+
+<h2>November 2025: Variation study of RTDs</h2>
+<p>
+<a href="https://doi.org/10.1016/j.micrna.2025.208264">"Sensitivity of resonant tunneling diodes to barrier variation and quantum well variation: A NEGF study"</a> was published.
+For this paper, I studied the impact of varying barrier and Quantum Well (QW) thicknesses on RTD current-voltage (IV) characteristics. I also studied the impact of Interface Roughness (IR) at different parts of the RTD, and compared with the effects of thickness, concluding that IR along barriers leads to thicker effect barrier and IR along the QW leads to thinner effect QWs.
+</p>
+
+<h2>October 2025: Interface Roughness in RTDs for PUFs</h2>
+<p>
+<a href="https://doi.org/10.1016/j.sse.2025.109131">"Interface roughness in Resonant Tunnelling Diodes for physically unclonable functions"</a> was published.
+This accompanies my <a href="#eurosoi">EuroSOI-ULIS 2024 conference</a> presentation.
+This was on how IR along heterostructure interfaces in RTD barriers, such as between a GaAs body and AlGaAs barriers, leads to random variation of the resulting IV characteristics. 
+This random variation of the output can then be used to encode information, which means multiple RTDs can together form a PUF in order to uniquely identify whichever device they are placed on.
+</p>
+
+<h2>September 2024: Accelerating NEGF with Diffusion-Based Machine Learning</h2>
+<p>
+<a href="https://doi.org/10.1109/SISPAD62626.2024.10733041">"Diffusion-Based Machine Learning Method for Accelerating Quantum Transport Simulations in Nanowire Transistors"</a> was presented for SISPAD 2024 by my colleague Preslav Aleksandrov.
+I'm pleased to work with him on this study, where a Machine Learning (ML) diffusion model was used to accelerate NEGF simulations.
+NEGF is accurate and captures quantum effects such quantum tunneling, yet it can take a long time, with multiple iterations of NEGF needed in order to pass the conditions set for a successful simulation.
+The purpose of this paper was to explore the use of Diffusion-based ML models to accelerate this time consuming process.
+In this paper UNet architecture was demonstrated being trained on simulation data, in order to provide a better simulation starting point for NEGF simulations, accelerating <a href="https://www.gla.ac.uk/research/az/devmod/software/">NESS</a> by up to 60%. 
+<!--UPDATE WITH https://eprints.gla.ac.uk/341069/ when the paper is uploaded there!-->
+</p>
+
+<h2>July 2024: Impact of IR correlation on RTD variation</h2>
+<p>
+<a href="https://doi.org/10.1038/s41598-025-07720-0">"Impact of interface roughness correlation on resonant tunnelling diode variation"</a> was published.
+This study improved the IR generation in <a href="https://www.gla.ac.uk/research/az/devmod/software/">NESS</a> to have two correlation lengths, and showed that by having IR along both dimensions in a plane that the variation in the resulting IV characteristics increases.
+It was also found that increasing correlation length leads to greater IV variation.
+</p>
+
+<h2>June 2024: Electron mobility in nanosheet Field-Effect Transistors</h2>
+<p>
+<a href="https://doi.org/10.1088/1402-4896/ad56d9">"The study of electron mobility on ultra-scaled silicon nanosheet FET"</a> was published.
+I'm glad to be able to help Tongfui Liu et al with this study.
+The impact of phonon and surface roughness scattering on the electron mobility of n-type silicon nanosheet field-effect transistors (FET) was studied.
+<!--UPDATE WITH https://eprints.gla.ac.uk/370521/ when the paper is uploaded there!-->
+</p>
+
+<h2>November 2024: Random Discrete Dopants in RTDs for PUFs</h2>
+<p>
+My first paper, <a href="https://eprints.gla.ac.uk/342047/">"Analysis of Random Discrete Dopants Embedded Nanowire Resonant Tunnelling Diodes for Generation of Physically Unclonable Functions"</a>, was published today!
+I studied the impact of Random Discrete Dopants (RDDs) on RTD, and showed that the resulting variation in IV characteristics allows the encoding of information. Hence, multiple RDD doped RDDs can form PUFs which uniquely identify devices they are placed on.
+</p>
+
+<h2 id="eurosoi">May 2024: EuroSOI-ULIS 2024</h2>
+<p>I'm grateful to present my research in sunny Athens, and take to part in this engaging <a href="https://eurosoi-ulis2024.eventsadmin.com/Home/Welcome">conference</a>.
+To carry out this research, I expanded the roughness in <a href="https://www.gla.ac.uk/research/az/devmod/software/">NESS</a> from surface roughness to IR as well.
+This presentation explained how IR along heterostructure interface in RTD barriers, such as between a GaAs body and AlGaAs barriers, lead to random variation of the resulting current-voltage characteristics in simulated RTDs.
+This random variation of the output can then be used to encode information, which means multiple RTDs can together form a PUF to uniquely identify the device which they are placed on.
+</>
+
+<h2>July 2022: SINANO 9th Summer School</h2>
+<p>
+I'm pleased to help the University of Glasgow host the <a href="https://www.gla.ac.uk/events/conferences/sinano2020/">9th SINANO Modelling and Simulation Summer School</a>.
+<!--Expand-->
+</p>
+
+
+<h2>July 2022: Theoretical Physics Graduation</h2>
+<p>
+Nearly a year since my Masters ended, I'm glad to say that I've graduated from Lancaster University. While it was interrupted by the pandemic, it was an invaluable time, including a year spent studying abroad at Nanyang Technological University (NTU), Singapore.
+</p>
+
+<h2>October 2021: Starting my PhD</h2>
+<p>
+I'm looking forward to a new chapter of my research career, starting my PhD at the University of Glasgow.
+</p>
+
+<h2>July 2021: Completing my Masters in Theoretical Physics</h2>
+<p>
+I'm glad to complete my Masters in Theoretical Physics at Lancaster University with a First Class Honours.
+</p>
+
+<h2>March 2021: Presenting for my Masters Project</h2>
+<p>
+I <a href="https://www.lancaster.ac.uk/2021ugconference/pranav-acharya/">presented</a> for my Masters project at Lancaster University's 2021 Undergraduate Research Conference.
+For this project, I simulated excitonic complexes, composed of electrons and holes, within a type 2 (which means one type of charge carrier is confined, which in this case is holes) quantum dot.
+In particular, I studied the binding energies of excitonic complexes, which affects the frequency and thus colour of photons emitted upon decay of these complexes.
+This impact on the optoelectronic of quantum dots extends to commercial applications such as solar panels and QLED TVs.
+</p>
+
+<h2>October 2017: Starting my Masters in Theoretical Physics</h2>
+<p>
+I'm looking forward to starting my Masters in Theoretical Physics at Lancaster University.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href='https://fonts.googleapis.com/css?family=STIX Two Text' rel='stylesheet'>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"/>
+<style>
+body {
+    font-family: 'STIX Two Text';font-size: 22px;
+}
+img {
+  display: block;
+  margin: auto;
+}
+
+
+.clearfix {
+    clear: both;
+}
+
+.other-navbar {
+    display: flex; /* KEY CHANGE: Use Flexbox for layout */
+    width: 100%; /* Ensure it spans the full width of the container */
+    overflow: hidden;
+    background-color: #333 !important; /* Dark grey background */
+    padding: 0; 
+}
+
+/* Style the links in the new 'other' navbar */
+.other-navbar a {
+    /* Removed float: left; as Flexbox handles alignment */
+    display: block;
+    color: white; 
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    background-color: #333 !important; 
+}
+
+/* Active state for the currently selected page (Home) */
+.other-navbar a.active-page {
+    /* Slightly lighter background to show selection, simulating a 'pressed' look */
+    background-color: #555 !important; 
+    cursor: default; /* Indicates it's not a link to another page */
+}
+
+/* Change the background color on hover, only for non-active links */
+.other-navbar a:hover:not(.active-page) {
+    background-color: #666 !important; /* Lighter grey on hover */
+    color: white;
+}/* ------------------------------------------- */
+
+
+
+
+
+</style>
+<title>Research</title>
+</head>
+
+
+<div class="other-navbar">
+	<a href="index.html">Home</a>
+	<a href="research.html" class="active-page">Research</a>
+	<a href="blog.html">Blog</a>
+	<a href="Pranav-Acharya-CV.pdf" download>CV</a>
+	<a href="https://github.com/Pranav-Acharya1/MOOC-Certificates">Certificates</a> <!--Improve-->
+</div>
+
+
+    <h1 id="research">Research</h1>
+    <h2>PhD Thesis</h2>
+    <p><a href="simulation_of_RTDs_with_NEGF.pdf">Simulation of Resonant Tunnelling Diodes with the Non-Equilibrium Green's Function Formalism</a><p>
+    <h2>First Author Publications</h2>
+    <ol type="1">
+	    <li><a href="https://eprints.gla.ac.uk/342047/">P. Acharya et al., "Analysis of Random Discrete Dopants Embedded Nanowire Resonant Tunnelling Diodes for Generation of Physically Unclonable Functions," IEEE Transactions on Nanotechnology, vol. 23, pp. 815-821, 2024, doi: 10.1109/TNANO.2024.3504963</a>. </li>
+	    <li><a href="https://doi.org/10.1016/j.sse.2025.109131">P. Acharya and V. Georgiev, "Interface roughness in resonant tunnelling diodes for physically unclonable functions," Solid State Electron, p. 109131, 2025, doi: 10.1016/j.sse.2025.109131</a>.</li>
+	    <li><a href="https://doi.org/10.1038/s41598-025-07720-0">P. Acharya, N. Kumar, A. Dixit, J. Lee, and V. Georgiev, "Impact of interface roughness correlation on resonant tunnelling diode variation," Scientific Reports, vol. 15, no. 1, p. 26815, 2025, doi: 10.1038/s41598-025-07720-0</a>.</li>
+	    <li><a href="https://doi.org/10.1016/j.micrna.2025.208264">P. Acharya, N. Kumar, A. Dixit, and V. Georgiev, "Sensitivity of resonant tunneling diodes to barrier variation and quantum well variation: A NEGF study," Micro and Nanostructures, vol. 207, p. 208264, doi: 10.1016/j.micrna.2025.208264</a></li>
+    </ol>
+    <h2>Other Publications</h2>
+    <ol type="1">
+	    <li><a href="https://doi.org/10.1109/SISPAD62626.2024.10733041">P. Aleksandrov, P. Acharya, and V. Georgiev, "Diffusion-Based Machine Learning Method for Accelerating Quantum Transport Simulations in Nanowire Transistors," in 2024 International Conference on Simulation of Semiconductor Processes and Devices (SISPAD), pp. 1-4, 2024, doi: 10.1109/SISPAD62626.2024.10733041</a>. </li>
+	    <!--UPDATE WITH https://eprints.gla.ac.uk/341069/ when the paper is uploaded there!-->
+	    <li><a href="https://doi.org/10.1088/1402-4896/ad56d9">T. Liu et al., "The study of electron mobility on ultra-scaled silicon nanosheet FET," Physica Scripta, vol. 99, no. 7, p. 075410, 2024, doi: 10.1088/1402-4896/ad56d9</a>.</li>
+	    <!--UPDATE WITH https://eprints.gla.ac.uk/370521/ when the paper is uploaded there!-->
+    </ol>
+
+    <!--<h2>Skills</h2> -->
+
+
+
+</body>
+
+</html>
+
