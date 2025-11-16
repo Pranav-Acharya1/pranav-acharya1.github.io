@@ -50,6 +50,56 @@ img {
 }/* ------------------------------------------- */
 
 
+
+
+/* --- Expandable Summary/Details Styling --- */
+
+/* Removes the default disclosure arrow */
+summary {
+    list-style: none; 
+    cursor: pointer; /* Indicates it's clickable */
+    margin-bottom: 1em; /* Space below the summary block */
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc; /* Visual separation for summaries */
+}
+
+/* Specific fix for Firefox to remove the arrow */
+summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Styling for the H2 inside the summary */
+summary h2 {
+    margin-top: 0; /* Remove top margin for cleaner look */
+    margin-bottom: 0.2em;
+    color: #0056b3; /* Make the title stand out */
+}
+
+/* Styling for the short summary text */
+.summary-text {
+    /* font-size: 0.9em; */
+    font-style: italic;
+    color: #555;
+    margin: 0.5em 0;
+}
+
+/* Styling for the image placeholder/actual image in the summary */
+.summary-image-container {
+    max-width: 90%; 
+    height: auto;
+    margin: 10px auto;
+    border: 1px dashed #aaa; /* Placeholder visual */
+    text-align: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Styling for the expanded content */
+details p {
+    margin-top: 1em; /* Add space above the expanded content */
+    padding: 0 10px;
+}
+
 </style>
 <title>Blog</title>
 </head>
@@ -112,11 +162,18 @@ The impact of phonon and surface roughness scattering on the electron mobility o
 <!--UPDATE WITH https://eprints.gla.ac.uk/370521/ when the paper is uploaded there!-->
 </p>
 
+<details>
+	<summary>
 <h2>November 2024: Random Discrete Dopants in RTDs for PUFs</h2>
 <p>
-My first paper, <a href="https://eprints.gla.ac.uk/342047/">"Analysis of Random Discrete Dopants Embedded Nanowire Resonant Tunnelling Diodes for Generation of Physically Unclonable Functions"</a>, was published today!
+My first <a href="https://eprints.gla.ac.uk/342047/">paper</a>, was published today!
 I studied the impact of Random Discrete Dopants (RDDs) on RTD, and showed that the resulting variation in IV characteristics allows the encoding of information. Hence, multiple RDD doped RDDs can form PUFs which uniquely identify devices they are placed on.
 </p>
+	</summary>
+	<p>
+	The paper is <a href="https://eprints.gla.ac.uk/342047/">"Analysis of Random Discrete Dopants Embedded Nanowire Resonant Tunnelling Diodes for Generation of Physically Unclonable Functions"</a>.
+	</p>
+</details>
 
 <h2 id="eurosoi">May 2024: EuroSOI-ULIS 2024</h2>
 <p>I'm grateful to present my research in sunny Athens, and take to part in this engaging <a href="https://eurosoi-ulis2024.eventsadmin.com/Home/Welcome">conference</a>.
