@@ -172,15 +172,65 @@ I studied the impact of Random Discrete Dopants (RDDs) on RTD, and showed that t
 -->
 <!--bookmark:I am working here-->
 <h2>November 2024: Random Discrete Dopants in RTDs for PUFs</h2>
+<p>
+My first <a href="https://eprints.gla.ac.uk/342047/">paper</a>, was published today!
+Click below to expand the summary, or check out an open-access version of the paper <a href="https://eprints.gla.ac.uk/342047/">here</a>.
+</p>
 <details>
 	<summary>
 <p>
-My first <a href="https://eprints.gla.ac.uk/342047/">paper</a>, was published today!
-I studied the impact of Random Discrete Dopants (RDDs) on RTD, and showed that the resulting variation in IV characteristics allows the encoding of information. Hence, multiple RDD doped RDDs can form PUFs which uniquely identify devices they are placed on.
+I studied the impact of Random Discrete Dopants (RDDs) on Resonant Tunneling Diodes (RTDs), and showed that the resulting variation in IV characteristics allows the encoding of information. Hence, multiple RDD doped RDDs can form Physical Unclonable Functions (PUFs) which uniquely identify devices they are placed on.
 </p>
 	</summary>
+	<!--bookmark-->
+	<!--The paper is <a href="https://eprints.gla.ac.uk/342047/">"Analysis of Random Discrete Dopants Embedded Nanowire Resonant Tunnelling Diodes for Generation of Physically Unclonable Functions"</a>.-->
 	<p>
-	The paper is <a href="https://eprints.gla.ac.uk/342047/">"Analysis of Random Discrete Dopants Embedded Nanowire Resonant Tunnelling Diodes for Generation of Physically Unclonable Functions"</a>.
+	Counterfeiting of semiconductor chips is a major issue which costs companies billions annually, and introduces risks to industry and infrastructure.
+	A powerful solution to this are PUFs, which can be integrated into integrated circuits (ICs) and generate an unique 'fingerprint-like' output based on random structural variation, which is consequently nearly impossible to clone. 
+	</p>
+	<p>
+	My paper focussed on the feasibility of using nanowire RTDs with RDDs as PUF building blocks.
+	RTDs are particularly attractive because they are hard to clone, can be manufactured on the same wafer without additional fabrication steps, and are relevant for securing advanced systems such as wireless and 5G/6G technology.
+	</p>
+	<h3>Modelling Quantum Transport and Variability</h3>
+	<img src="Images/RDDs_in_RTDs_for_PUFs/fig1_rtd_smooth_figure.png">
+	<p>
+	To study RTDs, quantum mechanical simulations were carried out to model current flow in double barrier III-V (GaAs/AlGaAs) nanowire RTDs as seen above
+	Specifically, the quantum transport simulation formalism used was Non-equilibrium Green's Function (NEGF), which together with a Poisson equation solver which efficiently calculated the electrostatic potential, accurately captures quantum effects such as quantisation of electron charge in the quantum well (QW) and quantum tunnelling of electrons through barriers.
+	These NEGF-Poisson simulations were implemented within custom Nano-Electronics Simulation Software (<a href="https://www.gla.ac.uk/research/az/devmod/software/">NESS</a>) developed at the University of Glasgow.
+	</p>
+	<img src="Images/RDDs_in_RTDs_for_PUFs/fig4_iv_phonon_vs_ballistic.png">
+	<p>
+	A local maxima in current is achieved due to quantum tunnelling of barriers at resonant energy levels, where incoming electrons are of the same energy as a quantised energy level within the QW.
+	Such a local maxima, and subsequent decrease in current is called a resonant peak, leading the signature Negative Differential Region of decreasing current with bias observed in RTDs.
+	This can be seen in the above current-voltage (IV) characteristic, marked by a resonant peak in current <i>I<sub>r</sub></i> at bias <i>V<sub>r</sub></i> and a valley in current <i>I<sub>v</sub></i> at bias <i>V<sub>v</sub></i>.
+	When taking into account acoustic electron-phonon scattering, to ensure realistic modelling, the current peak <i>I<sub>r</sub></i> and Peak-to-Valley Current Ratio (PVCR) decrease.
+	</p>
+	<p>
+	The specific source of randomness we investigated was RDDs, the intrinsic statistic variation in the position and number of dopant atoms introduced during manufacturing. We simulated an ensemble of 75 RTDs, each with unique RDD configurations, to evaluate statistic variability.
+	</p>
+	<h3>Generating the Device Fingerprint</h3>
+	<img src="Images/RDDs_in_RTDs_for_PUFs/fig6_combined_iv_with_rdds_devices_57_65_39.png">
+	<p>
+	We found a direct correlation between the distribution of RDDs and the resulting IV characteristic, as seen above with RTD insets showing the positions of RDDs as green spheres.
+	</p>
+	<img src="Images/RDDs_in_RTDs_for_PUFs/fig8_scatterplot_and_histogram.png">
+	<p>
+	The statistical distribution of resulting resonant peak IV values are normal-like, as shown in the above scatterplot and attached histograms.
+	To evaluate the suitability of using such distributions to encode information for cryptographic, statistical analysis was carried out.
+	Such analysis confirmed that the <i>I<sub>r</sub></i> at bias <i>V<sub>r</sub></i> datasets are statistically different (based on non-parametric tests; the Wilcoxon Signed&#8209;Rank test, Kolmogorov&#8209;Smirnov test, and Mann&#8209;Whitney test).
+	Crucially, they also exhibited a strong positive correlation (Pearson coefficient of 0.663). Because they are related but distinct, both parameters can be used simultaneously to encode secure information
+	</p>
+	<p>
+	A conservative metric of information encoding capability was carried out, the min-entropy <i>H<sub>min</sub></i>
+	Including all 75 devices, including those without NDR, the min-entropy was 1.171 bits.
+	</p>
+	<p>
+	Such information encoding ability demonstrates that the random and difficult to predict nature of RTDs with RDDs provides sufficient information density for hardware security. 
+	For instance 100 RTDs combined into a PUF can in an ideal case encode 137 bits of information, which is sufficient to derive a 128-bit secret key for cryptographic standards like AES (Advanced Encryption Standard) for device authentication.
+	</p>
+	<p>
+	In conclusion, this research validates that the intrinsic variability introduced by RDDs in nanowire RTDs offers a robust mechanism for generating PUF building blocks.
 	</p>
 </details>
 
