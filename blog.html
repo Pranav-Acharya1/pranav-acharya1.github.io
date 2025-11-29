@@ -174,12 +174,17 @@ I studied the impact of Random Discrete Dopants (RDDs) on RTD, and showed that t
 <h2>November 2024: Random Discrete Dopants in RTDs for PUFs</h2>
 <p>
 My first <a href="https://eprints.gla.ac.uk/342047/">paper</a>, was published today!
-Click below to expand the summary, or check out an open-access version of the paper <a href="https://eprints.gla.ac.uk/342047/">here</a>.
+</p>
+<p>
+I studied the impact of Random Discrete Dopants (RDDs) on Resonant Tunneling Diodes (RTDs), and showed that the resulting variation in IV characteristics allows the encoding of information. Hence, multiple RDD doped RDDs can form Physical Unclonable Functions (PUFs) which uniquely identify devices they are placed on.
+</p>
+<p>
+Click below to expand my blog post on this, or read an open-access version of the paper <a href="https://eprints.gla.ac.uk/342047/">here</a>.
 </p>
 <details>
 	<summary>
 <p>
-I studied the impact of Random Discrete Dopants (RDDs) on Resonant Tunneling Diodes (RTDs), and showed that the resulting variation in IV characteristics allows the encoding of information. Hence, multiple RDD doped RDDs can form Physical Unclonable Functions (PUFs) which uniquely identify devices they are placed on.
+Analysis of Random Discrete Dopants Embedded Nanowire Resonant Tunnelling Diodes for Generation of Physically Unclonable Functions
 </p>
 	</summary>
 	<!--bookmark-->
@@ -204,26 +209,26 @@ I studied the impact of Random Discrete Dopants (RDDs) on Resonant Tunneling Dio
 	A local maxima in current is achieved due to quantum tunnelling of barriers at resonant energy levels, where incoming electrons are of the same energy as a quantised energy level within the QW.
 	Such a local maxima, and subsequent decrease in current is called a resonant peak, leading the signature Negative Differential Region of decreasing current with bias observed in RTDs.
 	This can be seen in the above current-voltage (IV) characteristic, marked by a resonant peak in current <i>I<sub>r</sub></i> at bias <i>V<sub>r</sub></i> and a valley in current <i>I<sub>v</sub></i> at bias <i>V<sub>v</sub></i>.
-	When taking into account acoustic electron-phonon scattering, to ensure realistic modelling, the current peak <i>I<sub>r</sub></i> and Peak-to-Valley Current Ratio (PVCR) decrease.
+	When taking into account (acoustic) electron-phonon scattering, to ensure realistic modelling, the current peak <i>I<sub>r</sub></i> and Peak-to-Valley Current Ratio (PVCR) decrease.
 	</p>
 	<p>
-	The specific source of randomness we investigated was RDDs, the intrinsic statistic variation in the position and number of dopant atoms introduced during manufacturing. We simulated an ensemble of 75 RTDs, each with unique RDD configurations, to evaluate statistic variability.
+	The specific source of randomness investigated were RDDs, the intrinsic statistic variation in the position and number of dopant atoms introduced during manufacturing. I simulated an ensemble of 75 RTDs, each with unique RDD configurations, to evaluate statistic variability.
 	</p>
 	<h3>Generating the Device Fingerprint</h3>
 	<img src="Images/RDDs_in_RTDs_for_PUFs/fig6_combined_iv_with_rdds_devices_57_65_39.png">
 	<p>
-	We found a direct correlation between the distribution of RDDs and the resulting IV characteristic, as seen above with RTD insets showing the positions of RDDs as green spheres.
+	I found a direct correlation between the distribution of RDDs and the resulting IV characteristic, as seen above with RTD insets showing the positions of RDDs as green spheres.
 	</p>
 	<img src="Images/RDDs_in_RTDs_for_PUFs/fig8_scatterplot_and_histogram.png">
 	<p>
-	The statistical distribution of resulting resonant peak IV values are normal-like, as shown in the above scatterplot and attached histograms.
+	The statistical distribution of resulting resonant peak IV values are normal-like, as shown in the above scatter-plot and attached histograms.
 	To evaluate the suitability of using such distributions to encode information for cryptographic, statistical analysis was carried out.
-	Such analysis confirmed that the <i>I<sub>r</sub></i> at bias <i>V<sub>r</sub></i> datasets are statistically different (based on non-parametric tests; the Wilcoxon Signed&#8209;Rank test, Kolmogorov&#8209;Smirnov test, and Mann&#8209;Whitney test).
+	Such analysis confirmed that the resonant peak current <i>I<sub>r</sub></i> and resonant peak bias <i>V<sub>r</sub></i> datasets are statistically different (based on non-parametric tests; the Wilcoxon Signed&#8209;Rank test, Kolmogorov&#8209;Smirnov test, and Mann&#8209;Whitney test).
 	Crucially, they also exhibited a strong positive correlation (Pearson coefficient of 0.663). Because they are related but distinct, both parameters can be used simultaneously to encode secure information
 	</p>
 	<p>
-	A conservative metric of information encoding capability was carried out, the min-entropy <i>H<sub>min</sub></i>
-	Including all 75 devices, including those without NDR, the min-entropy was 1.171 bits.
+	A conservative metric of information encoding capability was carried out, the min-entropy <i>H<sub>min</sub></i>. This metric quantifies information using the probability of the most likely outcome <i>p<sub>max</sub></i> in a probabilistic system using the equation <i>H<sub>min</sub></i>=-log<sub>2</sub>(<i>p<sub>max</sub></i>).
+	Evaluating all 75 devices, including those without NDR, the min-entropy was 1.171 bits.
 	</p>
 	<p>
 	Such information encoding ability demonstrates that the random and difficult to predict nature of RTDs with RDDs provides sufficient information density for hardware security. 
