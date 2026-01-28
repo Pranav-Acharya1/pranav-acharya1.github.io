@@ -55,36 +55,36 @@ img {
 /* --- Expandable Summary/Details Styling --- */
 
 /* Removes the default disclosure arrow */
-summary {
+blog-title {
     list-style: none; 
     cursor: pointer; /* Indicates it's clickable */
-    margin-bottom: 1em; /* Space below the summary block */
+    margin-bottom: 1em; /* Space below the blog-title block */
     padding: 10px 0;
     border-bottom: 1px solid #ccc; /* Visual separation for summaries */
 }
 
 /* Specific fix for Firefox to remove the arrow */
-summary::-webkit-details-marker {
+blog-title::-webkit-details-marker {
     display: none;
 }
 
-/* Styling for the H2 inside the summary */
-summary h2 {
+/* Styling for the H2 inside the blog-title */
+blog-title h2 {
     margin-top: 0; /* Remove top margin for cleaner look */
     margin-bottom: 0.2em;
     color: #0056b3; /* Make the title stand out */
 }
 
-/* Styling for the short summary text */
-.summary-text {
+/* Styling for the short blog-title text */
+.blog-title-text {
     /* font-size: 0.9em; */
     font-style: italic;
     color: #555;
     margin: 0.5em 0;
 }
 
-/* Styling for the image placeholder/actual image in the summary */
-.summary-image-container {
+/* Styling for the image placeholder/actual image in the blog-title */
+.blog-title-image-container {
     max-width: 90%; 
     height: auto;
     margin: 10px auto;
@@ -152,14 +152,65 @@ NEGF is accurate and captures quantum effects such quantum tunneling, yet it can
 The purpose of this paper was to explore the use of Diffusion-based ML models to accelerate this time consuming process.
 In this paper UNet architecture was demonstrated being trained on simulation data, in order to provide a better simulation starting point for NEGF simulations, accelerating <a href="https://www.gla.ac.uk/research/az/devmod/software/">NESS</a> by up to 60%. 
 </p>
-<!--bookmark:I am working here-->
+
 
 <h2>July 2024: Impact of IR correlation on RTD variation</h2>
+<!--old version
 <p>
 <a href="https://doi.org/10.1038/s41598-025-07720-0">"Impact of interface roughness correlation on resonant tunnelling diode variation"</a> was published.
 This study improved the IR generation in <a href="https://www.gla.ac.uk/research/az/devmod/software/">NESS</a> to have two correlation lengths, and showed that by having IR along both dimensions in a plane that the variation in the resulting IV characteristics increases.
 It was also found that increasing correlation length leads to greater IV variation.
 </p>
+--!>
+<p>
+My second first-author <a href="https://www.nature.com/articles/s41598-025-07720-0">paper</a> was published!
+</p>
+<p>
+In this study, I improve the Interface Roughness (IR) generation feature I developed and presented at Euro-SOI ULIS 24 (with the accompaying <a href="https://doi.org/10.1016/j.sse.2025.109131">paper</a> published two months later) to generate IR along two directions and thus emulate such roughness more realistically.
+Over the course of this paper I showed that using such 2-dimensional IR along Resonant Tunneling Diodes (RTDs) leads to greater variation in the resulting current-voltage (IV) characteristics, and that increasing correlation length leads to greater IV variation.
+</p>
+<p>
+Click below to expand my blog post on this, or read the paper <a href="https://www.nature.com/articles/s41598-025-07720-0">here</a>.
+</p>
+<details>
+	<blog-title>
+	<p>
+	Impact of interface roughness correlation on resonant tunnelling diode variation
+	</p>
+	</blog-title>
+	
+	<!--Introduction to RTDs, and why IR is important in them--!>
+	<p>RTDs are high speed quantum tunneling devices which can reach THz frequencies at room temperature, making them promising for 6G and other applications. Unfortunately, as they scale down to nanometre dimensions RTDs become sensitive to Interface Roughness (IR) along their heterostructure interfaces (such as between the GaAs body and AlGaAs barriers). Understanding how this roughness causes variation in device performance is crucial for building reliable THz RTDs.</p>
+
+	<h3>Modelling Quantum Transport and Variability</h3>
+	<p>
+	To accurately capture the physics of RTDs, I used the Non-Equilibrium Green's Function (NEGF) formalism together with a Poisson solver within the Nano-Electronics Simulation Software (<a href="https://www.gla.ac.uk/research/az/devmod/software/">NESS</a>), a custom simulation platform developed at the University of Glasgow.
+	The Poisson solver solves the electrostatic Poisson equation to get the potential resulting from charge, which is then used by the NEGF solver module for charge and current calculations. These modules are run self-consistently, with the output of one feeding into the other, until simulations converge. 
+	This approach allows the modelling of quantum effects such as quantum tunnelling and quantisation of charge within the quantum well.
+	</p>
+	<p>
+	In this study, I introduced an improved IR model that generates roughness using two correlation lengths along a plane. This is a significant step up from previous models that treated IR as a simpler scattering term or my previous work which only considered correlation in one direction.
+	I simulated a GaAs nanowire RTD with double AlGaAs barriers, applying this new IR model to each interface between the different materials.
+	</p>
+
+	<h3>Discovering Greater Device Variation</h3>
+	<p>
+	The results showed that the way we model roughness dramatically changes our understanding of device variation:
+	</p>
+	<ol type="1">
+	<li><b>Higher Statistical Spread:</b> Using the "improved" 2D correlation model, the standard deviation of the resonant peak (local maxima in current) current and bias was nearly four times greater than the old model. For example, as a correlation length of 2.5nm the voltage standard deviation jumped from 6.2 mV to 24.2 mV.</li>
+	<li><b>Impact of Correlation Length:</b> I found that as the correlation length increased from 2.5nm to 10nm, the standard deviation in the resonant peak IV characteristics roughly doubled.</li>
+	<li><b>Anisotropic Roughness:</b> Because real-world manufacturing often results in roughness that is different in one direction than the other, I tested anisotropic correlation. I found that these differences also lead to distinctive variations in device performance, further highlighting that 2D modelling is important for accuracy.</li>
+	</ol>
+	
+	<h3></h3>
+	<p>
+	In conclusion, this research highlights that to accurately predict how RTDs will behave in real-world scenarios, we must account for the complex 2D nature of roughness. These findings will help refine future simulations and support the development of more robust hardware for THz applications.
+	</p>
+
+</details>
+
+
 
 <h2>June 2024: Electron mobility in nanosheet Field-Effect Transistors</h2>
 <p>
@@ -168,6 +219,7 @@ I'm glad to be able to help Tongfui Liu et al with this study.
 The impact of phonon and surface roughness scattering on the electron mobility of n-type silicon nanosheet field-effect transistors (FET) was studied.
 <!--UPDATE WITH https://eprints.gla.ac.uk/370521/ when the paper is uploaded there!-->
 </p>
+
 
 
 <!--old version
@@ -188,11 +240,11 @@ I studied the impact of Random Discrete Dopants (RDDs) on Resonant Tunneling Dio
 Click below to expand my blog post on this, or read an open-access version of the paper <a href="https://eprints.gla.ac.uk/342047/">here</a>.
 </p>
 <details>
-	<summary>
+	<blog-title>
 <p>
 Analysis of Random Discrete Dopants Embedded Nanowire Resonant Tunnelling Diodes for Generation of Physically Unclonable Functions
 </p>
-	</summary>
+	</blog-title>
 	<!--bookmark-->
 	<!--The paper is <a href="https://eprints.gla.ac.uk/342047/">"Analysis of Random Discrete Dopants Embedded Nanowire Resonant Tunnelling Diodes for Generation of Physically Unclonable Functions"</a>.-->
 	<p>
