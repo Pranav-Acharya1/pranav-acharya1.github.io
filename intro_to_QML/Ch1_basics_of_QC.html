@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href='https://fonts.googleapis.com/css?family=STIX Two Text' rel='stylesheet'>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"/>
+<style>
+body {
+    font-family: 'STIX Two Text';font-size: 22px;
+}
+img {
+  display: block;
+  margin: auto;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.other-navbar {
+    display: flex; /* KEY CHANGE: Use Flexbox for layout */
+    width: 100%; /* Ensure it spans the full width of the container */
+    overflow: hidden;
+    background-color: #333 !important; /* Dark grey background */
+    padding: 0; 
+}
+
+/* Style the links in the new 'other' navbar */
+.other-navbar a {
+    /* Removed float: left; as Flexbox handles alignment */
+    display: block;
+    color: white; 
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    background-color: #333 !important; 
+}
+
+/* Active state for the currently selected page (Home) */
+.other-navbar a.active-page {
+    /* Slightly lighter background to show selection, simulating a 'pressed' look */
+    background-color: #555 !important; 
+    cursor: default; /* Indicates it's not a link to another page */
+}
+
+/* Change the background color on hover, only for non-active links */
+.other-navbar a:hover:not(.active-page) {
+    background-color: #666 !important; /* Lighter grey on hover */
+    color: white;
+}/* ------------------------------------------- */
+
+
+</style>
+<title>Chapter 1 of Introduction to Quantum Machine Learning: Basics of Quantum Computing</title>
+
+<script>
+    window.MathJax = {
+        tex: {
+            // Enable $...$ for inline math alongside the default \(...\)
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            // Append the braket package to the standard packages
+            packages: {'[+]': ['braket']}             
+        },
+        loader: {
+            // Tell MathJax to fetch the braket extension from the CDN
+            load: ['[tex]/braket']
+        }
+    };
+</script>
+
+<script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js">
+</script>
+
+</head>
+
+<div class="other-navbar">
+	<a href="index.html">Home</a>
+	<a href="research.html">Research</a>
+	<a href="blog.html">Blog</a>
+	<a href="Pranav-Acharya-CV.pdf" download>CV</a>
+	<a href="tutorials_index.html" class="active-page">Tutorials</a>
+	<a href="https://github.com/Pranav-Acharya1/MOOC-Certificates">Certificates</a> <!--Improve-->
+</div>
+
+
+
+<!-- This element uses the clearfix class to stop the H1 from wrapping around the floating navbar -->
+<div class="clearfix"></div>
+
+<body>
+	<h1>Chapter 1: Basics of Quantum Computing</h1>
+	
+    <p>This is the first part of a basic introduction to Quantum Machine Learning, based on the IBM Qiskit 2021 Summer School course. An accompanying Jupyter notebook with the Qiskit code used to generate the images in this chapter and instructions on how to install Qiskit is available <a href="https://github.com/Pranav-Acharya1/intro-to-quantum-machine-learning/blob/main/Ch1_Basics.ipynb">here</a>.
+    <p>The source YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the course is freely available and definitely worth checking out if you prefer learning in a lecture format.</p>
+    <!--bookmark: Reword the following when done-->
+    <p>This chapter introduces basic concepts of quantum computing, quantum bits or 'qubits', quantum circuits, and how quantum teleportation is enabled through quantum entanglement.
+    
+    <h1>Quantum Bits</h1>
+
+    <p>The fundamental promise of quantum computing is leveraging quantum effects to improve classical computation, and this can be reflected by generalising the fundamental concept of a 'bit' into a quantum bit, or a 'qubit'.</p>
+    <p>While bits are units of information that are in one of two levels, '0' or '1', quantum bits can be in a quantum superposition of both of these states.</p>
+    <p>As explained below, such a superposition means that simplistically $n$ qubits can be in a superposition of $2^{n}$ bit string, with hopes to use such an exponential state space to speed up computation.</p>
+
+
+    <p>To represent such a quantum superposition, we need specialised mathematical notation.</p>
+    <p>This is $\ket{\psi} = \alpha\ket{0} + \beta\ket{1}$ in the Dirac notation, where $|\alpha|^2+|\beta|^2=1$ and the '0' state is represented by $\ket{0}=\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and the '1' state is represented by $\ket{1}=\begin{bmatrix} 0 \\ 1 \end{bmatrix}$.</p>
+    <p>The matrix equivalent to this is $\ket{\psi} = \begin{bmatrix} \alpha \\ \beta \end{bmatrix}$</p>
+    <p>Measurement wise, this means that the probability of measuring the qubit $\ket{\psi}$ in the '0' or $\ket{0}=\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ state is $\alpha^2$, and the probability of measuring qubit $\ket{\psi}$ in '0' or $\ket{1}=\begin{bmatrix} 0 \\ 1 \end{bmatrix}$ is conversely $\beta^2$.</p>
+
+    <h2>Dirac Notation</h2>
+    <p>Expanding on the Dirac, or 'bra-ket', notation what was shown above were 'ket' vectors in the form $\ket{\psi}$.</p>
+    <p>Accompanying 'ket' vectors are 'bra' vectors in the form $\bra{\psi}$, which are related to 'ket' vectors as $\bra{\psi}=\ket{\psi}^{\dagger}$</p>
+    <p>This $\dagger$ operator is matrix wise a combination of a transpose (flipping matrix values over its diagonal) and complex conjugate (flipping the sign of the imaginary component $i=\sqrt{-1}$).</p>
+    <p>To clarify this, let's break this down with an example of converting a column 'ket' vector into a row 'bra' vector and then how this works with a 2D matrix:.</p>
+
+    <p>Starting with the 'ket' vector superposition $\ket{\psi_1}=\sqrt{2}\begin{bmatrix} 1 \\ i \end{bmatrix}$:
+    \begin{align}
+    \ket{\psi_1}&=\sqrt{2}\begin{bmatrix} 1 \\ i \end{bmatrix} \\
+    \ket{\psi_1}^{*}=\sqrt{2}\begin{bmatrix} 1^{*} \\ i^{*} \end{bmatrix}&=\begin{bmatrix} 1 \\ -i \end{bmatrix} \\
+    \bra{\psi_1} = (\ket{\psi_1}^{*})^{T} &= \sqrt{2}\begin{bmatrix} 1 & -i \end{bmatrix}
+    \end{align}
+
+
+
+    the complex conjugate flips the sign of the imaginary component, but not the real component, leading to $\ket{\psi_1}^{*}=\sqrt{2}\begin{bmatrix} 1^{*} \\ i^{*} \end{bmatrix}=\begin{bmatrix} 1 \\ -i \end{bmatrix}$. Then, the transpose flips the coordinates from a column vector to a row vector
+    as $\bra{\psi_1} = (\ket{\psi_1}^{*})^{T} = \sqrt{2}\begin{bmatrix} 1 & -i \end{bmatrix}.$</p>
+    <p>For a 2D matrix $A = \begin{bmatrix} 1 & i \\ -1 & -i \end{bmatrix}$ this is instead
+    \begin{align}
+    A &= \begin{bmatrix} 1 & i \\ -1 & -i \end{bmatrix} \\
+    A^{*} &= \begin{bmatrix} 1 & -i \\ -1 & i \end{bmatrix} \\
+    A^{\dagger} = (A^{*})^{T} &= \begin{bmatrix} 1 & -1 \\ -i & i \end{bmatrix}
+    \end{align}
+    In this 2D matrix example, the transpose can be seen as a 'flip' around the diagonal. More specifically, the coordinates of the matrices flip so that $A^{*}_{12}=-i$ and $A^{*}_{21}=1$ swap values. As diagonal values all have the same row and column positions, they can only swap with themselves and so stay the same.</p>
+
+    <h2>Density Matrices</h2>
+    <h2>Measurement Bases</h2>
+    <h2>Bloch Sphere</h2>
+    <p>The Bloch sphere is another representation of individual qubits which I would recommend to become familiar with.<p>
+
+
+    <h1>Quantum Circuits</h1>
+
+
+
+
+    <h1>Entanglement</h1>
+
+
+
+
+</body>
+
+</html>
+
