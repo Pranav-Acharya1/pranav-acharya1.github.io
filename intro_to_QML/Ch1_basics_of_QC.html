@@ -88,6 +88,7 @@ img {
 <div class="clearfix"></div>
 
 <body>
+	<!--bookmark: review this and make sure that it is coherent and understandable to those without a strong background. NB: perhaps link to concepts for further understanding, such as maths. Note the required background needed, perhaps say this might be helpful to read this first then go to further reading.-->
 	<h1>Chapter 1: Basics of Quantum Computing</h1>
 	
     <p>This is the first part of a basic introduction to Quantum Machine Learning, based on the IBM Qiskit 2021 Summer School course. An accompanying Jupyter notebook with the Qiskit code used to generate the images in this chapter and instructions on how to install Qiskit is available <a href="https://github.com/Pranav-Acharya1/intro-to-quantum-machine-learning/blob/main/Ch1_Basics.ipynb">here</a>.
@@ -103,9 +104,11 @@ img {
 
 
     <p>To represent such a quantum superposition, we need specialised mathematical notation.</p>
-    <p>This is $\ket{\psi} = \alpha\ket{0} + \beta\ket{1}$ in the Dirac notation, where $|\alpha|^2+|\beta|^2=1$ and the '0' state is represented by $\ket{0}=\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and the '1' state is represented by $\ket{1}=\begin{bmatrix} 0 \\ 1 \end{bmatrix}$.</p>
+    <p>One way of doing this are statevectors $\ket{\psi} = \alpha\ket{0} + \beta\ket{1}$ in the Dirac notation, where $|\alpha|^2+|\beta|^2=1$ and the '0' state is represented by $\ket{0}=\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and the '1' state is represented by $\ket{1}=\begin{bmatrix} 0 \\ 1 \end{bmatrix}$.</p>
     <p>The matrix equivalent to this is $\ket{\psi} = \begin{bmatrix} \alpha \\ \beta \end{bmatrix}$</p>
     <p>Measurement wise, this means that the probability of measuring the qubit $\ket{\psi}$ in the '0' or $\ket{0}=\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ state is $\alpha^2$, and the probability of measuring qubit $\ket{\psi}$ in '0' or $\ket{1}=\begin{bmatrix} 0 \\ 1 \end{bmatrix}$ is conversely $\beta^2$.</p>
+
+    <!--bookmkar: Make it clear what a statevector is-->
 
     <h2>Dirac Notation</h2>
     <p>Expanding on the Dirac, or 'bra-ket', notation what was shown above were 'ket' vectors in the form $\ket{\psi}$.</p>
@@ -133,6 +136,10 @@ img {
     In this 2D matrix example, the transpose can be seen as a 'flip' around the diagonal. More specifically, the coordinates of the matrices flip so that $A^{*}_{12}=-i$ and $A^{*}_{21}=1$ swap values. As diagonal values all have the same row and column positions, they can only swap with themselves and so stay the same.</p>
 
     <h2>Density Matrices</h2>
+    Another way of representing quantum systems, alternative to statevectors, are 
+
+
+
     <h2>Measurement Bases</h2>
     <h2>Bloch Sphere</h2>
     <p>The Bloch sphere is another representation of individual qubits which I would recommend to become familiar with.<p>
@@ -140,10 +147,27 @@ img {
 
     <h1>Quantum Circuits</h1>
 
+    <h2>Gates</h2>
+    <p>Pauli Gate sets</p>
+
+
+    <p>Universal gate sets are </p>
+
+
+    <h2>Measurement</h2>
 
 
 
     <h1>Entanglement</h1>
+
+
+
+    <h1>Further Comprehension</h1>
+    <p>To internalise the concepts here, it helps to write out the derivations with pen-and-paper.</p>
+    <!--bookmark: recommend resources. Check them out. -->
+
+
+
 
 
 
