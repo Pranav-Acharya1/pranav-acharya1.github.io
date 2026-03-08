@@ -93,8 +93,21 @@ img {
 	
     <p>This is the first part of a basic introduction to Quantum Machine Learning, based on the IBM Qiskit 2021 Summer School course. An accompanying Jupyter notebook with the Qiskit code used to generate the images in this chapter and instructions on how to install Qiskit is available <a href="https://github.com/Pranav-Acharya1/intro-to-quantum-machine-learning/blob/main/Ch1_Basics.ipynb">here</a>.
     <p>The source YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the course is freely available and definitely worth checking out if you prefer learning in a lecture format.</p>
+    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not as freely available, it is worth going through such a textbook or similar resources and solve questions with pen-and-paper to build a more rigorous understanding after reviewing this course. In the case of 'Quantum Computation and Quantum Information', I would recommend going through chapter 1, which an overview of quantum computing, and chapter 2 which introduces the maths of quantum mechanics.</p>
+
     <!--bookmark: Reword the following when done-->
-    <p>This chapter introduces basic concepts of quantum computing, quantum bits or 'qubits', quantum circuits, and how quantum teleportation is enabled through quantum entanglement.
+    <p>This chapter introduces basic concepts of quantum computing, quantum bits or 'qubits', quantum circuits, and how quantum teleportation is enabled through quantum entanglement.</p>
+
+
+    <h1>Fundamental Postulates of Quantum Mechanics</h1>
+    <p>Before diving into the maths, it's worth briefly covering the postulates, or fundamentals prerequisites, of the theory of quantum mechanics itself, which enables quantum computing as a discipline. After learning of basic units of quantum computation, quantum bits, we will see how exactly these correspond the maths introduced:<p>
+    <ol>
+	    <li>Isolated physical quantum systems can be described by a mathematical state space, and the specific state of the system is described by a state vector. The state vector is often symbolised as $\psi$, and is also called the wave function.</li>
+	    <li>A closed physical system evolves over time, with an evolution from $\psi_1$ at time $t=t_{1}$ to $\psi_2$ at time $t=t_{2}$, with the change determined only by the time difference $t_{2}-t_{1}$.</li>
+	    <li>Measurement of such a quantum system 'collapses' the system into a classical state with classical information which is the result of the measurement.</li>
+	    <li>A quantum system can be a composite of multiple smaller quantum systems. Both the composite and individual systems can be described by wave functions due to the first postulate</li>
+    </ol>
+    
     
     <h1>Quantum Bits</h1>
 
@@ -108,7 +121,7 @@ img {
     <p>The matrix equivalent to this is $\ket{\psi} = \begin{bmatrix} \alpha \\ \beta \end{bmatrix}$</p>
     <p>Measurement wise, this means that the probability of measuring the qubit $\ket{\psi}$ in the '0' or $\ket{0}=\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ state is $\alpha^2$, and the probability of measuring qubit $\ket{\psi}$ in '0' or $\ket{1}=\begin{bmatrix} 0 \\ 1 \end{bmatrix}$ is conversely $\beta^2$.</p>
 
-    <!--bookmkar: Make it clear what a statevector is-->
+    <!--bookmark: Make it clear what a statevector is-->
 
     <h2>Dirac Notation</h2>
     <p>Expanding on the Dirac, or 'bra-ket', notation what was shown above were 'ket' vectors in the form $\ket{\psi}$.</p>
@@ -135,35 +148,97 @@ img {
     \end{align}
     In this 2D matrix example, the transpose can be seen as a 'flip' around the diagonal. More specifically, the coordinates of the matrices flip so that $A^{*}_{12}=-i$ and $A^{*}_{21}=1$ swap values. As diagonal values all have the same row and column positions, they can only swap with themselves and so stay the same.</p>
 
+
+
+    <p>Inner product <!--bookmark: explain inner products--></p>
+
+
     <h2>Density Matrices</h2>
-    Another way of representing quantum systems, alternative to statevectors, are 
+    Another way of representing quantum systems, as an alternative to statevectors as represented 'bra-ket; vectors, are density operators.
 
 
 
-    <h2>Measurement Bases</h2>
+    <h2>Measurement Bases and Measurement</h2>
+    
+    <p></p>
+    <p>Orthonormal means</p>
     <h2>Bloch Sphere</h2>
     <p>The Bloch sphere is another representation of individual qubits which I would recommend to become familiar with.<p>
 
 
+    <h2>Single Qubit Gates</h2>
+
+    <h1>Further: Postulates of Quantum Mechanics as applied to Quantum Computing</h1>
+    <p>After briefly describing qubits, it's worth further going over the basic postulates of quantum mechanics to better understand the reasoning behind some of the maths shown so far, and which will be used.</p>
+    <!--bookmark: both give examples of maths used so far and explain concepts, like what a 'quantum system' is-->
+    <h2>State space</h2>
+
+    <p>Postulate 1: Isolated physical systems can be described by a state space, which is a mathematical space with complex vectors (that is, it has both real and imaginary components) and an inner product is possible. The specific state of the system is described by a state vector, a unit vector within state space.</p>
+
+    <p>Such a state space is colloquially referred to as Hilbert space, and the wave vector as the wave function.</p>
+    <p>In the case of qubits, we can take the wave function $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$.</p>
+    <p>The condition of being a unit vector, that the 'length' of the state vector in state space given by the inner product with itself, means that
+    \begin{align}
+    \braket{\psi|\psi}&= 1 \\
+    \alpha^{*}\alpha \braket{0|0} + \alpha^{*}\beta\braket{0|1} + \beta^{*}\alpha\braket{1|0} + \beta^{*}\beta\braket{1|1} &= 1\\
+    |\alpha|^{2}\cdot 1 + \alpha^{*}\beta \cdot 0 + \beta^{*}\alpha \cdot 0 + |\beta|^{2} \cdot 1 &= 1\\
+
+    \alpha^{2} + \beta^{2} = 1
+
+    \end{align}
+    </p>
+    <p>Note that $\braket{0|1}=\braket{1|0}=0$ and $\braket{0|0}=\braket{1|1}=1$ because the computational basis state ($\ket{0}$ and $\ket{1}$) is orthonormal.</p>
+    <p>The computational basis states quite clearly correspond to the classical bits, $\ket{0}$ as 0 and $\ket{1}$ as 1. The difference from classical bits is that a superposition of states can exist.</p>
+    <p>Such a superposition can also be expressed as <!--bookmark: complete--> </p>
+    <p>Generalising the qubit wave vector, it is <!--bookmark: complete and write out and explain phases--></p>
+    <!--bookmark: Show Bloch sphere!-->
+
+    <h2>Evolution</h2>
+
+    <!--bookmark: complete for postulate 2-->
+    <p></p>
+
+    <h2>Measurement</h2>
+    <!--bookmark: complete for postulate 3, referring to density-->
+
+
+    <h2>Tensor Product</h2>
+    <!--bookmark: explain postulate 4. -->
+
     <h1>Quantum Circuits</h1>
 
     <h2>Gates</h2>
-    <p>Pauli Gate sets</p>
+    <p>Pauli matrices</p>
+    
+    <!--bookmark: Show demonstrations of gates with circuit representations and Bloch sphere representation. This should include the Hadamard gate and controlled matrices-->
 
 
     <p>Universal gate sets are </p>
 
 
+    <p>Tensor product</p>
+
+    <!--bookmark: show generalised single gate, and how a controlled gate can be constructed with tensor products-->
+
     <h2>Measurement</h2>
+
+
+    <h2>Super Dense Encoding</h2>
+    <!--bookmark:-->
 
 
 
     <h1>Entanglement</h1>
 
 
+    <!--bookmark: perhaps describe super-dense encoding,  -->
+
+
 
     <h1>Further Comprehension</h1>
     <p>To internalise the concepts here, it helps to write out the derivations with pen-and-paper.</p>
+    <p>The source YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the course is freely available and definitely worth checking out if you prefer learning in a lecture format. Specifically, I based this chapter on lectures 1.1 and 1.2.</p>
+    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not as freely available, it is worth going through such a textbook or similar resources and solve questions with pen-and-paper to build a more rigorous understanding after reviewing this course. In the case of 'Quantum Computation and Quantum Information', I would recommend going through chapter 1, which an overview of quantum computing, and chapter 2 which introduces the maths of quantum mechanics.</p>
     <!--bookmark: recommend resources. Check them out. -->
 
 
