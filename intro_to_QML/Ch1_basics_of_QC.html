@@ -97,16 +97,17 @@ img {
 
     <!--bookmark: Reword the following when done-->
     <p>This chapter introduces basic concepts of quantum computing, quantum bits or 'qubits', quantum circuits, and how quantum teleportation is enabled through quantum entanglement.</p>
+    <p><!--bookmark: Give a brief overview of the sections with links!--></p>
 
 
-    <h1>Fundamental Postulates of Quantum Mechanics</h1>
-    <p>Before diving into the maths, it's worth briefly covering the postulates, or fundamentals prerequisites, of the theory of quantum mechanics itself, which enables quantum computing as a discipline. After learning of basic units of quantum computation, quantum bits, we will see how exactly these correspond the maths introduced:<p>
-    <ol>
-	    <li>Isolated physical quantum systems can be described by a mathematical state space, and the specific state of the system is described by a state vector. The state vector is often symbolised as $\psi$, and is also called the wave function.</li>
-	    <li>A closed physical system evolves over time, with an evolution from $\psi_1$ at time $t=t_{1}$ to $\psi_2$ at time $t=t_{2}$, with the change determined only by the time difference $t_{2}-t_{1}$.</li>
-	    <li>Measurement of such a quantum system 'collapses' the system into a classical state with classical information which is the result of the measurement.</li>
-	    <li>A quantum system can be a composite of multiple smaller quantum systems. Both the composite and individual systems can be described by wave functions due to the first postulate</li>
-    </ol>
+
+
+
+
+
+
+
+
     
     
     <h1>Quantum Bits</h1>
@@ -123,7 +124,7 @@ img {
 
     <!--bookmark: Make it clear what a statevector is-->
 
-    <h2>Dirac Notation</h2>
+    <!--<h2>Dirac Notation</h2>-->
     <p>Expanding on the Dirac, or 'bra-ket', notation what was shown above were 'ket' vectors in the form $\ket{\psi}$.</p>
     <p>Accompanying 'ket' vectors are 'bra' vectors in the form $\bra{\psi}$, which are related to 'ket' vectors as $\bra{\psi}=\ket{\psi}^{\dagger}$</p>
     <p>This $\dagger$ operator is matrix wise a combination of a transpose (flipping matrix values over its diagonal) and complex conjugate (flipping the sign of the imaginary component $i=\sqrt{-1}$).</p>
@@ -152,23 +153,17 @@ img {
 
     <p>Inner product <!--bookmark: explain inner products--></p>
 
-
-    <h2>Density Matrices</h2>
-    Another way of representing quantum systems, as an alternative to statevectors as represented 'bra-ket; vectors, are density operators.
-
-
-
-    <h2>Measurement Bases and Measurement</h2>
-    
-    <p></p>
-    <p>Orthonormal means</p>
-    <h2>Bloch Sphere</h2>
-    <p>The Bloch sphere is another representation of individual qubits which I would recommend to become familiar with.<p>
+    <h1>Fundamental Postulates of Quantum Mechanics</h1>
+    <p>Before diving into the maths, it's worth briefly covering the postulates, or fundamentals prerequisites, of the theory of quantum mechanics itself, which enables quantum computing as a discipline. After learning of basic units of quantum computation, quantum bits, we will see how exactly these correspond the maths introduced:<p>
+    <ol>
+	    <li>Isolated physical quantum systems can be described by a mathematical state space, and the specific state of the system is described by a state vector. The state vector is often symbolised as $\psi$, and is also called the wave function.</li>
+	    <li>A closed physical system evolves over time, with an evolution from $\psi_1$ at time $t=t_{1}$ to $\psi_2$ at time $t=t_{2}$, with the change determined only by the time difference $t_{2}-t_{1}$.</li>
+	    <li>Measurement of such a quantum system 'collapses' the system into a classical state with classical information which is the result of the measurement.</li>
+	    <li>A quantum system can be a composite of multiple smaller quantum systems. Both the composite and individual systems can be described by wave functions due to the first postulate</li>
+    </ol>
 
 
-    <h2>Single Qubit Gates</h2>
 
-    <h1>Further: Postulates of Quantum Mechanics as applied to Quantum Computing</h1>
     <p>After briefly describing qubits, it's worth further going over the basic postulates of quantum mechanics to better understand the reasoning behind some of the maths shown so far, and which will be used.</p>
     <!--bookmark: both give examples of maths used so far and explain concepts, like what a 'quantum system' is-->
     <h2>State space</h2>
@@ -195,15 +190,51 @@ img {
 
     <h2>Evolution</h2>
 
-    <!--bookmark: complete for postulate 2-->
-    <p></p>
+    <!--bookmark: complete for postulate 2. Describe single qubit unitary gates-->
+    <p>Postulate 2: the evolution of closed physical systems over time can be described by a unitary transformation $U$ which depends on the difference in time from the initial state at time $t_1$ to the evolved state $t_2$.</p>
+    <p>In reality an ideal closed system is unfeasible, but a good approximation can be achieved<!--bookmark: explain details of closed systems--> </p>
+    <p>Practically in the case of single qubits, evolution can be described as a single qubit gate U, $\ket{\psi'}=U\ket{\psi}$</p>
+    <p> <!--bookmark: describe a hamiltonian if I haven't already. Similarly describe a unitary transformation if I haven't alrady--></p>
+    <p> <!--bookmark: describe time evolution with U while referring to Hamiltonian.--></p>
+    <p>Generally, a Hamiltonian of a system is split into  <!--bookmark: complete--></p>
 
     <h2>Measurement</h2>
     <!--bookmark: complete for postulate 3, referring to density-->
 
+    <p>Postulate 3:  <!--bookmark: --></p>
+    <p> </p>
+    <p><!--bookmark: completeness equation, and sum of probabilities to 1--></p>
+
+    <p><!--bookmark: Orthonormality and measurement basis, for distinguishing quantum states--></p>
+    <p><!--bookmark: Projective measurements--></p>
+    <p><!--bookmark: Positive Operator Value Measurement --></p>
 
     <h2>Tensor Product</h2>
     <!--bookmark: explain postulate 4. -->
+    <p>Postulate 4: </p>
+    <p><!--bookmark: demonstrate tensor product with matrices--></p>
+
+    <p><!--bookmark: Explain how tensor products allow entanglement--></p>
+
+
+
+    <h1>Further Representation of Qubits</h1>
+    <h2>Density Matrices</h2>
+    Another way of representing quantum systems, as an alternative to statevectors as represented 'bra-ket; vectors, are density operators.
+
+    <p><!--bookmark: Spectral decomposition--></p>
+
+
+    <h2>Measurement Bases and Measurement</h2>
+    
+    <p></p>
+    <p>Orthonormal means</p>
+    <h2>Bloch Sphere</h2>
+    <p>The Bloch sphere is another representation of individual qubits which I would recommend to become familiar with.<p>
+
+    <p>Phase<!--bookmark: describe how the statistics of measurement is invariant to global phase, but relative phase is important. --> </p>
+
+    <!--<h2>Single Qubit Gates</h2>-->
 
     <h1>Quantum Circuits</h1>
 
@@ -222,18 +253,19 @@ img {
 
     <h2>Measurement</h2>
 
+    <h1>Simple Demonstrations of Quantum Effects</h1>
 
     <h2>Super Dense Encoding</h2>
     <!--bookmark:-->
+    
+    <h2>Quantum Teleportation</h2>
+    
 
 
+    <!--<h2>EPR</h2>-->
 
-    <h1>Entanglement</h1>
-
-
-    <!--bookmark: perhaps describe super-dense encoding,  -->
-
-
+    <!--bookmark: Give an example of some other fundamental effect, superposition, for quickly searching. It does not have to be mathematically be shown!-->
+    <!--bookmark: Describe how QC can be used for Machine Learning, checking and referring to the current state of the field-->
 
     <h1>Further Comprehension</h1>
     <p>To internalise the concepts here, it helps to write out the derivations with pen-and-paper.</p>
