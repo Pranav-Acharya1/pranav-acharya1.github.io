@@ -97,7 +97,7 @@ img {
 
     <!--bookmark: Reword the following when done-->
     <p>This chapter introduces basic concepts of quantum computing, quantum bits or 'qubits', quantum circuits, and how quantum teleportation is enabled through quantum entanglement.</p>
-    <p><!--bookmark: Give a brief overview of the sections with links!--></p>
+    <p><!--bookmark: Give a brief overview of the sections with links. Note where to skip to depending on background--></p>
     
     <h1>Quantum Bits</h1>
 
@@ -202,7 +202,9 @@ img {
     <p>Postulate 2': The time evolution of a closed systems is described the Schr&oumldinger equation $$i\hbar \frac{\mathrm{d}}{\mathrm{d}t}=H\ket{\psi}$$</p>
     <p>Here, $\hbar$, Planck's constant, is a physical constant and $H$ is a fixed Hermitian operator referred to as the 'Hamiltonian' of the system.</p>
 
-    <p>Hamiltonian can also be represented as a 'spectral decomposition', or a diagonal matrix with values composed on eigenvalues. For the Hamiltonian, such eigenvalues are the possible energies of the system described by the Hamiltonian: 
+    <p>Hamiltonian can also be represented as a 'spectral decomposition', or a diagonal matrix with values composed of their eigenvalues.
+    For a given matrix $A$, eigenvectors are vectors which when acted on return themselves multiplied by a scalar coefficient, an eigenvalue. In other words with the relation $A\ket{a}=a\ket{a}$, $\ket{a} is an eigenvector of $A$, and $a$ is a corresponding eigenvalue.
+    For the Hamiltonian, such eigenvalues are the possible energies of the system described by the Hamiltonian: 
     \begin{align} 
     H &= 
     \begin{bmatrix} E_0 & 0 & 0 & \dots \\ 
@@ -220,40 +222,172 @@ img {
     <p>Where the unitary operator $U(t_1, t_2)= e^{-i H \frac{t_{2}-t_{1}}{\hbar}}$</p>
 
 
-
-    <p>There's a bit more nuance to this postulate, with approximations taken for it to function for quantum computation.</p>
-    <p>In reality an ideal closed system is unfeasible since all systems within the universe interact, such as through gravity. Furthermore, the application of unitary operators can be seen as an external operation a closed system, such as a gate applied to a single qubit.</p>
-    <p>Thankfully, a good approximation can be</p>
-    
-    <p><!--bookmark: Link to further discussions on the approximation!!--></p>
-    but a good enough approximation can be achieved.<!--bookmark: explain details of closed systems--> </p>
-    <p> <!--bookmark: describe a hamiltonian if I haven't already. Similarly describe a unitary transformation if I haven't alrady--></p>
-    <p> <!--bookmark: describe time evolution with U while referring to Hamiltonian.--></p>
-    <p>Generally, a Hamiltonian of a system is split into  <!--bookmark: complete--></p>
+    <p>Lastly, there's some nuance to the practical application of the 2nd postulate on state evolution, with approximations taken for the 'closed system'.</p>
+    <p>In reality an ideal closed system is infeasible since all systems within the universe interact, such as through gravity. Furthermore, the application of unitary operators can be seen as an external operation a closed system, such as a gate applied to a single qubit, thus externally interrupting the evolution of the qubit over time.</p>
+    <p>Thankfully, a good enough approximation can be achieved for most systems for this postulate to apply. For example with an atom-laser system, where a laser is focussed on an atom, the behaviour of the atom's state can be approximated as the Hamiltonian of atom with additional time varying terms taking into account the laser intensity (which varies over time depending on whether it is running or not). This idea of an approximation of a closed system but with a time dependent Hamiltonian, with parameters under external experimental control, gives us a system which still evolves over time according to Schr&oumldinger's equation.</p>
+    <p>For further and in-depth discussion of this topic of approximating closed systems, <!--bookmark: find and suggest resources on this problem of 'closed' systems and an experimenter--></p>
 
     <h2>Measurement</h2>
     <!--bookmark: complete for postulate 3, referring to density-->
 
-    <p>Postulate 3:  <!--bookmark: --></p>
-    <p> </p>
-    <p><!--bookmark: completeness equation, and sum of probabilities to 1--></p>
+    <p>Postulate 3: Quantum measurements can be described by a collection of measurement operators {$M_{m}$}, where $m$ refers to measurement outcomes, which act on the state space of the system being measured.
+    When acting on state $\ket{\psi}$ the probability of measuring outcome $m$ is $p(m) = \bra{\psi} M_{m}^{\dagger}M_{m}\ket{\psi}$, and the state after this measurement is $$\frac{M_{m}\ket{\psi}}{\bra{\psi}M_{m}^{\dagger}M_{m}\ket{\psi}}$$. 
+    Such measurement operators obey the following sum relation $\sum_{m} M^{\dagger}M = I$, called the completeness theorem.<!--bookmark: --></p>
+    <p>$I$ in the completeness theorem is a commonly used matrix called the identity matrix, a square matrix with only '1' components along the diagonal and 0. In practice, while an identity matrix of dimension $d\times d$ is $I_{d}$, such a subscript is usually dropped as the dimensions tend to be obvious from the context.  
+    An example of the identity matrix for dimensions of $4\times4$ is shown here:
+    $$I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$</p>
+    <p>The identity matrix has the useful property of $I_{d} A=A$ for matrix A with $d$ rows, for example $I \ket{\psi}= \ket{\psi}$.</p>
+    <p>The aforementioned property of the identity matrix means that the completeness relation represent a sum of probability of possible outcomes to 1 for any state $\ket{\psi}$:
+    \begin{align}
+    \sum_m p(m) &= \sum_m \bra{\psi} M^{\dagger} M \ket{\psi} \\
+    &= \bra{\psi} (\sum_m M^{\dagger}M ) \ket{\psi} \\
+    &= \bra{\psi} I \ket{\psi} \\
+    &= \braket{\psi|\psi} \\
+    & = 1
+    \end{align}</p>
 
-    <p><!--bookmark: Orthonormality and measurement basis, for distinguishing quantum states--></p>
-    <p><!--bookmark: Projective measurements--></p>
-    <p><!--bookmark: Positive Operator Value Measurement --></p>
+    <p>To get a better grasp for the 3rd postulate, we'll explore the simple case of measurement in the computational basis {$\ket{0}$, $\ket{1}$}.</p>
+    <p>There are two outcomes, $\ket{0}$ and $\ket{1}$, and corresponding measurement operators, $M_0=\ket{0}\bra{0} + \ket{1}\bra{1}$. The completeness theorem is obeyed by these measurement operators $M^{\dagger}_{0}+M^{\dagger}_{1}=M_{0}+M_{1}=1$, because the measurement operators are Hermitian ($M^{\dagger}_{0}=M_0$ and $M^{\dagger}_{1}=M_1$) and idempotent (when acting on themselves yield themselves $M_{0}M_{0}=M_{0}$ and $M_{1}M_{1}=M_{1}$).</p>
+    <p>We can rederive measurement probabilities for $\ket{psi}$, $|\alpha|^{2}$ for $\ket{0}$ and $|\beta|^{2}$ for $\ket{1}$, we can derive the state immediately after measurement. For example for $\ket{0}$:</p>
+    <p>\begin{align}
+    p(0) &= \bra{\psi} M^{\dagger}_{0} M_{0} \ket{\psi}\\
+    &= \bra{\psi} M_{0} M_{0} \ket{\psi} \\
+    &= \bra{\psi} M_{0} \ket{\psi} \\
+    &= (\alpha^{*} \bra{0} + \beta^{*} \bra{1}) (\ket{0}\bra{0}) (\alpha \ket{0} + \beta \ket{1}) \\
+    &= (\alpha^{*} \braket{0|0} + \beta^{*} \braket{1|0} )(\alpha \braket{0|0} + \beta \braket{0|1}) \\
+    &= (\alpha^{*} \cdot 1 + \beta^{*} \cdot 0)(\alpha \cdot 1 + \beta \cdot 0)\\
+    &= \alpha^{*}\alpha \\
+    &= |\alpha|^{2}
+    \end{align}</p>
+    <p>A similar result can be derived for $p(1)=|\beta|^{2}$. In the above calculation, the properties of the measurement operators being Hermitian and idempotent where used again, as well as the orthonormal nature of the computational basis state ($\braket{0|0}\braket{1|1}=1$ and $\braket{0|1}=\braket{1|0}=0$)<!--bookmark: Check if these properties are true for all measurement operators and note the intricacies briefly here.-->.</p>
+    <p>The corresponding state after measurement, which after the measurement of $\ket{0} is $$\frac{M_0 \ket{0}}{\sqrt{\bra{\psi} M^{\dagger}_{0} M_{0} \ket{\psi}}}= \frac{\alpha \ket{0}}{|\alpha|}=\ket{0}$$</p>
+    <p>Where $frac{\alpha}{|\alpha|}=1$. Similarly, the same derivation can be done for the post-measurement state of $\ket{1}$ just being $\ket{1}$.</p>
+
+    <h3>Projective Measurements</h3>
+    <p>Now that the general description of the measurement postulate has been explored, it's worth looking at the commonly used special case, <i>Projective Measurements</i>.</p>
+    <p>Projective measurement operators, $P_m$, beyond the completeness theorem $\sum_{m} M^{\dagger}_{m}M_{m} = I$, derive from the general measurement postulate when two further restrictions are placed on the measurement operators so that $M_m$ is Hermitian ($M^{\dagger}_{m}=M_{m}$) and follows the relation $M_{m} M_{n}= \delta_{nm} M_{m}$ (where the Dirac delta $\delta_{nm}$=1 only if n is m, and is otherwise 0). 
+    This means that the probability of measuring state m is $$p(m) = \bra{\psi}P^{\dagger}_{m} P_{m} \ket{\psi} = \bra{\psi}P_{m} \ket{\psi}$$</p>
+    <p>Projective measurement operators $P_{m}$ hence function so that measurement probability of outcome $m$ is $\bra{\psi} P_{m} \ket{\psi}$ and the state post-measurement is $$\frac{P_m}{\sqrt{p(m)}}\ket{\psi}$$.</p>
+    <p>These projective measurement operators form an observable by spectral decomposition with eigenvalues $m$</p>
+    <p>$$M=\sum_m m P_m$$</p>
+    <p>So $P_m$ projects states onto the eigenspace of $M$ with a resulting eigenvalue $m$.</p>
+    <p>One advantage of using projective measurements is that it has a very simple definition for the average value of projective measurements, or expectation value of the observable $M$, $\bra{\psi} M \ket{\psi}$, as shown with the following derivation:
+    \begin{align}
+    E[M] &= \sum_m m p(m) \\
+    &= \sum_m m \bra{\psi} P_{m} \ket{\psi} \\
+    &= \bra{\psi} (\sum_{m} m P_{m}) \ket{\psi} \\
+    &= \bra{\psi} M \ket{\psi}
+    \end{align}
+    </p>
+
+<!--bookmark: perhaps collect and note other reasons to use Projective Measurements-->
+<p>While projective measurements are a simpler way to deal with measurements, the general measurement postulate was described first because it is more comprehensive and faces fewer restrictions on measurement operators. This comprehensive approach gives a clearer description is desired for.</p>
+<p>Projective measurement operators also have a properly called repeatibility, where repeating the same measurement $P_m$ on a state $\ket{\psi_m}$, resulting from an initial measurement of $P_m$ on $\ket{\psi}$, just keeps returning $\ket{\psi_m}$ with probability of $\bra{\psi_m} P_m \ket{\psi_m}$. This repeatable property is not seen in many measurements in quantum mechanics, such as the measurement of a photon which destroys the photon, and hence projective measurements cannot be performed in these cases.</p>
+
+<!--bookmark: maybe include this later, or just leave out. explain relation between projection measurements and POVM formalism, then show example with orthogonal projectors, and then a less trivial example <h3>Positive Over Value Measurements</h3>
+    <p>The POVM (Positive Over Value Measurement) formalism is a mathematical tool for the analysis of measurement derived from measurement postulate, with a focus on measurement probability over post-measurement state.</p> --> 
 
     <h2>Tensor Product</h2>
     <!--bookmark: explain postulate 4. -->
-    <p>Postulate 4: </p>
-    <p><!--bookmark: demonstrate tensor product with matrices--></p>
+    <p>Postulate 4: A quantum system can be a composite of multiple smaller quantum systems, denoted by a tensor product $\otimes$. So a system $\ket{\psi_{AB}}$ composed of $\ket{psi_A}$ and $\ket{\psi_B}$ is  </p>
+    <p>A tensor product is a way of composing a larger vector space from smaller vector spaces, and mathematically is a form of operation between matrices as shown in the following examples.</p>
+    <p>Starting with the tensor product of two wave vectors $\ket{\psi}=\alpha \ket{0}+\beta \ket{1}$ and $\ket{\phi} = a \ket{0} + b \ket{1}$, it is 
+    \begin{align}
+    \ket{\psi}\otimes\ket{\phi} &=
+    \begin{bmatrix}
+    \alpha \\ \beta
+    \end{bmatrix}
+    \otimes
+    \begin{bmatrix}
+    a \\ b
+    \end{bmatrix} \\
+    &=
+    \begin{bmatrix}
+    \alpha \otimes \ket{\phi} \\
+    \beta \otimes \ket{\phi}
+    \end{bmatrix}\\
+    &=
+    \begin{bmatrix}
+    \alpha a \\
+    \alpha b \\
+    \beta a\\
+    \beta b
+    \end{bmatrix}
+    \end{align}</p>
+    <p>In the case of $\ket{0}\otimes\ket{1}$ this is
+    \begin{align}
+    \ket{0}\otimes\ket{1} &=
+    \begin{bmatrix}
+    1 \\ 0
+        \end{bmatrix}
+    \otimes
+    \begin{bmatrix}
+    0 \\ 1
+    \end{bmatrix} \\
+    &=
+    \begin{bmatrix}
+    1 \otimes \ket{1} \\
+    0 \otimes \ket{1}
+    \end{bmatrix}\\
+    &=
+    \begin{bmatrix}
+    \alpha 0 \\
+    \alpha 1 \\
+    \beta 0\\
+    \beta 0
+    \end{bmatrix}\\
+    &= \ket{01}
+    \end{align}</p>
+    <p>As shown in the last line often the tensor product symbol is dropped, with its usage implied by multiple symbols within a composite wave vector.</p>
 
-    <p><!--bookmark: Explain how tensor products allow entanglement--></p>
 
+    <p>The tensor product obeys the following mathematical properties:<!--bookmark: polish and expand later--></p>
+    <p>$$l(\ket{g}\otimes\ket{h})=(l\ket{g})\otimes\ket{h}=\ket{g}\otimes(\ket{h})$$
+    $$(\ket{g_1}+\ket{g_2})\otimes\ket{h} = \ket{g_1}\otimes\ket{h} + \ket{g_2}\otimes\ket{h}$$
+    $$\ket{g}\otimes(\ket{h_1}+\ket{h_2}) = \ket{g}\otimes\ket{h_1} + \ket{g}\otimes\ket{h_2}$$</p>
+    <p>Where $l$ is a scalar.</p>
+
+    <p>Tensor products also apply to matrices of arbitrary sizes, such as the following two square matrices $A$ and $B$:
+    \begin{align}
+    A\otimes B
+    &= 
+    \begin{bmatrix}
+    \alpha & \beta \\
+    \gamma & \delta
+    \end{bmatrix}
+    \otimes
+    \begin{bmatrix}
+    a & b \\
+    c & d
+    \end{bmatrix} \\
+    &= 
+    \begin{bmatrix}
+    \alpha \otimes B & \beta \otimes B\\
+    \gamma \otimes B & \delta \otimes B
+    \end{bmatrix}\\
+    &= 
+    \begin{bmatrix}
+    \alpha a & \alpha b & \beta a & \beta b \\
+    \alpha c & \alpha d & \beta c & \beta d \\
+    \gamma a & \gamma b & \delta a & \delta b \\
+    \gamma c & \gamma d & \delta c & \delta d 
+    \end{bmatrix}
+    \end{align}
+    </p>
+    <p>Such a tensor product between matrices is also referred to as the Kronecker delta. For a tensor product of matrices of sizes $n\times m$ and $p \times q$ the size of the resulting matrix will be $n \cdot p \times m \cdot q$</p>
+
+
+    <p>Tensor products allow operations to be applied selectively to component wave vectors, for example $A\otimes B$ when applied to $\ket{a}\otimes\ket{b}$ leads to $(A\ket{a})\otimes(B\ket{b})$, which is useful for finer control of multi-qubit systems.</p>
+
+    <p>Now that we've gone over the 4 postulates of quantum mecahnics, we has the theoretical foundation to understand quantum states in quantum computing. But the Dirac formulation is not the only way to represent qubit states, as shown in the next section.</p>
 
 
     <h1>Further Representation of Qubits</h1>
+
+    <!--bookmark: summarise this section and the reason for looking at it-->
     <h2>Density Matrices</h2>
-    Another way of representing quantum systems, as an alternative to statevectors as represented 'bra-ket; vectors, are density operators.
+    Another way of representing quantum systems, as an alternative to the Dirac formulation with state vectors as represented 'bra-ket' vectors, are density operators.
+
 
     <p><!--bookmark: Spectral decomposition--></p>
     <p>The reduced density operator<!--bookmark: explain how the reduced density operator works with partial trace, and the use of it.--> </p>
@@ -282,6 +416,7 @@ img {
 
 
     <p>Tensor product</p>
+    <p><!--bookmark: demonstrate tensor product with matrices and different operations such I and X acting on --></p>
 
     <!--bookmark: show generalised single gate, and how a controlled gate can be constructed with tensor products-->
     <!--bookmark: Describe spectral decomposition somewhere -->
@@ -298,8 +433,12 @@ img {
 
     <!--<h2>EPR</h2>-->
 
+    <p><!--bookmark: Explain how tensor products allow entanglement, and then explain that an entangled system can only be fully described by both with examples.--></p>
+
     <!--bookmark: Give an example of some other fundamental effect, superposition, for quickly searching. It does not have to be mathematically be shown!-->
     <!--bookmark: Describe how QC can be used for Machine Learning, checking and referring to the current state of the field-->
+
+
 
     <h1>Further Comprehension</h1>
     <p>To internalise the concepts here, it helps to write out the derivations with pen-and-paper.</p>
