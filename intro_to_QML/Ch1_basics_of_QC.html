@@ -386,32 +386,181 @@ img {
 
     <!--bookmark: summarise this section and the reason for looking at it-->
     <h2>Density Matrices</h2>
-    Another way of representing quantum systems, as an alternative to the Dirac formulation with state vectors as represented 'bra-ket' vectors, are density operators.
 
+    <p>Another way of representing quantum systems, as an alternative to the Dirac formulation with 'bra-ket' state vectors, are density matrices.</p>
+    <p>Density matrices, otherwise known as density operators, are useful for describing systems whose the states aren't fully known.<!--bookmark: complete--></p>
+    <!--bookmark: Define the density matrix-->
+    <p>A density matrix has a spectral decomposition into orthogonal vectors $$\rho = \sum_i p_i \ket{\psi_i}\bra{\psi}$$</p> 
+    <p>Where $p_i$ is the probability to measure a pure state of \ket{\psi_i}, such as $\ket{0}$ or $\ket{1}$.</p>
+
+    <p></p>
+    <!--bookmark: rewrite:<p>A density matrix has a spectral decomposition of $$\rho = \sum_i p_i \ket{\psi_i}\bra{\psi}$$</p>
+    <p>Where $p_i$ is the probability to measure a pure state of \ket{\psi_i}\bra{\psi}, such as $\ket{0}\bra{0}$ or $\ket{1}\bra{1}$.</p>
+    -->
+    <p>Impure density matrices are those composed of multiple pure states.</p>
+    <p>Whether a density matrix is pure or not can be checked by performing a mathematical operation, called the trace, on the square of the density matrix $\rho \rho = \rho^{2}$.</p>
+    <p>A trace is the sum of the diagonal components of a matrix, as demonstrated for matrix A: 
+    \begin{align}
+    tr(A)
+    &= 
+    tr(\begin{bmatrix}
+    a & b \\
+    c & d
+    \end{bmatrix})
+    &= a + b
+    \end{align}
+    </p>
+    <!--bookmark:
+    <p>As discussed above the density matrix for a vector $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$ is given by
+    \rho = |\alpha|^{2} \ket{0} \bra{0}  + |\beta|^{2} \ket{1}\bra{1}
+    </p>
+    <p>The square of the density matrix is then
+    \begin{align}
+    \rho^{2} &= (|\alpha|^{2} \ket{0} \bra{0}  + |\beta|^{2} \ket{1}\bra{1}) (|\alpha|^{2} \ket{0} \bra{0}  + |\beta|^{2} \ket{1}\bra{1})\\
+    \rho^{2} &= |\alpha|^{4}\ket{0}\bra{0} + |\beta|^{4}\ket{1}\bra{1}
+    \end{\align}
+    </p>
+    <p>Where above, the orthonormal nature of the computational basis was used ($\braket{0|0}=\braket{1|1}=0$ and $\braket{0|1}=\braket{1|0}=0$)</p>
+    <p>Only in the case of a pure state, such as $\ket{\psi}=\ket{0}$, will the trace of $\rho^{2}=1$.</p>
+ -->
+    <p>Now dealing with the square of the trace of a density matrix with two orthogonal basis states with probabilities $p_1$ and $p_2$:
+    \begin{align}
+    \rho &= 
+    \begin{bmatrix}
+    p_1 & 0 \\
+    0 & p_2
+    \end{bmatrix} \\
+    \rho^{2} &= 
+    \begin{bmatrix}
+    p_1 & 0 \\
+    0 & p_2
+    \end{bmatrix} 
+    \begin{bmatrix}
+    p_1 & 0 \\
+    0 & p_2
+    \end{bmatrix} \\
+    &=
+    \begin{bmatrix}
+    p_1\cdot p_1 + 0 \dot 0 & p_1 \dot 0 + 0 \cdot p_2 \\
+    0\cdot p_1 + p_2\cdot 0 & 0\cdot 0 + p_2 \cdot p_2  
+    \end{bmatrix} \\
+    &=
+    \begin{bmatrix}
+    p_{1}^{2} & 0 \\
+    0 & p_{2}^{2}
+    \end{bmatrix} \\
+    tr(\rho^{2}) &=  p_{1}^{2} + p_{2}^{2}
+    \end{align}
+    </p>
+
+    <p>$tr(\rho^2)=1$ only when one basis state probability is unity, that is either $p_1=1$ or $p_2=1$.</p>
+    <p>This is because if both $p_1\lt 1$ and $p_2\lt 1$, then both terms reduce with the square so $p_{1}^{2}\lt p_1$ and $p_{2}^{2}\lt p_2$, hence $p_{1}^{2}+p_{2}^{2} \lt p_1 + p_2 = 1$. This turns the condition $tr(\rho^2)=1$ into a test for whether $\rho$ describes a pure state, with $tr(\rho^2)\lt 1$ indicating an impure state.</p>
+
+    <p>Let's look at some examples to have a clearer idea</p>
+    <p>For pure states $\rho_1 = \ket{0}\bra{0}$ and $\rho_2 =\ket{1}\bra{1}$<!--bookmark: pure state in computational basis-->
+    \begin{align}
+    \rho_{1}^{2} &= 
+    \begin{bmatrix}
+    1 & 0 \\
+    0 & 0
+    \end{bmatrix} 
+    \begin{bmatrix}
+    1 & 0 \\
+    0 & 0
+    \end{bmatrix} \\
+\rho_{1}^{2}    &= \begin{bmatrix}
+    1 & 0 \\
+    0 & 0
+    \end{bmatrix}\\
+    tr(\rho_{1}^{2}) &= 1 + 0 \\
+    tr(\rho_{1}^{2}) &= 1 \\
+
+
+    \rho_{2}^{2} &= 
+    \begin{bmatrix}
+    0 & 0 \\
+    0 & 1
+    \end{bmatrix} 
+    \begin{bmatrix}
+    0 & 0 \\
+    0 & 1
+    \end{bmatrix} \\
+\rho_{2}^{2}    &= \begin{bmatrix}
+    0 & 0 \\
+    0 & 1
+    \end{bmatrix}\\
+    tr(\rho_{2}^{2}) &= 0 + 1 \\
+    tr(\rho_{2}^{2}) &= 1 \\
+
+    \end{align}
+    </p>
+    <p>Now, let's look at an impure state $\rho_3$ which is composed of $\rho_1$ and $\rho_2$, each with a probability weighting of 0.5, so $\rho_3 = 0.5 \rho_1 + 0.5 \rho_2$
+    \begin{align}    
+    \rho_3 &= 
+    \frac{1}{2}\begin{bmatrix}
+    1 & 0 \\
+    0 & 1
+    \end{bmatrix}\\ 
+    \rho_{3}^{2} &= 
+    (\frac{1}{2})^{2}\begin{bmatrix}
+    1 & 0 \\
+    0 & 1
+    \end{bmatrix} 
+    \begin{bmatrix}
+    1 & 0 \\
+    0 & 1
+    \end{bmatrix} \\
+    \rho_{3}^{2} &= \frac{1}{4}\begin{bmatrix}
+    1 & 0 \\
+    0 & 1
+    \end{bmatrix}\\
+    tr(\rho_{3}^{2}) &= \frac{1}{4}(1 + 1) \\
+    tr(\rho_{3}^{2}) &= \frac{1}{2} \\
+    tr(\rho_{3}^{2}) &\lt 1
+    \end{align}
+    </p>
+    <p><!--bookmark: the full 1 example, using this as an example to show another orthogonal basis state. Note that it is composed of pure states--></p>
 
     <p><!--bookmark: Spectral decomposition--></p>
-    <p>The reduced density operator<!--bookmark: explain how the reduced density operator works with partial trace, and the use of it.--> </p>
+    <p>Lastly let's look at a pure state $\rho_4$ formed by the state $\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$, to show that pure states are not necessarily in the computational basis
+    \begin{align}
+    \rho_4 &= (\frac{1}{\sqrt{2}})^{2} (\ket{0}+\ket{1})(\bra{0}+\bra{1})\\
+    \rho_4 &= \frac{1}{2}(\ket{0}\bra{0} + \ket{0}\bra{1} + \ket{1}\bra{0} + \ket{1}\bra{1}) \\
+    \rho_4 &= \frac{1}{2} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} \\
+    \rho_{4}^{2} &= (\frac{1}{2})^{2} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} \\
+    \rho_{4}^{2} &= \frac{1}{4} \begin{bmatrix} 1+1 & 1+1 \\ 1+1 & 1+1 \end{bmatrix}\\
+    \rho_{4}^{2} &= \frac{1}{4} \begin{bmatrix} 2 & 2 \\ 2 & 2 \end{bmatrix}\\
+    \rho_{4}^{2} &= \frac{1}{2} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}\\
+    tr(\rho_{4}^{2}) &= \frac{1}{2} (1 + 1)\\
+    tr(\rho_{4}^{2}) &= 1
+    \end{align}
+    </p>
 
 
+    <p><!--bookmark: explain how the reduced density operator works with partial trace, and the use of it.--> </p>
+    <p><!--bookmark: Reformulation of density matrix postulates--></p>
     <h2>Bloch Sphere</h2>
     <p>The Bloch sphere is another representation of individual qubits which I would recommend to become familiar with.<p>
     <p>Phase<!--bookmark: describe how the statistics of measurement is invariant to global phase, but relative phase is important. --> </p>
+    <p><!--bookmark: demonstrate the --></p>
 
     <!--<h2>Single Qubit Gates</h2>-->
-
-    <h2>Measurement Bases and Measurement</h2>
     
     <p></p>
     <p>Orthonormal means</p>
+    <p><!--bookmark: Born rule--></p>
+    <p><!--bookmark: Demonstrate all three X, Y and Z measurement basis sets on the Bloch sphere--></p>
     <h1>Quantum Circuits</h1>
 
     <h2>Gates</h2>
     <p>Pauli matrices</p>
     
     <!--bookmark: Show demonstrations of gates with circuit representations and Bloch sphere representation. This should include the Hadamard gate and controlled matrices-->
+    <p><!--bookmark: Hadamard operation, shown on Bloch sphere.--></p>
     <!--bookmark: Explain how Hamiltonians function with gates-->
     <p><!--bookmark: Note how the same H symbol is used for the Hadamard and Hamiltonian.--></p>
 
+    <p><!--bookmark: General single qubit gate!--></p>
     <p>Universal gate sets are </p>
 
 
@@ -421,6 +570,8 @@ img {
     <!--bookmark: show generalised single gate, and how a controlled gate can be constructed with tensor products-->
     <!--bookmark: Describe spectral decomposition somewhere -->
     <h2>Measurement</h2>
+    <p><!--bookmark: describe how gates are related to measurement, is an operation needed?--></p>
+    <p><!--bookmark: Demonstrate all three X, Y and Z measurement basis sets on the Bloch sphere--></p>
 
     <h1>Simple Demonstrations of Quantum Effects</h1>
 
@@ -434,6 +585,7 @@ img {
     <!--<h2>EPR</h2>-->
 
     <p><!--bookmark: Explain how tensor products allow entanglement, and then explain that an entangled system can only be fully described by both with examples.--></p>
+    <p><!--bookmark: describe how impure states result in entanglement--></p>
 
     <!--bookmark: Give an example of some other fundamental effect, superposition, for quickly searching. It does not have to be mathematically be shown!-->
     <!--bookmark: Describe how QC can be used for Machine Learning, checking and referring to the current state of the field-->
