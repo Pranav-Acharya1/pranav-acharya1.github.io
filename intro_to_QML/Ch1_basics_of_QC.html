@@ -167,7 +167,7 @@ img {
     <p>Now, let's look at how these postulates relate to qubits for quantum computing.</p>
     <h2>State space</h2>
 
-    <p>Postulate 1: Isolated physical systems can be described by a state space, which is a mathematical complex vector (that is, vector lengths have both real and imaginary components) inner product (a inner product is possible) space. The specific state of the system is described by a state vector, a unit vector within state space.</p>
+    <p><b>Postulate 1:</b> Isolated physical systems can be described by a state space, which is a mathematical complex vector (that is, vector lengths have both real and imaginary components) inner product (a inner product is possible) space. The specific state of the system is described by a state vector, a unit vector within state space.</p>
 
     <!--   <p>Such a state space is colloquially referred to as Hilbert space, and the wave vector as the wave function.</p>-->
     <p>In the case of qubits, we can take the wave function $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$.</p>
@@ -185,7 +185,7 @@ img {
 
     <h2>Evolution</h2>
 
-    <p>Postulate 2: the evolution of closed physical systems over time can be described by a unitary transformation $U$ which depends on the difference in time from the initial state at time $t_1$ to the evolved state $t_2$.</p>
+    <p><b>Postulate 2:</b> The evolution of closed physical systems over time can be described by a unitary transformation $U$ which depends on the difference in time from the initial state at time $t_1$ to the evolved state $t_2$.</p>
     <p>Practically in the case of single qubits, evolution can be described as a single unitary qubit gate U, $\ket{\psi'}=U\ket{\psi}$.</p>
     <p>By the definition of unitary matrices $U^{\dagger}=U^{-1}$, hence the Hermitian conjugate of $U$ acts as its inverse operation.</p>
     <p>
@@ -199,11 +199,11 @@ img {
     
 
     <p>To better understand the role of time, let's reformulate the 2nd postulate.</p>
-    <p>Postulate 2': The time evolution of a closed systems is described the Schr&oumldinger equation $$i\hbar \frac{\mathrm{d}}{\mathrm{d}t}=H\ket{\psi}$$</p>
+    <p><b>Postulate 2':</b> The time evolution of a closed systems is described the Schr&oumldinger equation $$i\hbar \frac{\mathrm{d}}{\mathrm{d}t}=H\ket{\psi}$$</p>
     <p>Here, $\hbar$, Planck's constant, is a physical constant and $H$ is a fixed Hermitian operator referred to as the 'Hamiltonian' of the system.</p>
 
     <p>Hamiltonian can also be represented as a 'spectral decomposition', or a diagonal matrix with values composed of their eigenvalues.
-    For a given matrix $A$, eigenvectors are vectors which when acted on return themselves multiplied by a scalar coefficient, an eigenvalue. In other words with the relation $A\ket{a}=a\ket{a}$, $\ket{a} is an eigenvector of $A$, and $a$ is a corresponding eigenvalue.
+    For a given matrix $A$, eigenvectors are vectors which when acted on return themselves multiplied by a scalar coefficient, an eigenvalue. In other words with the relation $A\ket{a}=a\ket{a}$, $\ket{a}$ is an eigenvector of $A$, and $a$ is a corresponding eigenvalue.
     For the Hamiltonian, such eigenvalues are the possible energies of the system described by the Hamiltonian: 
     \begin{align} 
     H &= 
@@ -230,9 +230,11 @@ img {
     <h2>Measurement</h2>
     <!--bookmark: complete for postulate 3, referring to density-->
 
-    <p>Postulate 3: Quantum measurements can be described by a collection of measurement operators {$M_{m}$}, where $m$ refers to measurement outcomes, which act on the state space of the system being measured.
-    When acting on state $\ket{\psi}$ the probability of measuring outcome $m$ is $p(m) = \bra{\psi} M_{m}^{\dagger}M_{m}\ket{\psi}$, and the state after this measurement is $$\frac{M_{m}\ket{\psi}}{\bra{\psi}M_{m}^{\dagger}M_{m}\ket{\psi}}$$. 
-    Such measurement operators obey the following sum relation $\sum_{m} M^{\dagger}M = I$, called the completeness theorem.<!--bookmark: --></p>
+    <p><b>Postulate 3:</b> Quantum measurements can be described by a collection of measurement operators {$M_{m}$}, where $m$ refers to measurement outcomes, which act on the state space of the system being measured.</p>
+    <p>When acting on state $\ket{\psi}$ the probability of measuring outcome $m$ is $$p(m) = \bra{\psi} M_{m}^{\dagger}M_{m}\ket{\psi}$$</p>
+    <p>The state after this measurement is $$\frac{M_{m}\ket{\psi}}{\bra{\psi}M_{m}^{\dagger}M_{m}\ket{\psi}}$$</p>
+    <p>Such measurement operators obey the following sum relation, called the completeness theorem $$\sum_{m} M^{\dagger}M = I$$<!--bookmark: --></p>
+
     <p>$I$ in the completeness theorem is a commonly used matrix called the identity matrix, a square matrix with only '1' components along the diagonal and 0. In practice, while an identity matrix of dimension $d\times d$ is $I_{d}$, such a subscript is usually dropped as the dimensions tend to be obvious from the context.  
     An example of the identity matrix for dimensions of $4\times4$ is shown here:
     $$I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$</p>
@@ -267,7 +269,7 @@ img {
     <p>Now that the general description of the measurement postulate has been explored, it's worth looking at the commonly used special case, <i>Projective Measurements</i>.</p>
     <p>Projective measurement operators, $P_m$, beyond the completeness theorem $\sum_{m} M^{\dagger}_{m}M_{m} = I$, derive from the general measurement postulate when two further restrictions are placed on the measurement operators so that $M_m$ is Hermitian ($M^{\dagger}_{m}=M_{m}$) and follows the relation $M_{m} M_{n}= \delta_{nm} M_{m}$ (where the Dirac delta $\delta_{nm}$=1 only if n is m, and is otherwise 0). 
     This means that the probability of measuring state m is $$p(m) = \bra{\psi}P^{\dagger}_{m} P_{m} \ket{\psi} = \bra{\psi}P_{m} \ket{\psi}$$</p>
-    <p>Projective measurement operators $P_{m}$ hence function so that measurement probability of outcome $m$ is $\bra{\psi} P_{m} \ket{\psi}$ and the state post-measurement is $$\frac{P_m}{\sqrt{p(m)}}\ket{\psi}$$.</p>
+    <p>Projective measurement operators $P_{m}$ hence function so that measurement probability of outcome $m$ is $\bra{\psi} P_{m} \ket{\psi}$ and the state post-measurement is $$\frac{P_m}{\sqrt{p(m)}}\ket{\psi}$$</p>
     <p>These projective measurement operators form an observable by spectral decomposition with eigenvalues $m$</p>
     <p>$$M=\sum_m m P_m$$</p>
     <p>So $P_m$ projects states onto the eigenspace of $M$ with a resulting eigenvalue $m$.</p>
@@ -289,7 +291,7 @@ img {
 
     <h2>Tensor Product</h2>
     <!--bookmark: explain postulate 4. -->
-    <p>Postulate 4: A quantum system can be a composite of multiple smaller quantum systems, denoted by a tensor product $\otimes$. So a system $\ket{\psi_{AB}}$ composed of $\ket{psi_A}$ and $\ket{\psi_B}$ is  </p>
+    <p><b>Postulate 4:</b> A quantum system can be a composite of multiple smaller quantum systems, denoted by a tensor product $\otimes$. So a system $\ket{\psi_{AB}}$ composed of $\ket{\psi_A}$ and $\ket{\psi_B}$ is $\ket{\psi_A}\otimes\ket{\psi_B}$.</p>
     <p>A tensor product is a way of composing a larger vector space from smaller vector spaces, and mathematically is a form of operation between matrices as shown in the following examples.</p>
     <p>Starting with the tensor product of two wave vectors $\ket{\psi}=\alpha \ket{0}+\beta \ket{1}$ and $\ket{\phi} = a \ket{0} + b \ket{1}$, it is 
     \begin{align}
@@ -390,10 +392,10 @@ img {
     <p>Another way of representing quantum systems, as an alternative to the Dirac formulation with 'bra-ket' state vectors, are density matrices.</p>
     <p>Density matrices, otherwise known as density operators, are useful for describing systems whose the states aren't fully known.<!--bookmark: complete--></p>
     <!--bookmark: Define the density matrix-->
-    <p>A density matrix has a spectral decomposition into orthogonal vectors $$\rho = \sum_i p_i \ket{\psi_i}\bra{\psi}$$</p> 
-    <p>Where $p_i$ is the probability to measure a pure state of \ket{\psi_i}, such as $\ket{0}$ or $\ket{1}$.</p>
+    <p>A density matrix has a spectral decomposition into orthogonal vectors $$\rho = \sum_i p_i \ket{\psi_i}\bra{\psi}$$</p><!--bookmark: check how orthonormality fits with density operators, does the basis have to be orthonormal so basis states are normalised with themselves--> 
+    <p>Where $p_i$ is the probability to measure a pure state of $\ket{\psi_i}$, such as $\ket{0}$ or $\ket{1}$.</p>
+    <p>Density operators are positive operators, meaning that $\bra{\psi} \rho \ket{\psi} \geq 0$ for all $\ket{\psi}$, which can be seen from their formulation and the fact that $p_i \geq 0$.</p>
 
-    <p></p>
     <!--bookmark: rewrite:<p>A density matrix has a spectral decomposition of $$\rho = \sum_i p_i \ket{\psi_i}\bra{\psi}$$</p>
     <p>Where $p_i$ is the probability to measure a pure state of \ket{\psi_i}\bra{\psi}, such as $\ket{0}\bra{0}$ or $\ket{1}\bra{1}$.</p>
     -->
@@ -536,9 +538,69 @@ img {
     \end{align}
     </p>
 
+    <h3>Postulate of Quantum Mechanics: Density Matrix version</h3>
+    <p>Due to the equivalence of the density matrix approach and the Dirac formalism, the postulates of quantum mechanics can be reformulated within the density matrix approach, as briefly recounted here.</p>
+    <!--bookmark: Recommend sources for further reading including derivation of this-->
+    <p><b>Postulate 1:</b> An isolated system has an associated complex vector inner product space, and its state can be described an density operator $\rho$ which acts on this state space. The density operator $\rho$ is positive and has a trace of 1. If the system is in state $\rho_i$ with probability of $p_i$, then a weighted sum of possible state can be done as follows to achieve the total $\rho$</p>
+    <p>$$\rho=\sum_i p_i \rho_i$$</p>
 
-    <p><!--bookmark: explain how the reduced density operator works with partial trace, and the use of it.--> </p>
-    <p><!--bookmark: Reformulation of density matrix postulates--></p>
+    <p><b>Postulate 2:</b> The evolution of a closed state over time is described by a unitary operator $U$, which is dependent on the difference in time. This unitary operator is applied to the density operator $\rho$ to evolve into state $\rho\$ as noted below</p>
+    <p>$$\rho' = U \rho U^{\dagger}$$</p>
+
+
+    <p><b>Postulate 3:</b> Quantum measurements can be described by a collection of measurement operators {$M_{m}$}, where $m$ refers to measurement outcomes, which act on the state space of the system being measured.</p>
+    <p>If the state is $\rho$ before measurement, then the probability of measurement outcome $m$ being measured is $$p(m) = tr(M^{\dagger}_{m}M_{m} \rho)$$</p>
+    <p>The state after this measurement is $$\frac{M_{m} \rho M^{\dagger}_{m}}{ tr(M^{\dagger}_{m}M_{m} \rho)}$$</p>
+    <p>Such measurement operators obey the following sum relation, called the completeness theorem $$\sum_{m} M^{\dagger}M = I$$</p>
+
+
+    <p><b>Postulate 4:</b> A quantum system can be a composite of multiple smaller quantum systems, denoted by a tensor product $\otimes$. So a state $\rho_{AB}$ with two component states of $\rho_A$ and $\rho_B$ is $\rho_{A}\otimes\rho_{B}$.</p>
+
+    <p>An advantage of the density matrix approach is that component systems can be analysed with an operation called partial trace. For a composite system $AB$ composed of systems $A$ and $B$, the partial trace over system $B$ recovers the density matrix of $A$ $$\rho_A = tr_{B}(\rho_{AB})$$<!--bookmark: explain how the reduced density operator works with partial trace, and the use of it.--></p>
+    <p>This partial trace acts over system $B$, can be carried out as follows
+    \begin{align}
+    \tr_{B}(\rho_{AB}) &= \tr_{B}(\rho_{A} \otimes \rho_{B}) \\ &= \rho_{A} tr(\rho_B) \\ &= \rho_{A} \\ \cdot 1 &= \rho_A
+    \end{align}
+    </p>
+    <p>Above, the property $tr(\rho_B)=1$ was used.</p>
+
+
+    <p>Let's look at an example of use in an interesting two-qubit pure state called a 'Bell state', $\frac{1}{\sqrt{2}} (\ket{00}+\ket{11})$</p>
+    <p>\begin{align}
+    \rho &= \frac{1}{2}((\ket{00}+\ket{11}))(\bra{00}+\bra{11})\\
+    &= \frac{1}{2}(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})
+    \end{align}</p>
+    <p>Tracing over the second qubit results in the following density matrix $\rho_1$ for the first qubit, making using of the behaviour of trace $tr(\ket{\psi_1}\bra{\psi_2})=\braket{\psi_1|\psi_2}$
+    \begin{align}
+    \rho_1 &= tr_{2}(\rho) \\
+    &= \frac{1}{2}(\tr_{2}(\ket{00}\bra{00})+tr_{2}(\ket{00}\bra{11})+tr_{2}(\ket{11}\bra{00})+tr_{2}(\ket{11}\bra{11}))\\
+    &= \frac{1}{2}(\ket{0}\bra{0}\braket{0|0}+\ket{0}\bra{1}\braket{0|1}+\ket{1}\bra{0}\braket{1|0}+\ket{1}\bra{1}\braket{11}) \\
+    &= \frac{1}{2}(\ket{0}\bra{0}\cdot 1+\ket{0}\bra{1}\cdot 0+\ket{1}\bra{0}\cdot 0+\ket{1}\bra{1}\cdot 1) \\
+    &= \frac{1}{2}(\ket{0}\bra{0}+\ket{1}\bra{1}) \\
+    &= \frac{1}{2} I
+    \end{align}</p>
+
+    <!-- Complete equations for and example of purity of Bell state, but impurity for the first qubit
+    <p>Above, the behaviour of trace $tr(\ket{\psi_1}\bra{\psi_2})=\braket{\psi_1|\psi_2}$ was used on the second qubit state, leading to the orthonormal behaviour $\braket{0|0}=\braket{1|1}=1$ and $\braket{0|1}=\braket{1|0}$.</p>
+    <p>Interestingly enough, while the Bell state is pure, the first qubit isn't, as shown below
+    \begin{align}
+    \rho^{2} &= \frac{1}{4}(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11}) (\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11}) \\
+    \rho^{2} &= \frac{1}{4} (\ket{00}\braket{00|00}\bra{00} + \ket{00}\braket{00|11}\bra{11} + + +  + + 
+
+
+    tr(\rho^{2}) &= \frac{1}{2}tr(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11}) \\
+    tr(\rho^{2}) &= \frac{1}{2}(1 + 1) \\
+
+    tr(\rho^{2}) &= 1 \\
+    \end{align}
+
+    \begin{align}
+    tr(\rho_{1}) &= \frac{1}{2}tr(\ket{0}\bra{0}+\ket{1}\bra{1})\\
+    tr(\rho_{1}) &= 
+    \end{align}</p>
+    -->
+    <!--bookmark: Link Bell state to a later section in this page.-->
+    <!--bookmark: Explain why exactly the density matrix appproach should be used-->
     <h2>Bloch Sphere</h2>
     <p>The Bloch sphere is another representation of individual qubits which I would recommend to become familiar with.<p>
     <p>Phase<!--bookmark: describe how the statistics of measurement is invariant to global phase, but relative phase is important. --> </p>
