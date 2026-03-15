@@ -405,10 +405,10 @@ img {
     \begin{align}
     tr(A)
     &= 
-    tr(\begin{bmatrix}
+    tr\begin{bmatrix}
     a & b \\
     c & d
-    \end{bmatrix})
+    \end{bmatrix}
     &= a + b
     \end{align}
     </p>
@@ -443,7 +443,7 @@ img {
     \end{bmatrix} \\
     &=
     \begin{bmatrix}
-    p_1\cdot p_1 + 0 \dot 0 & p_1 \dot 0 + 0 \cdot p_2 \\
+    p_1\cdot p_1 + 0 \cdot 0 & p_1 \cdot 0 + 0 \cdot p_2 \\
     0\cdot p_1 + p_2\cdot 0 & 0\cdot 0 + p_2 \cdot p_2  
     \end{bmatrix} \\
     &=
@@ -559,7 +559,7 @@ img {
     <p>An advantage of the density matrix approach is that component systems can be analysed with an operation called partial trace. For a composite system $AB$ composed of systems $A$ and $B$, the partial trace over system $B$ recovers the density matrix of $A$ $$\rho_A = tr_{B}(\rho_{AB})$$<!--bookmark: explain how the reduced density operator works with partial trace, and the use of it.--></p>
     <p>This partial trace acts over system $B$, can be carried out as follows
     \begin{align}
-    \tr_{B}(\rho_{AB}) &= \tr_{B}(\rho_{A} \otimes \rho_{B}) \\ &= \rho_{A} tr(\rho_B) \\ &= \rho_{A} \\ \cdot 1 &= \rho_A
+    tr_{B}(\rho_{AB}) &= tr_{B}(\rho_{A} \otimes \rho_{B}) \\ &= \rho_{A} tr(\rho_B) \\ &= \rho_{A} \cdot 1 \\  &= \rho_A
     \end{align}
     </p>
     <p>Above, the property $tr(\rho_B)=1$ was used.</p>
@@ -573,34 +573,46 @@ img {
     <p>Tracing over the second qubit results in the following density matrix $\rho_1$ for the first qubit, making using of the behaviour of trace $tr(\ket{\psi_1}\bra{\psi_2})=\braket{\psi_1|\psi_2}$
     \begin{align}
     \rho_1 &= tr_{2}(\rho) \\
-    &= \frac{1}{2}(\tr_{2}(\ket{00}\bra{00})+tr_{2}(\ket{00}\bra{11})+tr_{2}(\ket{11}\bra{00})+tr_{2}(\ket{11}\bra{11}))\\
+    &= \frac{1}{2}(tr_{2}(\ket{00}\bra{00})+tr_{2}(\ket{00}\bra{11})+tr_{2}(\ket{11}\bra{00})+tr_{2}(\ket{11}\bra{11}))\\
     &= \frac{1}{2}(\ket{0}\bra{0}\braket{0|0}+\ket{0}\bra{1}\braket{0|1}+\ket{1}\bra{0}\braket{1|0}+\ket{1}\bra{1}\braket{11}) \\
     &= \frac{1}{2}(\ket{0}\bra{0}\cdot 1+\ket{0}\bra{1}\cdot 0+\ket{1}\bra{0}\cdot 0+\ket{1}\bra{1}\cdot 1) \\
     &= \frac{1}{2}(\ket{0}\bra{0}+\ket{1}\bra{1}) \\
     &= \frac{1}{2} I
     \end{align}</p>
 
-    <!-- Complete equations for and example of purity of Bell state, but impurity for the first qubit
     <p>Above, the behaviour of trace $tr(\ket{\psi_1}\bra{\psi_2})=\braket{\psi_1|\psi_2}$ was used on the second qubit state, leading to the orthonormal behaviour $\braket{0|0}=\braket{1|1}=1$ and $\braket{0|1}=\braket{1|0}$.</p>
-    <p>Interestingly enough, while the Bell state is pure, the first qubit isn't, as shown below
+    <p>Interestingly enough, while the Bell state is pure, the first qubit isn't. First let's show that the Bell state is pure. Note, for the following calculation the orthonormal relations $\braket{00|00}=\braket{11|11}=1$ and $\braket{00|11}=\braket{11|00}=0$ will be used implicitly to avoid having too many terms.
     \begin{align}
-    \rho^{2} &= \frac{1}{4}(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11}) (\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11}) \\
-    \rho^{2} &= \frac{1}{4} (\ket{00}\braket{00|00}\bra{00} + \ket{00}\braket{00|11}\bra{11} + + +  + + 
-
-
+    \rho &= \frac{1}{2}(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})\\
+    \rho^{2} &= \frac{1}{4}(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})\\&\cdot (\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11}) \\
+    \rho^{2} &= \frac{1}{4} (\ket{00}(\bra{00} + \bra{11} + 0 + 0)\\ & + \ket{00}( 0 + 0 +\bra{00}+\bra{11})\\ & + \ket{11}(\bra{00} + \bra{11} + 0 + 0)\\ & + \ket{11}( 0 + 0 + \bra{00} + \bra{11})) \\
+    \rho^{2} &= \frac{1}{4} ( 2\ket{00}(\bra{00} + \bra{11}) + 2\ket{11}(\bra{00}+\bra{11}))\\
+    \rho^{2} &= \frac{1}{2} \ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})\\
+    \rho^{2} &= \rho\\
     tr(\rho^{2}) &= \frac{1}{2}tr(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11}) \\
     tr(\rho^{2}) &= \frac{1}{2}(1 + 1) \\
-
     tr(\rho^{2}) &= 1 \\
     \end{align}
+    Note, that the trace operator is the addition diagonal terms in a matrix, and hence equivalent to $\braket{\psi|\psi}$ where orthonormal relations mean that $\braket{00|11}$ and $\braket{11|00}=0$ do not contribute to the trace.<p>
 
+    <p> Now, let's look at the trace of first qubit state $\rho_{1}$, making use of the idempotent property of the identity matrix that $II=I$
     \begin{align}
-    tr(\rho_{1}) &= \frac{1}{2}tr(\ket{0}\bra{0}+\ket{1}\bra{1})\\
-    tr(\rho_{1}) &= 
+    \rho_{1} &= \frac{1}{2} I\\
+    \rho_{1}^{2} &= \frac{1}{4} I\\
+    tr(\rho_{1}^{2}) &= \frac{1}{4} tr\begin{bmatrix}1 & 0\\ 0 & 1\end{bmatrix}\\
+    tr(\rho_{1}^{2}) &= \frac{1}{4}(1+1)\\
+    tr(\rho_{1}^{2}) &= \frac{1}{2} \\
+    tr(\rho_{1}^{2}) &\lt 1
     \end{align}</p>
-    -->
+    
+    <p>This impure first qubit state (which holds true for the second state because similarly $rho_2=\frac{1}{2} I $), indicate uncertainty about the state of the qubit. We need the full Bell state, which is pure, to be fully certain about the state. This uncertainty about component systems, while being certain about the composite state, is a hallmark of entanglement, a quantum property which will be explored further below<!--bookmark: explain where exactly entanglement will be explored, and link to it!--> 
     <!--bookmark: Link Bell state to a later section in this page.-->
+    <!--bookmark: Explain why uncertainty leads to entanglement-->
     <!--bookmark: Explain why exactly the density matrix appproach should be used-->
+    </p>
+
+
+
     <h2>Bloch Sphere</h2>
     <p>The Bloch sphere is another representation of individual qubits which I would recommend to become familiar with.<p>
     <p>Phase<!--bookmark: describe how the statistics of measurement is invariant to global phase, but relative phase is important. --> </p>
@@ -612,6 +624,7 @@ img {
     <p>Orthonormal means</p>
     <p><!--bookmark: Born rule--></p>
     <p><!--bookmark: Demonstrate all three X, Y and Z measurement basis sets on the Bloch sphere--></p>
+    <p><!--bookmark: Demonstrate the gates used to move between bases, H and S?--></p>
     <h1>Quantum Circuits</h1>
 
     <h2>Gates</h2>
@@ -622,7 +635,7 @@ img {
     <!--bookmark: Explain how Hamiltonians function with gates-->
     <p><!--bookmark: Note how the same H symbol is used for the Hadamard and Hamiltonian.--></p>
 
-    <p><!--bookmark: General single qubit gate!--></p>
+    <p><!--bookmark: General single qubit gate, including general rotations--></p>
     <p>Universal gate sets are </p>
 
 
