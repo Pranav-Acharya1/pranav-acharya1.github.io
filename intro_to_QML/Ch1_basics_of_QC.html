@@ -74,11 +74,11 @@ img {
 </head>
 
 <div class="other-navbar">
-	<a href="index.html">Home</a>
-	<a href="research.html">Research</a>
-	<a href="blog.html">Blog</a>
-	<a href="Pranav-Acharya-CV.pdf" download>CV</a>
-	<a href="tutorials_index.html" class="active-page">Tutorials</a>
+	<a href="../index.html">Home</a>
+	<a href="../research.html">Research</a>
+	<a href="../blog.html">Blog</a>
+	<a href="../Pranav-Acharya-CV.pdf" download>CV</a>
+	<a href="../tutorials_index.html" class="active-page">Tutorials</a>
 	<a href="https://github.com/Pranav-Acharya1/MOOC-Certificates">Certificates</a> <!--Improve-->
 </div>
 
@@ -92,14 +92,16 @@ img {
 	<h1>Chapter 1: Basics of Quantum Computing</h1>
 	
     <p>This is the first part of a basic introduction to Quantum Machine Learning, based on the IBM Qiskit 2021 Summer School course. An accompanying Jupyter notebook with the Qiskit code used to generate the images in this chapter and instructions on how to install Qiskit is available <a href="https://github.com/Pranav-Acharya1/intro-to-quantum-machine-learning/blob/main/Ch1_Basics.ipynb">here</a>.
+    <p>Note, that this chapter and the accompanying Jupyter notebook are currently a work in progress.<!--bookmark: CHANGE this when this web page is complete--></p>
     <p>The source YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the course is freely available and worth checking out if you prefer learning in a lecture format.</p>
-    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not as freely available, it is worth going through such a textbook or similar resources and solve questions with pen-and-paper to build a more rigorous understanding after reviewing this course. In the case of this chapter, I would recommend going through chapters 1 and 2, which are respectively an overview of quantum computing and an introduction to the maths of quantum mechanics.</p>
+    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang.</p>
 
     <!--bookmark: Reword the following when done-->
-    <p>This chapter introduces basic concepts of quantum computing, quantum bits or 'qubits', quantum circuits, and how quantum teleportation is enabled through quantum entanglement.</p>
-    <p><!--bookmark: Give a brief overview of the sections with links. Note where to skip to depending on background--></p>
+    <p>This chapter introduces basic concepts of quantum computing: <a href="#Quantum_Bits">quantum bits</a> or 'qubits', the <a href="#Fundamental_Postulates_of_Quantum_Mechanics">fundamental postulates of quantum mechanics</a>, and <a href="#Further_Representations_of_Qubits">further representations of quantum states</a> such as <a href="#Density_Matrices">density operators</a> and the <a href="#Bloch_Sphere">Bloch sphere</a>.</p>
+
+    <!--bookmark: Explain how the following will be included quantum circuits, and how quantum effects such as entanglement enable action such as the teleportation of quantum states-->
     
-    <h1>Quantum Bits</h1>
+    <h1 id="Quantum_Bits">Quantum Bits</h1>
 
     <p>The fundamental promise of quantum computing is leveraging quantum effects to improve classical computation, and this can be reflected by generalising the fundamental concept of a 'bit' into a quantum bit, or a 'qubit'.</p>
     <p>While bits are units of information that are in one of two levels, '0' or '1', quantum bits can be in a quantum superposition of both of these states.</p>
@@ -111,7 +113,6 @@ img {
 
     <!--bookmark: Make it clear what a statevector is-->
 
-    <!--<h2>Dirac Notation</h2>-->
     <p>Expanding on the Dirac, or 'bra-ket', notation what were shown above were 'ket' vectors in the form $\ket{\psi}$.</p>
     <p>Accompanying 'ket' vectors are 'bra' vectors in the form $\bra{\psi}$, which are related to 'ket' vectors as $\bra{\psi}=\ket{\psi}^{\dagger}$</p>
     <p>This $\dagger$ operator is matrix-wise a combination of a transpose (flipping matrix values over its diagonal) and complex conjugate (flipping the sign of the imaginary component $i=\sqrt{-1}$).</p>
@@ -153,9 +154,9 @@ img {
     </p>
     <p>Note that same result as the matrix formulation is enforeced by $\braket{0|1}=\braket{1|0}=0$ and $\braket{0|0}=\braket{1|1}=1$. Such a property of $\ket{0}$ and $\ket{1}$ is referred to as orthonormality, that is such unit statevectors are normal or 'perpendicular' to each other in mathematical space and so their inner product is zero, but if they perform an inner product with themselves the result is 'unity' or 1.</p>
 
-    <p>The fact that inner products can occur between state vectors means that they are situated in a mathematical space allowing such, which is referred to as an inner product space. Similarly, that the lengths of such state vectors can be complex valued, a combination of real and imaginary (multiple of $i=\sqrt{-1}$), makes this space furthermore a complex inner product space. Such a space is colloquially referred to as 'Hilbert' space.</p>
+    <p>The fact that inner products can occur between state vectors means that they are situated in a mathematical space allowing such, which is referred to as an inner product space. Similarly, that the lengths of such state vectors can be complex valued, a combination of real and imaginary (multiple of $i=\sqrt{-1}$), making this space furthermore a complex inner product space. Such a space is colloquially referred to as 'Hilbert' space.</p>
 
-    <h1>Fundamental Postulates of Quantum Mechanics</h1>
+    <h1 id="Fundamental_Postulates_of_Quantum_Mechanics">Fundamental Postulates of Quantum Mechanics</h1>
     <p>Before diving further into the maths of quantum computing, it's worth briefly covering the postulates, or fundamentals prerequisites, of the theory of quantum mechanics itself, which enables quantum computing as a discipline. After learning of basic units of quantum computation, quantum bits, we will see how exactly these correspond to quantum computing:<p>
     <ol>
 	    <li>Isolated physical quantum systems can be described by a mathematical state space, and the specific state of the system is described by a state vector. The state vector is often symbolised as $\psi$, and is also called the wave function.</li>
@@ -167,11 +168,11 @@ img {
     <p>Now, let's look at how these postulates relate to qubits for quantum computing.</p>
     <h2>State space</h2>
 
-    <p><b>Postulate 1:</b> Isolated physical systems can be described by a state space, which is a mathematical complex vector (that is, vector lengths have both real and imaginary components) inner product (a inner product is possible) space. The specific state of the system is described by a state vector, a unit vector within state space.</p>
+    <p><b>Postulate 1:</b> Isolated physical systems can be described by a state space, which is a mathematical complex vector (that is, vector lengths have both real and imaginary components) inner product space (an inner product is possible). The specific state of the system is described by a state vector, a unit vector within state space.</p>
 
     <!--   <p>Such a state space is colloquially referred to as Hilbert space, and the wave vector as the wave function.</p>-->
     <p>In the case of qubits, we can take the wave function $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$.</p>
-    <p>The condition of being a unit vector, that the 'length' of the state vector in state space given by the inner product with itself, means that
+    <p>The condition of being a unit vector, that the 'length' of the state vector in state space is given by the inner product with itself, means that
     \begin{align}
     \braket{\psi|\psi}&= 1 \\
     \alpha^{*}\alpha \braket{0|0} + \alpha^{*}\beta\braket{0|1} + \beta^{*}\alpha\braket{1|0} + \beta^{*}\beta\braket{1|1} &= 1\\
@@ -180,13 +181,13 @@ img {
     \end{align}
     </p>
     <p>Note that $\braket{0|1}=\braket{1|0}=0$ and $\braket{0|0}=\braket{1|1}=1$ because the computational basis state ($\ket{0}$ and $\ket{1}$) is orthonormal.</p>
-    <p>The computational basis states quite clearly correspond to the classical bits, $\ket{0}$ as 0 and $\ket{1}$ as 1. The difference from classical bits is that a superposition of states can exist.</p>
+    <p>The computational basis states quite clearly correspond to the classical bits, $\ket{0}$ as 0 and $\ket{1}$ as 1. The difference from classical bits is that a superposition of states can exist, such as $\ket{\psi}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$.</p>
     <!--bookmark: Show Bloch sphere!-->
 
     <h2>Evolution</h2>
 
     <p><b>Postulate 2:</b> The evolution of closed physical systems over time can be described by a unitary transformation $U$ which depends on the difference in time from the initial state at time $t_1$ to the evolved state $t_2$.</p>
-    <p>Practically in the case of single qubits, evolution can be described as a single unitary qubit gate U, $\ket{\psi'}=U\ket{\psi}$.</p>
+    <p>Practically in the case of single qubits, evolution can be described as a single unitary qubit gate U, where evolved state $\ket{\psi'}$ is $$\ket{\psi'}=U\ket{\psi}$$</p>
     <p>By the definition of unitary matrices $U^{\dagger}=U^{-1}$, hence the Hermitian conjugate of $U$ acts as its inverse operation.</p>
     <p>
     \begin{align}
@@ -195,15 +196,15 @@ img {
     \ket{\psi}&=U^{\dagger}U\ket{\psi}
     \end{align}
     </p>
-    <p>This invertibility alludes to the reversible nature of quantum mechanics and quantum computing, playing in contrast to the irreversible event of measurement as described by the next postulate.</p>
+    <p>This invertibility alludes to the reversible nature of quantum mechanics and quantum computing, in contrast to the irreversible event of measurement as described by the next postulate.</p>
     
 
     <p>To better understand the role of time, let's reformulate the 2nd postulate.</p>
     <p><b>Postulate 2':</b> The time evolution of a closed systems is described the Schr&oumldinger equation $$i\hbar \frac{\mathrm{d}}{\mathrm{d}t}=H\ket{\psi}$$</p>
     <p>Here, $\hbar$, Planck's constant, is a physical constant and $H$ is a fixed Hermitian operator referred to as the 'Hamiltonian' of the system.</p>
 
-    <p>Hamiltonian can also be represented as a 'spectral decomposition', or a diagonal matrix with values composed of their eigenvalues.
-    For a given matrix $A$, eigenvectors are vectors which when acted on return themselves multiplied by a scalar coefficient, an eigenvalue. In other words with the relation $A\ket{a}=a\ket{a}$, $\ket{a}$ is an eigenvector of $A$, and $a$ is a corresponding eigenvalue.
+    <p>The Hamiltonian can also be represented as a 'spectral decomposition', or a diagonal matrix with values composed of their eigenvalues.
+    For a given matrix $A$ eigenvectors are vectors which when acted on return themselves multiplied by a scalar coefficient, an eigenvalue. In other words with the relation $A\ket{a}=a\ket{a}$, $\ket{a}$ is an eigenvector of $A$, and $a$ is a corresponding eigenvalue.
     For the Hamiltonian, such eigenvalues are the possible energies of the system described by the Hamiltonian: 
     \begin{align} 
     H &= 
@@ -223,9 +224,9 @@ img {
 
 
     <p>Lastly, there's some nuance to the practical application of the 2nd postulate on state evolution, with approximations taken for the 'closed system'.</p>
-    <p>In reality an ideal closed system is infeasible since all systems within the universe interact, such as through gravity. Furthermore, the application of unitary operators can be seen as an external operation a closed system, such as a gate applied to a single qubit, thus externally interrupting the evolution of the qubit over time.</p>
+    <p>In reality an ideal closed system is infeasible since all systems within the universe interact, such as through gravity. Furthermore, the application of unitary operators can be seen as an external operation on a closed system, such as a gate applied to a single qubit, thus externally interrupting the evolution of the qubit over time.</p>
     <p>Thankfully, a good enough approximation can be achieved for most systems for this postulate to apply. For example with an atom-laser system, where a laser is focussed on an atom, the behaviour of the atom's state can be approximated as the Hamiltonian of atom with additional time varying terms taking into account the laser intensity (which varies over time depending on whether it is running or not). This idea of an approximation of a closed system but with a time dependent Hamiltonian, with parameters under external experimental control, gives us a system which still evolves over time according to Schr&oumldinger's equation.</p>
-    <p>For further and in-depth discussion of this topic of approximating closed systems, <!--bookmark: find and suggest resources on this problem of 'closed' systems and an experimenter--></p>
+    <!--bookmark: find and suggest resources on this problem of 'closed' systems and an experimenter 'For further and in-depth discussion of this topic of approximating closed systems,'-->
 
     <h2>Measurement</h2>
     <!--bookmark: complete for postulate 3, referring to density-->
@@ -235,10 +236,10 @@ img {
     <p>The state after this measurement is $$\frac{M_{m}\ket{\psi}}{\bra{\psi}M_{m}^{\dagger}M_{m}\ket{\psi}}$$</p>
     <p>Such measurement operators obey the following sum relation, called the completeness theorem $$\sum_{m} M^{\dagger}M = I$$<!--bookmark: --></p>
 
-    <p>$I$ in the completeness theorem is a commonly used matrix called the identity matrix, a square matrix with only '1' components along the diagonal and 0. In practice, while an identity matrix of dimension $d\times d$ is $I_{d}$, such a subscript is usually dropped as the dimensions tend to be obvious from the context.  
+    <p>$I$ in the completeness theorem is a commonly used matrix called the 'identity' matrix, a square matrix with only '1' components along the diagonal and 0. In practice, while an identity matrix of dimension $d\times d$ is $I_{d}$, such a subscript is usually dropped as the dimensions tend to be obvious from the context.  
     An example of the identity matrix for dimensions of $4\times4$ is shown here:
     $$I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$</p>
-    <p>The identity matrix has the useful property of $I_{d} A=A$ for matrix A with $d$ rows, for example $I \ket{\psi}= \ket{\psi}$.</p>
+    <p>The identity matrix has the useful property of $I_{d} A=A$ for matrix $A$ with $d$ rows, for example $I \ket{\psi}= \ket{\psi}$.</p>
     <p>The aforementioned property of the identity matrix means that the completeness relation represent a sum of probability of possible outcomes to 1 for any state $\ket{\psi}$:
     \begin{align}
     \sum_m p(m) &= \sum_m \bra{\psi} M^{\dagger} M \ket{\psi} \\
@@ -250,7 +251,7 @@ img {
 
     <p>To get a better grasp for the 3rd postulate, we'll explore the simple case of measurement in the computational basis {$\ket{0}$, $\ket{1}$}.</p>
     <p>There are two outcomes, $\ket{0}$ and $\ket{1}$, and corresponding measurement operators, $M_0=\ket{0}\bra{0} + \ket{1}\bra{1}$. The completeness theorem is obeyed by these measurement operators $M^{\dagger}_{0}+M^{\dagger}_{1}=M_{0}+M_{1}=1$, because the measurement operators are Hermitian ($M^{\dagger}_{0}=M_0$ and $M^{\dagger}_{1}=M_1$) and idempotent (when acting on themselves yield themselves $M_{0}M_{0}=M_{0}$ and $M_{1}M_{1}=M_{1}$).</p>
-    <p>We can rederive measurement probabilities for $\ket{psi}$, $|\alpha|^{2}$ for $\ket{0}$ and $|\beta|^{2}$ for $\ket{1}$, we can derive the state immediately after measurement. For example for $\ket{0}$:</p>
+    <p>We can rederive measurement probabilities of $\ket{\psi}$, $|\alpha|^{2}$ for $\ket{0}$ and $|\beta|^{2}$ for $\ket{1}$, we can derive the state immediately after measurement. For example for $\ket{0}$:</p>
     <p>\begin{align}
     p(0) &= \bra{\psi} M^{\dagger}_{0} M_{0} \ket{\psi}\\
     &= \bra{\psi} M_{0} M_{0} \ket{\psi} \\
@@ -262,8 +263,8 @@ img {
     &= |\alpha|^{2}
     \end{align}</p>
     <p>A similar result can be derived for $p(1)=|\beta|^{2}$. In the above calculation, the properties of the measurement operators being Hermitian and idempotent where used again, as well as the orthonormal nature of the computational basis state ($\braket{0|0}\braket{1|1}=1$ and $\braket{0|1}=\braket{1|0}=0$)<!--bookmark: Check if these properties are true for all measurement operators and note the intricacies briefly here.-->.</p>
-    <p>The corresponding state after measurement, which after the measurement of $\ket{0} is $$\frac{M_0 \ket{0}}{\sqrt{\bra{\psi} M^{\dagger}_{0} M_{0} \ket{\psi}}}= \frac{\alpha \ket{0}}{|\alpha|}=\ket{0}$$</p>
-    <p>Where $frac{\alpha}{|\alpha|}=1$. Similarly, the same derivation can be done for the post-measurement state of $\ket{1}$ just being $\ket{1}$.</p>
+    <p>The corresponding state after measurement, which after the measurement of $\ket{0}$ is $$\frac{M_0 \ket{0}}{\sqrt{\bra{\psi} M^{\dagger}_{0} M_{0} \ket{\psi}}}= \frac{\alpha \ket{0}}{|\alpha|}$$</p>
+    <p>Where $\frac{\alpha}{|\alpha|}$ can be dropped to get $\ket{0}$. Similarly, the same derivation can be done for the post-measurement state of $\ket{1}$ just being $\ket{1}$.</p>
 
     <h3>Projective Measurements</h3>
     <p>Now that the general description of the measurement postulate has been explored, it's worth looking at the commonly used special case, <i>Projective Measurements</i>.</p>
@@ -283,14 +284,13 @@ img {
     </p>
 
 <!--bookmark: perhaps collect and note other reasons to use Projective Measurements-->
-<p>While projective measurements are a simpler way to deal with measurements, the general measurement postulate was described first because it is more comprehensive and faces fewer restrictions on measurement operators. This comprehensive approach gives a clearer description is desired for.</p>
-<p>Projective measurement operators also have a properly called repeatibility, where repeating the same measurement $P_m$ on a state $\ket{\psi_m}$, resulting from an initial measurement of $P_m$ on $\ket{\psi}$, just keeps returning $\ket{\psi_m}$ with probability of $\bra{\psi_m} P_m \ket{\psi_m}$. This repeatable property is not seen in many measurements in quantum mechanics, such as the measurement of a photon which destroys the photon, and hence projective measurements cannot be performed in these cases.</p>
+<p>While projective measurements are a simpler way to deal with measurements, the general measurement postulate was described first because it is more comprehensive and faces fewer restrictions on measurement operators.</p>
+<p>Projective measurement operators also have a properly called repeatability, where repeating the same measurement $P_m$ on a state $\ket{\psi_m}$, resulting from an initial measurement of $P_m$ on $\ket{\psi}$, just keeps returning $\ket{\psi_m}$ with probability of $\bra{\psi_m} P_m \ket{\psi_m}=1$. This repeatable property is not seen in some measurements in quantum mechanics, such as the measurement of a photon where such measurement destroys the photon, and hence projective measurements cannot be performed in these cases.</p>
 
 <!--bookmark: maybe include this later, or just leave out. explain relation between projection measurements and POVM formalism, then show example with orthogonal projectors, and then a less trivial example <h3>Positive Over Value Measurements</h3>
     <p>The POVM (Positive Over Value Measurement) formalism is a mathematical tool for the analysis of measurement derived from measurement postulate, with a focus on measurement probability over post-measurement state.</p> --> 
 
     <h2>Tensor Product</h2>
-    <!--bookmark: explain postulate 4. -->
     <p><b>Postulate 4:</b> A quantum system can be a composite of multiple smaller quantum systems, denoted by a tensor product $\otimes$. So a system $\ket{\psi_{AB}}$ composed of $\ket{\psi_A}$ and $\ket{\psi_B}$ is $\ket{\psi_A}\otimes\ket{\psi_B}$.</p>
     <p>A tensor product is a way of composing a larger vector space from smaller vector spaces, and mathematically is a form of operation between matrices as shown in the following examples.</p>
     <p>Starting with the tensor product of two wave vectors $\ket{\psi}=\alpha \ket{0}+\beta \ket{1}$ and $\ket{\phi} = a \ket{0} + b \ket{1}$, it is 
@@ -333,14 +333,14 @@ img {
     \end{bmatrix}\\
     &=
     \begin{bmatrix}
-    \alpha 0 \\
-    \alpha 1 \\
-    \beta 0\\
-    \beta 0
+     0 \\
+     1 \\
+     0\\
+     0
     \end{bmatrix}\\
     &= \ket{01}
     \end{align}</p>
-    <p>As shown in the last line often the tensor product symbol is dropped, with its usage implied by multiple symbols within a composite wave vector.</p>
+    <p>As shown in the last line often the tensor product symbol is dropped, with its usage implied by multiple symbols within a composite state vector.</p>
 
 
     <p>The tensor product obeys the following mathematical properties:<!--bookmark: polish and expand later--></p>
@@ -376,23 +376,22 @@ img {
     \end{bmatrix}
     \end{align}
     </p>
-    <p>Such a tensor product between matrices is also referred to as the Kronecker delta. For a tensor product of matrices of sizes $n\times m$ and $p \times q$ the size of the resulting matrix will be $n \cdot p \times m \cdot q$</p>
+    <p>For a tensor product of matrices of sizes $n\times m$ and $p \times q$ the size of the resulting matrix will be $n \cdot p \times m \cdot q$.</p>
 
 
     <p>Tensor products allow operations to be applied selectively to component wave vectors, for example $A\otimes B$ when applied to $\ket{a}\otimes\ket{b}$ leads to $(A\ket{a})\otimes(B\ket{b})$, which is useful for finer control of multi-qubit systems.</p>
 
-    <p>Now that we've gone over the 4 postulates of quantum mecahnics, we has the theoretical foundation to understand quantum states in quantum computing. But the Dirac formulation is not the only way to represent qubit states, as shown in the next section.</p>
+    <p>Now that we've gone over the 4 postulates of quantum mechanics, we have the theoretical foundation to understand quantum states in quantum computing. But the Dirac formulation is not the only way to represent qubit states, as shown in the next section.</p>
 
 
-    <h1>Further Representation of Qubits</h1>
+    <h1 id="Further_Representations_of_Qubits">Further Representations of Qubits</h1>
 
     <!--bookmark: summarise this section and the reason for looking at it-->
-    <h2>Density Matrices</h2>
+    <h2 id="Density_Matrices">Density Matrices</h2>
 
-    <p>Another way of representing quantum systems, as an alternative to the Dirac formulation with 'bra-ket' state vectors, are density matrices.</p>
-    <p>Density matrices, otherwise known as density operators, are useful for describing systems whose the states aren't fully known.<!--bookmark: complete--></p>
+    <p>Another way of representing quantum systems, as an alternative to the Dirac formulation with 'bra-ket' state vectors, is to use density matrices.</p>
     <!--bookmark: Define the density matrix-->
-    <p>A density matrix has a spectral decomposition into orthogonal vectors $$\rho = \sum_i p_i \ket{\psi_i}\bra{\psi}$$</p><!--bookmark: check how orthonormality fits with density operators, does the basis have to be orthonormal so basis states are normalised with themselves--> 
+    <p>A density matrix, also known as a density operator, has a spectral decomposition into vectors $$\rho = \sum_i p_i \ket{\psi_i}\bra{\psi}$$</p> 
     <p>Where $p_i$ is the probability to measure a pure state of $\ket{\psi_i}$, such as $\ket{0}$ or $\ket{1}$.</p>
     <p>Density operators are positive operators, meaning that $\bra{\psi} \rho \ket{\psi} \geq 0$ for all $\ket{\psi}$, which can be seen from their formulation and the fact that $p_i \geq 0$.</p>
 
@@ -400,7 +399,7 @@ img {
     <p>Where $p_i$ is the probability to measure a pure state of \ket{\psi_i}\bra{\psi}, such as $\ket{0}\bra{0}$ or $\ket{1}\bra{1}$.</p>
     -->
     <p>Impure density matrices are those composed of multiple pure states.</p>
-    <p>Whether a density matrix is pure or not can be checked by performing a mathematical operation, called the trace, on the square of the density matrix $\rho \rho = \rho^{2}$.</p>
+    <p>Whether a density matrix is pure or not can be checked by performing a mathematical operation, called the trace, on the square of the density matrix, $\rho \rho = \rho^{2}$.</p>
     <p>A trace is the sum of the diagonal components of a matrix, as demonstrated for matrix A: 
     \begin{align}
     tr(A)
@@ -408,7 +407,7 @@ img {
     tr\begin{bmatrix}
     a & b \\
     c & d
-    \end{bmatrix}
+    \end{bmatrix}\\
     &= a + b
     \end{align}
     </p>
@@ -425,7 +424,7 @@ img {
     <p>Where above, the orthonormal nature of the computational basis was used ($\braket{0|0}=\braket{1|1}=0$ and $\braket{0|1}=\braket{1|0}=0$)</p>
     <p>Only in the case of a pure state, such as $\ket{\psi}=\ket{0}$, will the trace of $\rho^{2}=1$.</p>
  -->
-    <p>Now dealing with the square of the trace of a density matrix with two orthogonal basis states with probabilities $p_1$ and $p_2$:
+    <p>Now dealing with the trace of the square of a density matrix with two orthogonal basis states with probabilities $p_1$ and $p_2$:
     \begin{align}
     \rho &= 
     \begin{bmatrix}
@@ -455,10 +454,10 @@ img {
     \end{align}
     </p>
 
-    <p>$tr(\rho^2)=1$ only when one basis state probability is unity, that is either $p_1=1$ or $p_2=1$.</p>
+    <p>$tr(\rho^2)=1$ occurs only when one basis state probability is unity, that is either $p_1=1$ or $p_2=1$.</p>
     <p>This is because if both $p_1\lt 1$ and $p_2\lt 1$, then both terms reduce with the square so $p_{1}^{2}\lt p_1$ and $p_{2}^{2}\lt p_2$, hence $p_{1}^{2}+p_{2}^{2} \lt p_1 + p_2 = 1$. This turns the condition $tr(\rho^2)=1$ into a test for whether $\rho$ describes a pure state, with $tr(\rho^2)\lt 1$ indicating an impure state.</p>
 
-    <p>Let's look at some examples to have a clearer idea</p>
+    <p>Let's look at some examples to get a clearer idea regarding density matrices.</p>
     <p>For pure states $\rho_1 = \ket{0}\bra{0}$ and $\rho_2 =\ket{1}\bra{1}$<!--bookmark: pure state in computational basis-->
     \begin{align}
     \rho_{1}^{2} &= 
@@ -524,7 +523,7 @@ img {
     <p><!--bookmark: the full 1 example, using this as an example to show another orthogonal basis state. Note that it is composed of pure states--></p>
 
     <p><!--bookmark: Spectral decomposition--></p>
-    <p>Lastly let's look at a pure state $\rho_4$ formed by the state $\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$, to show that pure states are not necessarily in the computational basis
+    <p>Lastly let's look at a pure state $\rho_4$ formed by the state $\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$ 
     \begin{align}
     \rho_4 &= (\frac{1}{\sqrt{2}})^{2} (\ket{0}+\ket{1})(\bra{0}+\bra{1})\\
     \rho_4 &= \frac{1}{2}(\ket{0}\bra{0} + \ket{0}\bra{1} + \ket{1}\bra{0} + \ket{1}\bra{1}) \\
@@ -541,23 +540,23 @@ img {
     <h3>Postulate of Quantum Mechanics: Density Matrix version</h3>
     <p>Due to the equivalence of the density matrix approach and the Dirac formalism, the postulates of quantum mechanics can be reformulated within the density matrix approach, as briefly recounted here.</p>
     <!--bookmark: Recommend sources for further reading including derivation of this-->
-    <p><b>Postulate 1:</b> An isolated system has an associated complex vector inner product space, and its state can be described an density operator $\rho$ which acts on this state space. The density operator $\rho$ is positive and has a trace of 1. If the system is in state $\rho_i$ with probability of $p_i$, then a weighted sum of possible state can be done as follows to achieve the total $\rho$</p>
+    <p><b>Postulate 1:</b> An isolated system has an associated complex vector inner product space, and its state can be described an density operator $\rho$ which acts on this state space. The density operator $\rho$ is positive and has a trace of 1. If the system is in state $\rho_i$ with probability of $p_i$, then a weighted sum of possible states can be done as follows to achieve the total $\rho$</p>
     <p>$$\rho=\sum_i p_i \rho_i$$</p>
 
-    <p><b>Postulate 2:</b> The evolution of a closed state over time is described by a unitary operator $U$, which is dependent on the difference in time. This unitary operator is applied to the density operator $\rho$ to evolve into state $\rho\$ as noted below</p>
+    <p><b>Postulate 2:</b> The evolution of a closed state over time is described by a unitary operator $U$, which is dependent on the difference in time from the initial to the evolved state. This unitary operator is applied to the density operator $\rho$ to evolve into state $\rho'$ as noted below</p>
     <p>$$\rho' = U \rho U^{\dagger}$$</p>
 
 
     <p><b>Postulate 3:</b> Quantum measurements can be described by a collection of measurement operators {$M_{m}$}, where $m$ refers to measurement outcomes, which act on the state space of the system being measured.</p>
     <p>If the state is $\rho$ before measurement, then the probability of measurement outcome $m$ being measured is $$p(m) = tr(M^{\dagger}_{m}M_{m} \rho)$$</p>
     <p>The state after this measurement is $$\frac{M_{m} \rho M^{\dagger}_{m}}{ tr(M^{\dagger}_{m}M_{m} \rho)}$$</p>
-    <p>Such measurement operators obey the following sum relation, called the completeness theorem $$\sum_{m} M^{\dagger}M = I$$</p>
+    <p>Such measurement operators obey the completeness theorem $$\sum_{m} M^{\dagger}M = I$$</p>
 
 
-    <p><b>Postulate 4:</b> A quantum system can be a composite of multiple smaller quantum systems, denoted by a tensor product $\otimes$. So a state $\rho_{AB}$ with two component states of $\rho_A$ and $\rho_B$ is $\rho_{A}\otimes\rho_{B}$.</p>
+    <p><b>Postulate 4:</b> A quantum system can be a composite of multiple smaller quantum systems, denoted by a tensor product '$\otimes$'. So a state $\rho_{AB}$ with two component states of $\rho_A$ and $\rho_B$ is $\rho_{A}\otimes\rho_{B}$.</p>
 
     <p>An advantage of the density matrix approach is that component systems can be analysed with an operation called partial trace. For a composite system $AB$ composed of systems $A$ and $B$, the partial trace over system $B$ recovers the density matrix of $A$ $$\rho_A = tr_{B}(\rho_{AB})$$<!--bookmark: explain how the reduced density operator works with partial trace, and the use of it.--></p>
-    <p>This partial trace acts over system $B$, can be carried out as follows
+    <p>This partial trace that acts over system $B$, can be carried out as follows
     \begin{align}
     tr_{B}(\rho_{AB}) &= tr_{B}(\rho_{A} \otimes \rho_{B}) \\ &= \rho_{A} tr(\rho_B) \\ &= \rho_{A} \cdot 1 \\  &= \rho_A
     \end{align}
@@ -565,12 +564,13 @@ img {
     <p>Above, the property $tr(\rho_B)=1$ was used.</p>
 
 
-    <p>Let's look at an example of use in an interesting two-qubit pure state called a 'Bell state', $\frac{1}{\sqrt{2}} (\ket{00}+\ket{11})$</p>
+    <p>Let's look at an example of an interesting two-qubit pure state called a 'Bell state', $\ket{\Psi_{00}}=\frac{1}{\sqrt{2}} (\ket{00}+\ket{11})$</p>
     <p>\begin{align}
     \rho &= \frac{1}{2}((\ket{00}+\ket{11}))(\bra{00}+\bra{11})\\
     &= \frac{1}{2}(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})
     \end{align}</p>
-    <p>Tracing over the second qubit results in the following density matrix $\rho_1$ for the first qubit, making using of the behaviour of trace $tr(\ket{\psi_1}\bra{\psi_2})=\braket{\psi_1|\psi_2}$
+    <p>A useful trick in the following trace calculations is $tr(\ket{\psi_1}\bra{\psi_2})=\braket{\psi_1|\psi_2}$, brought about by trace being the addition of diagonal terms.<!--bookmark: IMPROVE EXPLANATION of trace condition being equivalent to an inner product--></p>
+    <p>Tracing over the second qubit results in the following density matrix $\rho_1$ for the first qubit
     \begin{align}
     \rho_1 &= tr_{2}(\rho) \\
     &= \frac{1}{2}(tr_{2}(\ket{00}\bra{00})+tr_{2}(\ket{00}\bra{11})+tr_{2}(\ket{11}\bra{00})+tr_{2}(\ket{11}\bra{11}))\\
@@ -580,20 +580,21 @@ img {
     &= \frac{1}{2} I
     \end{align}</p>
 
-    <p>Above, the behaviour of trace $tr(\ket{\psi_1}\bra{\psi_2})=\braket{\psi_1|\psi_2}$ was used on the second qubit state, leading to the orthonormal behaviour $\braket{0|0}=\braket{1|1}=1$ and $\braket{0|1}=\braket{1|0}$.</p>
+    <p>$tr(\ket{\psi_1}\bra{\psi_2})=\braket{\psi_1|\psi_2}$ was used on the second qubit state, allowing the orthonormal relations $\braket{0|0}=\braket{1|1}=1$ and $\braket{0|1}=\braket{1|0}=0$ to be applied.</p>
     <p>Interestingly enough, while the Bell state is pure, the first qubit isn't. First let's show that the Bell state is pure. Note, for the following calculation the orthonormal relations $\braket{00|00}=\braket{11|11}=1$ and $\braket{00|11}=\braket{11|00}=0$ will be used implicitly to avoid having too many terms.
     \begin{align}
     \rho &= \frac{1}{2}(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})\\
     \rho^{2} &= \frac{1}{4}(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})\\&\cdot (\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11}) \\
     \rho^{2} &= \frac{1}{4} (\ket{00}(\bra{00} + \bra{11} + 0 + 0)\\ & + \ket{00}( 0 + 0 +\bra{00}+\bra{11})\\ & + \ket{11}(\bra{00} + \bra{11} + 0 + 0)\\ & + \ket{11}( 0 + 0 + \bra{00} + \bra{11})) \\
     \rho^{2} &= \frac{1}{4} ( 2\ket{00}(\bra{00} + \bra{11}) + 2\ket{11}(\bra{00}+\bra{11}))\\
-    \rho^{2} &= \frac{1}{2} \ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})\\
+    \rho^{2} &= \frac{1}{2} (\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})\\
     \rho^{2} &= \rho\\
     tr(\rho^{2}) &= \frac{1}{2}tr(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11}) \\
     tr(\rho^{2}) &= \frac{1}{2}(1 + 1) \\
     tr(\rho^{2}) &= 1 \\
     \end{align}
-    Note, that the trace operator is the addition diagonal terms in a matrix, and hence equivalent to $\braket{\psi|\psi}$ where orthonormal relations mean that $\braket{00|11}$ and $\braket{11|00}=0$ do not contribute to the trace.<p>
+    The trace operation is the addition of diagonal terms in a matrix and hence is equivalent to $\braket{\psi|\psi}$, where orthonormal relations mean that $\braket{00|11}$ and $\braket{11|00}$ do not contribute to the trace.<p>
+
 
     <p> Now, let's look at the trace of first qubit state $\rho_{1}$, making use of the idempotent property of the identity matrix that $II=I$
     \begin{align}
@@ -605,7 +606,8 @@ img {
     tr(\rho_{1}^{2}) &\lt 1
     \end{align}</p>
     
-    <p>This impure first qubit state (which holds true for the second state because similarly $rho_2=\frac{1}{2} I $), indicate uncertainty about the state of the qubit. We need the full Bell state, which is pure, to be fully certain about the state. This uncertainty about component systems, while being certain about the composite state, is a hallmark of entanglement, a quantum property which will be explored further below<!--bookmark: explain where exactly entanglement will be explored, and link to it!--> 
+    <p>This impure first qubit state (which holds true for the second state because similarly $\rho_2=\frac{1}{2} I $) indicates uncertainty about the state of the qubit. We need the full Bell state, which is pure, to be fully certain about the state. This uncertainty about component systems, while being certain about the composite state, is a hallmark of entanglement.<!-- a quantum property which will be explored further below-->
+    <!--bookmark: explain where exactly entanglement will be explored, and link to it!--> 
     <!--bookmark: Link Bell state to a later section in this page.-->
     <!--bookmark: Explain why uncertainty leads to entanglement-->
     <!--bookmark: Explain why exactly the density matrix appproach should be used-->
@@ -613,64 +615,111 @@ img {
 
 
 
-    <h2>Bloch Sphere</h2>
-    <p>The Bloch sphere is another representation of individual qubits which I would recommend to become familiar with.<p>
-    <p>Phase<!--bookmark: describe how the statistics of measurement is invariant to global phase, but relative phase is important. --> </p>
-    <p><!--bookmark: demonstrate the --></p>
+    <h2 id="Bloch_Sphere">Bloch Sphere</h2>
+    <!--bookmark: Review and improve, including an expanded explanation of $e^{i\phi}$ and sine and cosine functions and values as their arguments vary.-->
+    <!--bookmark: Describe phases to a greater degree-->
+    <!--bookmark: Describe the link between phases and angles to a greater degree, noting how 2 pi rotation leads to 1-->
+    <!--bookmark: explain orthonormal nature-->
 
-    <!--<h2>Single Qubit Gates</h2>-->
+    <p>The Bloch sphere is another representation of individual qubits which I would recommend to become familiar with.<p>
+    <p>The Bloch sphere represents superpositions of the $\ket{0}$ and $\ket{1}$ states on the surface of a 3D sphere with a radius of 1. This shape is constrained by the fact that the total probability of states is  $p_0+p_1=|\alpha|^{2}+|\beta|^{2}=1$ for $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$</p>
+
+
+    <p>Specifically, a general qubit state is $$\ket{\psi} = e^{i \gamma}(\cos(\frac{\theta}{2})\ket{0}+e^{i\phi} \sin(\frac{\theta}{2})\ket{1})$$</p>
+    <p>The $e^{i \gamma}$ factor, also known as the 'global phase factor', does not show up in measurement statistics<!--bookmark: perhaps explain why this does not show up-->, and hence can be ignored to give
+    $$\ket{\psi} = \cos(\frac{\theta}{2})\ket{0}+e^{i\phi} \sin(\frac{\theta}{2})\ket{1}$$</p>
+
+
+    <p>For example, with $\theta=\frac{\pi}{4}$ and $\phi=\frac{\pi}{4}$, the Bloch sphere is</p>
+    <img src="Figures/Ch1_Basics_Figures/annotated_bloch_sphere.png" alt="Annotated Bloch sphere" width="400" height="400">
+
+    <p>In the computational basis state $\ket{0}$, $\theta=0$ so the Bloch vector is vertically upwards along the positive 'z' axis</p>
+    <img src="Figures/Ch1_Basics_Figures/bloch_sphere_computational_basis_0_state.png" alt="Bloch sphere in computational basis '0' state" width="400" height="400">
+    <p>For the orthogonal state in the computational basis $\ket{1}$, $\theta=\pi$ so the Bloch vector is vertically downwards along the negative 'z' axis</p>
+
+    <img src="Figures/Ch1_Basics_Figures/bloch_sphere_computational_basis_1_state.png" alt="Bloch sphere in computational basis '1' state" width="400" height="400">
+
+
+    <p>Two other orthonormal basis sets are the $(\ket{+}, \ket{-})$ basis states and the $(\ket{+i}, \ket{-i})$ basis states. In these states $\theta=\frac{\pi}{2}$, which leads to $\cos(\frac{\pi}{4})=\sin(\frac{\pi}{4})=\frac{1}{\sqrt{2}}$, hence these basis states are 'equatorial' and along the 'xy' plane bisecting the Bloch sphere.</p>
+    <p>First, starting with the $\ket{+}$ and $\ket{-}$ states, these have the 'relative' phase $\phi$ of respectively $0$ and $\pi$, which when substituted into $e^{i\phi}$ leads to $e^{0}=1$ and $e^{i\pi}=-1$ respectively, hence
+    \begin{align}
+    \ket{+}&=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1}) \\
+    &=\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ 1\end{bmatrix} \\    
+    \ket{-}&=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1}) \\
+    &=\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ -1\end{bmatrix} \\
+    \end{align}
+    </p>
+    <p>On the Bloch sphere, $\ket{+}$ is along the positive 'x' axis</p>
+    <img src="Figures/Ch1_Basics_Figures/bloch_sphere_hadamard_basis_plus_state.png" alt="Bloch sphere in Hadamard basis '+' state" width="400" height="400">
+    <p>And the orthonormal basis state $\ket{-}$ points to the opposite side of the Bloch sphere, along the negative 'x' axis</p>
+    <img src="Figures/Ch1_Basics_Figures/bloch_sphere_hadamard_basis_minus_state.png" alt="Bloch sphere in Hadamard basis '-' state" width="400" height="400">
+
+
+    <p>Secondly, the $\ket{+i}$ and $\ket{-i}$ states have the relative phase $\phi$ of respectively $\frac{\pi}{2}$ and $\frac{3\pi}{2}$, leading to $e^{i\frac{\pi}{2}}=i$ and $e^{i\frac{3\pi}{2}}=-i$, so</p>
+    <p>
+    \begin{align}
+    \ket{+i}&=\frac{1}{\sqrt{2}}(\ket{0}+i\ket{1}) \\
+    &=\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ i\end{bmatrix} \\    
+    \ket{-i}&=\frac{1}{\sqrt{2}}(\ket{0}-i\ket{1}) \\
+    &=\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ -i\end{bmatrix} \\
+    \end{align}
+    </p>
+
+    <p>The Bloch sphere representation of the $\ket{+i}$ state is along the positive 'y' axis</p>
+    <img src="Figures/Ch1_Basics_Figures/bloch_sphere_circular_basis_i_state.png" alt="Bloch sphere in circular basis '+i' state" width="400" height="400">
+    <p>The orthonormal $\ket{-i}$ state is in the opposite direction, along the negative 'y' axis</p>
+    <img src="Figures/Ch1_Basics_Figures/bloch_sphere_circular_basis_minus_i_state.png" alt="Bloch sphere in circular basis '-i' state" width="400" height="400">
+
+
+    <!--bookmark: describe how the statistics of measurement is invariant to global phase, but relative phases are important. -->   
     
-    <p></p>
-    <p>Orthonormal means</p>
-    <p><!--bookmark: Born rule--></p>
-    <p><!--bookmark: Demonstrate all three X, Y and Z measurement basis sets on the Bloch sphere--></p>
-    <p><!--bookmark: Demonstrate the gates used to move between bases, H and S?--></p>
+
     <h1>Quantum Circuits</h1>
 
-    <h2>Gates</h2>
-    <p>Pauli matrices</p>
+    <p>This section is currently a work in progress.</p>
+    <!--<h2>Gates</h2>-->
+    <!--Single Qubit Gates-->
+    <!--Pauli matrices-->
     
     <!--bookmark: Show demonstrations of gates with circuit representations and Bloch sphere representation. This should include the Hadamard gate and controlled matrices-->
-    <p><!--bookmark: Hadamard operation, shown on Bloch sphere.--></p>
+    <!--bookmark: Hadamard operation, shown on Bloch sphere.-->
     <!--bookmark: Explain how Hamiltonians function with gates-->
-    <p><!--bookmark: Note how the same H symbol is used for the Hadamard and Hamiltonian.--></p>
+    <!--bookmark: show how the corresponding measurement basis states are eigenvectors of the Pauli matrices.-->
+    <!--bookmark: Note how the same H symbol is used for the Hadamard and Hamiltonian.-->
 
-    <p><!--bookmark: General single qubit gate, including general rotations--></p>
-    <p>Universal gate sets are </p>
+    <!--bookmark: Born rule-->    <!--bookmark: Demonstrate all three X, Y and Z measurement basis sets on the Bloch sphere-->    <!--bookmark: Demonstrate the gates used to move between bases, H and S?-->
 
 
-    <p>Tensor product</p>
-    <p><!--bookmark: demonstrate tensor product with matrices and different operations such I and X acting on --></p>
+    <!--bookmark: General single qubit gate, including general rotations-->
+    <!--Universal gate sets are-->
+    <!--bookmark: demonstrate tensor product with matrices and different operations such I and X acting on -->
 
     <!--bookmark: show generalised single gate, and how a controlled gate can be constructed with tensor products-->
     <!--bookmark: Describe spectral decomposition somewhere -->
-    <h2>Measurement</h2>
-    <p><!--bookmark: describe how gates are related to measurement, is an operation needed?--></p>
-    <p><!--bookmark: Demonstrate all three X, Y and Z measurement basis sets on the Bloch sphere--></p>
+
+    <!--<h2>Measurement</h2>-->
+    <!--bookmark: describe how gates are related to measurement, is an operation needed?-->
+    <!--bookmark: Demonstrate all three X, Y and Z measurement basis sets on the Bloch sphere-->
 
     <h1>Simple Demonstrations of Quantum Effects</h1>
 
-    <h2>Super Dense Encoding</h2>
-    <!--bookmark:-->
-    
-    <h2>Quantum Teleportation</h2>
-    
+    <p>This section is currently a work in progress</p>
+    <!--<h2>Super Dense Encoding</h2>-->
+        
+    <!--<h2>Quantum Teleportation</h2>-->
+    <!--EPR-->
 
-
-    <!--<h2>EPR</h2>-->
-
-    <p><!--bookmark: Explain how tensor products allow entanglement, and then explain that an entangled system can only be fully described by both with examples.--></p>
-    <p><!--bookmark: describe how impure states result in entanglement--></p>
-
+    <!--bookmark: Explain how tensor products allow entanglement, and then explain that an entangled system can only be fully described by both with examples.-->    <!--bookmark: describe how impure states result in entanglement-->
     <!--bookmark: Give an example of some other fundamental effect, superposition, for quickly searching. It does not have to be mathematically be shown!-->
     <!--bookmark: Describe how QC can be used for Machine Learning, checking and referring to the current state of the field-->
 
 
 
     <h1>Further Comprehension</h1>
-    <p>To internalise the concepts here, it helps to write out the derivations with pen-and-paper.</p>
+    <p>To internalise the concepts here, it helps to write out derivations with pen-and-paper.</p>
     <p>The source YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the course is freely available and definitely worth checking out if you prefer learning in a lecture format. Specifically, I based this chapter on lectures 1.1 and 1.2.</p>
-    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not as freely available, it is worth going through such a textbook or similar resources and solve questions with pen-and-paper to build a more rigorous understanding after reviewing this course. In the case of 'Quantum Computation and Quantum Information', I would recommend going through chapter 1, which an overview of quantum computing, and chapter 2 which introduces the maths of quantum mechanics.</p>
+    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not freely available, it is worth going through this or another textbook (or a similar resource)  and solve questions with pen-and-paper to build a more rigorous understanding after reviewing this course. In the case of 'Quantum Computation and Quantum Information', I would recommend going through chapter 1, which an overview of quantum computing, and chapter 2 which introduces the maths of quantum mechanics.</p>
+    <!--bookmark: Perhaps recommend resources for quantum circuits and 'simple demonstration of Quantum effects' sections.-->
     <!--bookmark: recommend resources. Check them out. -->
 
 
