@@ -89,7 +89,7 @@ img {
 
 <body>
 	<!--bookmark: review this and make sure that it is coherent and understandable to those without a strong background. NB: perhaps link to concepts for further understanding, such as maths. Note the required background needed, perhaps say this might be helpful to read this first then go to further reading.-->
-	<h1>Chapter 1: Basics of Quantum Computing</h1>
+	<h1 id="Chapter_Title">Chapter 1: Basics of Quantum Computing</h1>
 	
     <p>This is the first part of a basic introduction to Quantum Machine Learning, based on the IBM Qiskit 2021 Summer School course. An accompanying Jupyter notebook with the Qiskit code used to generate the images in this chapter and instructions on how to install Qiskit is available <a href="https://github.com/Pranav-Acharya1/intro-to-quantum-machine-learning/blob/main/Ch1_Basics.ipynb">here</a>.
     <p>Note, that this chapter and the accompanying Jupyter notebook are currently a work in progress.<!--bookmark: CHANGE this when this web page is complete--></p>
@@ -184,7 +184,7 @@ img {
     <p>The computational basis states quite clearly correspond to the classical bits, $\ket{0}$ as 0 and $\ket{1}$ as 1. The difference from classical bits is that a superposition of states can exist, such as $\ket{\psi}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$.</p>
     <!--bookmark: Show Bloch sphere!-->
 
-    <h2>Evolution</h2>
+    <h2 id="Evolution">Evolution</h2>
 
     <p><b>Postulate 2:</b> The evolution of closed physical systems over time can be described by a unitary transformation $U$ which depends on the difference in time from the initial state at time $t_1$ to the evolved state $t_2$.</p>
     <p>Practically in the case of single qubits, evolution can be described as a single unitary qubit gate U, where evolved state $\ket{\psi'}$ is $$\ket{\psi'}=U\ket{\psi}$$</p>
@@ -616,7 +616,7 @@ img {
 
 
     <h2 id="Bloch_Sphere">Bloch Sphere</h2>
-    <!--bookmark: Review and improve, including an expanded explanation of $e^{i\phi}$ and sine and cosine functions and values as their arguments vary.-->
+    <!--bookmark: Review and improve, including an expanded explanation of $e^{i\phi}$ and sine and cosine functions and values as their arguments vary. Perhaps with matplotlib plots-->
     <!--bookmark: Describe phases to a greater degree-->
     <!--bookmark: Describe the link between phases and angles to a greater degree, noting how 2 pi rotation leads to 1-->
     <!--bookmark: explain orthonormal nature-->
@@ -674,36 +674,111 @@ img {
     <!--bookmark: describe how the statistics of measurement is invariant to global phase, but relative phases are important. -->   
     
 
-    <h1>Quantum Circuits</h1>
+    <h1 id="Quantum_Circuits">Quantum Circuits</h1>
+    <!--bookmark: Describe quantum circuits, and note wires as carrying information and gates as operations-->
+    <p>Now that we've covered the <a href="#Fundamental_Postulates_of_Quantum_Mechanics">basics of quantum mechanics</a>, <a href="#Quantum_Bits">qubits</a>, and <a href="#Further_Representations_of_Qubits">methods of representing them</a>, we will explore how circuits can be constructed to perform computation in this section.</p>
+    <p>As noted previously while describing the <a href="#Evolution">2nd postulate on the evolution of closed systems</a>, the evolution of individual qubits can be described by gates which act on qubit states. Such unitary gates, both single qubit and multi-qubit, can be used with qubits to construct quantum circuits.</p>
+    <p>This section will start out with <a href="#Single_Qubit_Gates">single qubit gates</a>, before expanding to <a href="#Multi_Qubit_Gates">multi qubit gates</a> and <a href="#Measurement_Gates">measurement operations</a>.</p>
 
-    <p>This section is currently a work in progress.</p>
-    <!--<h2>Gates</h2>-->
+    <h2 id="Single_Qubit_Gates">Single Qubit Gates</h2>
+    <!--bookmark: NB: use this subsection to demonstrate gates in multiple ways to reinforce stuff and learn intuition: Dirac/Matrix, Bloch sphere (with rotations shown, perhaps with two or more arrows of different colours and legend, or multiple Bloch spheres) and circuit representation-->
+
+    <p>Single qubit gates can be represented by unitary square matrices of dimension $2\time 2$ which act on a qubit state $\ket{\psi}$. Such a unitary property of a given gate $U$, that their Hermitian conjugate $U^{\dagger}$ is their inverse $U^{\dagger}=U^{-1}$, means that applying a Hermitian conjugate of a gate is equivalent to reversing an operation on a given qubit, as seen below where $\ket{\psi}$ evolves to $\ket{\psi'}$ and then is reversed back to $\ket{\psi}$:
+    \begin{align}
+    U^{\dagger} U \ket{psi} &= U^{\dagger} \ket{psi'} \\ &= \ket{psi}
+    \end{align}
+    </p>
+    <p>Note, that for gate in matrix representation the rightmost gate ($U$ in this case) is applied <i>first</i> then the one to the left ($U^{\dagger}$ here) is applied afterwards.</p>
+    <p>Such a reversible property is also an essential requirement for quantum circuits to obey, because <i>irreversibility</i> indicates the irrecoverable loss of information, since the previous state cannot be reconstructed. The exception to this are measurements, which are placed at the end of a circuit to obtain a classical output by collapsing the circuit.</p>
+
+    <p>Three archetypal gates are the Pauli gates X, Y and Z.<!--bookmark: finish with visualisations (matrix, dirac, Bloch, circuit)--> </p>
+
+    <p>\begin{align}
+    X &= \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}\\ 
+    Y &= \begin{bmatrix}  &  \\  &   \end{bmatrix}\\ 
+    Z &= \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix} 
+
+    \end{align}</p>
+    <!--bookmark: Demonstrate Pauli Matrices in circuit representation-->
+    
+
+
+    <p>Properties of the Pauli matrices are <!--bookmark: Identity from square, unitary, Hermitian?--></p>
+
+    <!--bookmark: show how Pauli matrices correspond to the directions on the Bloch sphere, both in Dirac representation and showing eigenvalue-->
+    <p>The eigenvalues of the Pauli matrices are<!--bookmark: complete--> </p>
+    <p>So, spectral decomposition<!--bookmark: complete--></p>
+
+
+
+
+
+
+
+    <p>Three other important matrices are the Hadamard, S and T matrices <!--bookmark: complete with visualisations (matrix, dirac, Bloch, circuit)--></p>
+    <p>\begin{align}
+
+    H &= \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}\\ 
+    S &= \begin{bmatrix} 1 & 0 \\ 0 & i  \end{bmatrix}\\ 
+    T &= \begin{bmatrix} 1 & 0 \\ 0 & e^{\frac{i\pi}{4}}  \end{bmatrix}\\ 
+
+    \end{align}</p>
+    <!--bookmark: describe relation between Z, S and T-->
+
+
+
+    <p>Three rotational matrices around the three axes are<!--bookmark: finish with visualisations (matrix, dirac, Bloch, circuit)--></p>
+
     <!--Single Qubit Gates-->
     <!--Pauli matrices-->
     
-    <!--bookmark: Show demonstrations of gates with circuit representations and Bloch sphere representation. This should include the Hadamard gate and controlled matrices-->
+
     <!--bookmark: Hadamard operation, shown on Bloch sphere.-->
-    <!--bookmark: Explain how Hamiltonians function with gates-->
+    <!--bookmark: Explain how Hamiltonians function with gates, and show circuit representaiton!-->
     <!--bookmark: show how the corresponding measurement basis states are eigenvectors of the Pauli matrices.-->
     <!--bookmark: Note how the same H symbol is used for the Hadamard and Hamiltonian.-->
+    <!--bookmark: Show how the S gate works both in matrix, Bloch sphere and circuit representation--> 
 
+    <!--bookmark: Gates have to be unitary, but other than that are free from constraints-->
     <!--bookmark: Born rule-->    <!--bookmark: Demonstrate all three X, Y and Z measurement basis sets on the Bloch sphere-->    <!--bookmark: Demonstrate the gates used to move between bases, H and S?-->
 
 
-    <!--bookmark: General single qubit gate, including general rotations-->
+    <!--bookmark: General single qubit gate shown by decomposition, including general rotations. Describe how this means any operation can be carried out in a finite number of gates-->
+
     <!--Universal gate sets are-->
     <!--bookmark: demonstrate tensor product with matrices and different operations such I and X acting on -->
 
     <!--bookmark: show generalised single gate, and how a controlled gate can be constructed with tensor products-->
     <!--bookmark: Describe spectral decomposition somewhere -->
 
-    <!--<h2>Measurement</h2>-->
+    <h2 id="Multi_Qubit_Gates">Multi Qubit Gates</h2>
+
+    <p>Multi-qubit gates are also unitary and thus reversible.</p>
+    <!--bookmark: Explain with examples and images how circuits are read from left to right, wires demonstraiting the flow of information, gates as operations, measurement operators, and classical information represented as double lines.-->
+    <!--bookmark: NB: Show demonstrations of gates with circuit representations and Bloch sphere representation. This should include the Hadamard gate and controlled matrices-->
+
+    <!--bookmark: universal gate set. Parity?-->
+    <!--bookmark: Unitary property-->
+    <!--bookmark: all multiqubit gates can be composed of CNOT and single qubit gates-->
+    <!--bookmark: Swap operation demonstrated with three CNOTs-->
+    <!--bookmark: Controlled U gates, shown with matrix representation as well-->
+
+    <!--bookmark: Demonstrate control and target swapping with basis change brought about by Hadamard gates-->
+    <!--bookmark: Show Toffoli gate-->
+    <!--bookmark: Show control not gate which only acts with $\ket{0}$ input, which is shown with an open circle and can be composed of X C_{X} X-->
+    <!--bookmark: control not gates with multiple targets-->
+
+
+    <h2 id="Measurement_Gates">Measurement</h2>
     <!--bookmark: describe how gates are related to measurement, is an operation needed?-->
     <!--bookmark: Demonstrate all three X, Y and Z measurement basis sets on the Bloch sphere-->
 
-    <h1>Simple Demonstrations of Quantum Effects</h1>
+    <h1 id="Quantum_Demonstrations">Simple Demonstrations of Quantum Effects</h1>
 
     <p>This section is currently a work in progress</p>
+    <!--bookmark: Quantum Parallelism-->
+
+    <!--bookmark: no-cloning theorem demonstration-->
     <!--<h2>Super Dense Encoding</h2>-->
         
     <!--<h2>Quantum Teleportation</h2>-->
@@ -715,10 +790,10 @@ img {
 
 
 
-    <h1>Further Comprehension</h1>
+    <h1 id="Further_Comprehension">Further Comprehension</h1>
     <p>To internalise the concepts here, it helps to write out derivations with pen-and-paper.</p>
     <p>The source YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the course is freely available and definitely worth checking out if you prefer learning in a lecture format. Specifically, I based this chapter on lectures 1.1 and 1.2.</p>
-    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not freely available, it is worth going through this or another textbook (or a similar resource)  and solve questions with pen-and-paper to build a more rigorous understanding after reviewing this course. In the case of 'Quantum Computation and Quantum Information', I would recommend going through chapter 1, which an overview of quantum computing, and chapter 2 which introduces the maths of quantum mechanics.</p>
+    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not freely available, it is worth going through this or another textbook (or a similar resource) and solve questions with pen-and-paper to build a more rigorous understanding after reviewing this course. In the case of 'Quantum Computation and Quantum Information', I would recommend going through chapter 1, which an overview of quantum computing, and chapter 2 which introduces the maths of quantum mechanics. For further reading on top of this, chapter 4 which introduces quantum circuits with qubits is worth going through, especially with the exercises which will help build intuition for the circuit model.</p>
     <!--bookmark: Perhaps recommend resources for quantum circuits and 'simple demonstration of Quantum effects' sections.-->
     <!--bookmark: recommend resources. Check them out. -->
 
