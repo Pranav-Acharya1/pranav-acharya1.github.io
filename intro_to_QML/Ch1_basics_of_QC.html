@@ -629,9 +629,12 @@ img {
     <p>The $e^{i \gamma}$ factor, also known as the 'global phase factor', does not show up in measurement statistics<!--bookmark: perhaps explain why this does not show up-->, and hence can be ignored to give
     $$\ket{\psi} = \cos(\frac{\theta}{2})\ket{0}+e^{i\phi} \sin(\frac{\theta}{2})\ket{1}$$</p>
 
-
     <p>For example, with $\theta=\frac{\pi}{4}$ and $\phi=\frac{\pi}{4}$, the Bloch sphere is</p>
     <img src="Figures/Ch1_Basics_Figures/annotated_bloch_sphere.png" alt="Annotated Bloch sphere" width="400" height="400">
+
+    <p>Without going too far into the details, the sine, cosine and exponential functions in the qubit state vary with angles as shown below</p>
+    <img src="Figures/Ch1_Basics_Figures/trig_exp_plots.png" alt="Trigonometric Functions which feature in the Bloch sphere" width="736" height="265">
+    <p>The sine, cosine and exponential functions all repeat with a periodicity of $2\pi$, it's just that in the case of $\sin{\frac{\theta}{2}}$ and $\cos{\frac{\theta}{2}}$ the argument is $\frac{\theta}{2}$, leading to a periodicity of $4\pi$.</p>
 
     <p>In the computational basis state $\ket{0}$, $\theta=0$ so the Bloch vector is vertically upwards along the positive 'z' axis</p>
     <img src="Figures/Ch1_Basics_Figures/bloch_sphere_computational_basis_0_state.png" alt="Bloch sphere in computational basis '0' state" width="400" height="400">
@@ -683,9 +686,9 @@ img {
     <h2 id="Single_Qubit_Gates">Single Qubit Gates</h2>
     <!--bookmark: NB: use this subsection to demonstrate gates in multiple ways to reinforce stuff and learn intuition: Dirac/Matrix, Bloch sphere (with rotations shown, perhaps with two or more arrows of different colours and legend, or multiple Bloch spheres) and circuit representation-->
 
-    <p>Single qubit gates can be represented by unitary square matrices of dimension $2\time 2$ which act on a qubit state $\ket{\psi}$. Such a unitary property of a given gate $U$, that their Hermitian conjugate $U^{\dagger}$ is their inverse $U^{\dagger}=U^{-1}$, means that applying a Hermitian conjugate of a gate is equivalent to reversing an operation on a given qubit, as seen below where $\ket{\psi}$ evolves to $\ket{\psi'}$ and then is reversed back to $\ket{\psi}$:
+    <p>Single qubit gates can be represented by unitary square matrices of dimension $2\times 2$ which act on a qubit state $\ket{\psi}$. Such a unitary property of a given gate $U$, that their Hermitian conjugate $U^{\dagger}$ is their inverse $U^{\dagger}=U^{-1}$, means that applying a Hermitian conjugate of a gate is equivalent to reversing an operation on a given qubit, as seen below where $\ket{\psi}$ evolves to $\ket{\psi'}$ and then is reversed back to $\ket{\psi}$:
     \begin{align}
-    U^{\dagger} U \ket{psi} &= U^{\dagger} \ket{psi'} \\ &= \ket{psi}
+    U^{\dagger} U \ket{\psi} &= U^{\dagger} \ket{\psi'} \\ &= \ket{\psi}
     \end{align}
     </p>
     <p>Note, that for gate in matrix representation the rightmost gate ($U$ in this case) is applied <i>first</i> then the one to the left ($U^{\dagger}$ here) is applied afterwards.</p>
@@ -695,15 +698,44 @@ img {
 
     <p>\begin{align}
     X &= \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}\\ 
-    Y &= \begin{bmatrix}  &  \\  &   \end{bmatrix}\\ 
+    Y &= \begin{bmatrix} 0 & -i \\ i & 0  \end{bmatrix}\\ 
     Z &= \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix} 
 
     \end{align}</p>
-    <!--bookmark: Demonstrate Pauli Matrices in circuit representation-->
+    <!--bookmark: Demonstrate Pauli Matrices in circuit representation. Also show how they act on qubits in -->
     
 
+    <p>Key properties of the Pauli matrices are that they are Hermitian, reproduce the identity matrix when applied twice, and are unitary.<!--bookmark: Identity from square, unitary, Hermitian?--></p>
 
-    <p>Properties of the Pauli matrices are <!--bookmark: Identity from square, unitary, Hermitian?--></p>
+    <p>Their Hermitian quality is shown in the calculations below
+    \begin{align}
+    X^{\dagger} &= (X^{T})^{*} \\&= (\begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}^{T})^{*} \\&= (\begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix})^{*} \\&= \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix} \\&=X\\ 
+    Y^{\dagger} &= (Y^{T})^{*} \\&= (\begin{bmatrix} 0 & -i \\ i & 0  \end{bmatrix}^{T})^{*} \\&= (\begin{bmatrix} 0 & i \\ -i & 0  \end{bmatrix})^{*} \\&= \begin{bmatrix} 0 & -i \\ i & 0  \end{bmatrix} \\&=Y\\ 
+    Z^{\dagger} &= (Z^{T})^{*} \\&= (\begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}^{T})^{*} \\&= (\begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix})^{*} \\&= \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix} \\&= Z
+    \end{align}
+    </p>
+    \begin{align}
+    XX &= \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix} \\&= \begin{bmatrix} 0 \cdot 0 + 1\cdot 1  & 0\cdot 1 + 1\cdot 0 \\ 1\cdot 0 + 0\cdot 1 & 1 \cdot 1 + 0\cdot 0 \end{bmatrix} \\&= \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\\
+    YY &= \begin{bmatrix} 0 & -i \\ i & 0  \end{bmatrix} \begin{bmatrix} 0 & -i \\ i & 0  \end{bmatrix} \\&= \begin{bmatrix} 0 \cdot 0 - i \cdot i & 0 \cdot -i -i \cdot 0 \\ i\cdot 0 + 0\cdot i & i\cdot -i + 0\cdot 0 \end{bmatrix} \\&=\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\\
+    ZZ &= \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix} \\&= \begin{bmatrix} 1\cdot 1 + 0\cdot 0 & 1\cdot 0 + 0\cdot -1 \\ 0\cdot 1 -1\cdot 0 & 0\cdot 0 -1\cdot -1 \end{bmatrix}\\&= \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\\
+
+    \end{align}
+
+    <!--bookmark: complete--></p>
+
+    <p>Their unitary property of Pauli matrices naturally arises from their Hermitian nature and their 'square' being equal to the identity matrix $I$. This can be seen by rearranging $XX$ as follows
+    \begin{align}
+    XX &= I\\
+    X^{-1} X X &= X^{-1} I\\
+    X &= X^{-1} 
+    \end{align}
+    And by substituting in the Hermitian property of $X=X^{\dagger}$, we get the unitary relation $$X^{\dagger} = X$$
+    Such a derivation similarly holds for the $Y$ and $Z$ Pauli matrices.
+    </p>
+
+
+
+
 
     <!--bookmark: show how Pauli matrices correspond to the directions on the Bloch sphere, both in Dirac representation and showing eigenvalue-->
     <p>The eigenvalues of the Pauli matrices are<!--bookmark: complete--> </p>
