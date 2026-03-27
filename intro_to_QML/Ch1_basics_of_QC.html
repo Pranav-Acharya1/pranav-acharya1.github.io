@@ -48,6 +48,13 @@ img {
     color: white;
 }/* ------------------------------------------- */
 
+.circuit-image {
+    max-width: 800px; /* Caps the width on desktop */
+    width: 100%;      /* Still allows it to shrink on mobile */
+    height: auto;     /* Prevents squashing */
+    display: block;
+    margin: 20px auto;
+}
 
 </style>
 <title>Chapter 1 of Introduction to Quantum Machine Learning: Basics of Quantum Computing</title>
@@ -703,7 +710,85 @@ img {
 
     \end{align}</p>
     <!--bookmark: Demonstrate Pauli Matrices in circuit representation. Also show how they act on qubits in -->
-    
+
+
+    <p>Their circuit representation, and their effect on the general qubit state $\alpha\ket{0} + \beta\ket{1}$is</p>
+    <img src="Figures/Ch1_Basics_Figures/pauli_gate_circuit_demonstration_on_general_dirac_state.png" alt="Quantum circuit showing Pauli gates applied to a general state" class="circuit-image">
+
+    <p>Pauli $X$ gates are the quantum equivalent of the 'not' gate, swapping the coefficients of the $\ket{0}$ and $\ket{1}$ states, so applying it is referred to as a 'bit flip' with the following action on the computational basis $\ket{0}$ and $\ket{1}$. 
+    \begin{align}
+    X\ket{0} &= \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} 1 \\ 0 \end{bmatrix} \\
+    &= \begin{bmatrix} 0 \\ 1 \end{bmatrix}\\
+    &= \ket{1}\\
+    X\ket{1} &= \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} 0 \\ 1 \end{bmatrix} \\
+    &= \begin{bmatrix} 1 \\ 0 \end{bmatrix}\\
+    &= \ket{0}
+    \end{align}
+    </p>
+    <p>The eigenvectors of the $X$ gate are the $\ket{+}$ and $\ket{-}$ basis states, which act as the positive and negative 'x' direction on the Bloch sphere. Note that the eigenvalues only affect the 'global phase', and thus do not affect the measurement statistics of the qubit in question.
+    \begin{align}
+    X\ket{+} &= \frac{1}{\sqrt{2}} \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} 1 \\ 1 \end{bmatrix} \\
+    &= \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 1 \end{bmatrix}\\
+    &= \ket{+}\\
+    X\ket{-} &= \frac{1}{\sqrt{2}} \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} 1 \\ -1 \end{bmatrix} \\
+    &= \frac{1}{\sqrt{2}} \begin{bmatrix} -1 \\ 1 \end{bmatrix}\\
+    &= (-1)\frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ -1 \end{bmatrix}\\
+    &= -\ket{-}
+    \end{align}
+    </p>
+    <p>The spectral decomposition of the $X$ gate is thus $\ket{+}\bra{+}-\ket{-}\bra{-}$, which can also be shown below</p>
+    <p>\begin{align}
+    X &= \ket{+}\bra{+}-\ket{-}\bra{-}\\
+    &= \frac{1}{2}(\ket{0}+\ket{1})(\bra{0}+\bra{1}) - \frac{1}{2}(\ket{0}-\ket{1})(\bra{0}-\bra{1})\\
+    &= \frac{1}{2}(\ket{0}\bra{0}+\ket{0}\bra{1}+\ket{1}\bra{0}+\ket{1}\bra{1})\\
+    &- \frac{1}{2}(\ket{0}\bra{0}-\ket{0}\bra{1}-\ket{1}\bra{0}+\ket{1}\bra{1})\\
+    &= \ket{0}\bra{1}+\ket{1}\bra{0}\\
+    &= \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix} 
+    \end{align}</p>
+
+    <p>Pauli $Z$ gates instead multiplies the 'phase' on the $\ket{1}$ state by one, and hence the application of the $Z$ is referred to as a 'phase flip' with the following swapping action on the $\ket{+}$ and $\ket{-}$ basis states
+    \begin{align}
+    Z\ket{+} &=  \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix} \begin{bmatrix} 1 \\ 1 \end{bmatrix} \\
+    &= \begin{bmatrix} 1 \\ -1 \end{bmatrix}\\
+    &= \ket{-}\\
+    Z\ket{-} &=  \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix} \begin{bmatrix} 1 \\ -1 \end{bmatrix} \\
+    &= \begin{bmatrix} 1 \\ 1 \end{bmatrix}\\
+    &= \ket{+}
+    \end{align}
+    </p>
+    <p>In a similar manner to the $X$ gate, the eigenvectors of the Pauli $Z$ gate are the positive and negative 'z' directions on the Bloch sphere, the computational basis states $\ket{0}$ and $\ket{1}$, leading to the spectral decomposition $Z=\ket{0}\bra{0}-\ket{1}\bra{1}$.</p>
+
+
+    <p>The Pauli Y gate can be seen as a combined 'bit flip' and 'phase flip' with the relation $Y=iXZ$ as shown below, keeping in mind that the factor of $i$ is part of the global phase that does not affect measurement statistics
+    \begin{align}
+    i XZ &= i \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}  \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix} \\
+    &= i \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \\
+    &= \begin{bmatrix} 0 & -i \\ i & 0  \end{bmatrix}
+    \end{align}
+    </p>
+    <p>Similarly to the $X$ and $Z$ gates, the $Y$ gate eigenvectors are the positive and negative 'y' directions on the Bloch sphere, or the $\ket{i}$ and $\ket{-i}$ basis states
+    \begin{align}
+    Y\ket{i} &= \frac{1}{\sqrt{2}} \begin{bmatrix} 0 & -i \\ i & 0  \end{bmatrix} \begin{bmatrix} 1 \\ i \end{bmatrix} \\
+    &= \frac{1}{\sqrt{2}} \begin{bmatrix} -i \cdot i \\ i \end{bmatrix} \\
+    &= \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ i \end{bmatrix} \\
+    &= \ket{i} \\
+    Y\ket{-i} &= \frac{1}{\sqrt{2}} \begin{bmatrix} 0 & -i \\ i & 0  \end{bmatrix} \begin{bmatrix} 1 \\ -i \end{bmatrix} \\
+    &= \frac{1}{\sqrt{2}} \begin{bmatrix} -i \cdot -i \\ i \end{bmatrix} \\
+    &= \frac{1}{\sqrt{2}} \begin{bmatrix} -1 \\ i \end{bmatrix} \\
+    &= - \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ -i \end{bmatrix} \\
+    &= -\ket{i} 
+    \end{align}
+    </p>
+    <p>Hence following a similar process to the $X$ gate, the spectral decomposition of $Y$ is $Y=\ket{i}\bra{i}-\ket{i}\bra{-i}$, which can be shown as
+    \begin{align}
+    Y &= \ket{i}\bra{i}-\ket{-i}\bra{-i}\\
+    &= \frac{1}{2}(\ket{0}+i\ket{1})(\bra{0}-i\bra{1}) - \frac{1}{2}(\ket{0}-i\ket{1})(\bra{0}+i\bra{1})\\
+    &= \frac{1}{2}(\ket{0}\bra{0} -i\ket{0}\bra{1} + i\ket{1}\bra{0} - i^{2} \ket{1}\bra{1})\\
+    &- \frac{1}{2}(\ket{0}\bra{0} +i\ket{0}\bra{1} - i\ket{1}\bra{0} - i^{2} \ket{1}\bra{1})\\
+    &= -i\ket{0}\bra{1}+i\ket{1}\bra{0}\\
+    &= \begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix} 
+    \end{align}
+    </p>
 
     <p>Key properties of the Pauli matrices are that they are Hermitian, reproduce the identity matrix when applied twice, and are unitary.<!--bookmark: Identity from square, unitary, Hermitian?--></p>
 
@@ -737,9 +822,6 @@ img {
 
 
 
-    <!--bookmark: show how Pauli matrices correspond to the directions on the Bloch sphere, both in Dirac representation and showing eigenvalue-->
-    <p>The eigenvalues of the Pauli matrices are<!--bookmark: complete--> </p>
-    <p>So, spectral decomposition<!--bookmark: complete--></p>
 
 
 
@@ -756,32 +838,18 @@ img {
 
     \end{align}</p>
     <!--bookmark: describe relation between Z, S and T-->
-
-
+    <!--bookmark: Note how the same H symbol is used for the Hadamard and Hamiltonian.-->
+    <!--bookmark: Show how the S gate works both in matrix, Bloch sphere and circuit representation--> 
+    <!--bookmark: Demonstrate the gates used to move between bases, H and S?-->
 
     <p>Three rotational matrices around the three axes are<!--bookmark: finish with visualisations (matrix, dirac, Bloch, circuit)--></p>
 
-    <!--Single Qubit Gates-->
-    <!--Pauli matrices-->
     
 
     <!--bookmark: Hadamard operation, shown on Bloch sphere.-->
-    <!--bookmark: Explain how Hamiltonians function with gates, and show circuit representaiton!-->
-    <!--bookmark: show how the corresponding measurement basis states are eigenvectors of the Pauli matrices.-->
-    <!--bookmark: Note how the same H symbol is used for the Hadamard and Hamiltonian.-->
-    <!--bookmark: Show how the S gate works both in matrix, Bloch sphere and circuit representation--> 
-
-    <!--bookmark: Gates have to be unitary, but other than that are free from constraints-->
-    <!--bookmark: Born rule-->    <!--bookmark: Demonstrate all three X, Y and Z measurement basis sets on the Bloch sphere-->    <!--bookmark: Demonstrate the gates used to move between bases, H and S?-->
-
-
+    <!--bookmark: Explain how Hamiltonians function with gates, and show circuit representation!-->
+    <!--bookmark: Born rule-->    
     <!--bookmark: General single qubit gate shown by decomposition, including general rotations. Describe how this means any operation can be carried out in a finite number of gates-->
-
-    <!--Universal gate sets are-->
-    <!--bookmark: demonstrate tensor product with matrices and different operations such I and X acting on -->
-
-    <!--bookmark: show generalised single gate, and how a controlled gate can be constructed with tensor products-->
-    <!--bookmark: Describe spectral decomposition somewhere -->
 
     <h2 id="Multi_Qubit_Gates">Multi Qubit Gates</h2>
 
@@ -795,11 +863,14 @@ img {
     <!--bookmark: Swap operation demonstrated with three CNOTs-->
     <!--bookmark: Controlled U gates, shown with matrix representation as well-->
 
+    <!--bookmark: show how a controlled gate can be constructed with tensor products-->
     <!--bookmark: Demonstrate control and target swapping with basis change brought about by Hadamard gates-->
     <!--bookmark: Show Toffoli gate-->
     <!--bookmark: Show control not gate which only acts with $\ket{0}$ input, which is shown with an open circle and can be composed of X C_{X} X-->
     <!--bookmark: control not gates with multiple targets-->
 
+    <!--Universal gate sets are-->
+    <!--bookmark: demonstrate tensor product with matrices and different operations such I and X acting on -->
 
     <h2 id="Measurement_Gates">Measurement</h2>
     <!--bookmark: describe how gates are related to measurement, is an operation needed?-->
