@@ -819,37 +819,92 @@ img {
     </p>
 
 
-
-
-
-
-
-
-
-
-
-
     <p>Three other important matrices are the Hadamard, S and T matrices <!--bookmark: complete with visualisations (matrix, dirac, Bloch, circuit)--></p>
     <p>\begin{align}
-
     H &= \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}\\ 
     S &= \begin{bmatrix} 1 & 0 \\ 0 & i  \end{bmatrix}\\ 
     T &= \begin{bmatrix} 1 & 0 \\ 0 & e^{\frac{i\pi}{4}}  \end{bmatrix}\\ 
-
     \end{align}</p>
-    <!--bookmark: describe relation between Z, S and T-->
-    <!--bookmark: Note how the same H symbol is used for the Hadamard and Hamiltonian.-->
-    <!--bookmark: Show how the S gate works both in matrix, Bloch sphere and circuit representation--> 
-    <!--bookmark: Demonstrate the gates used to move between bases, H and S?-->
 
-    <p>Three rotational matrices around the three axes are<!--bookmark: finish with visualisations (matrix, dirac, Bloch, circuit)--></p>
+    <p>The Hadamard gate $H$ unfortunately shares the same symbol with the Hamiltonian, but it should be clear by context which to use.</p>
+    <p>The Hadamard gate has the useful property of converting states between the Z ($\ket{0}$, $\ket{1}$) and X ($\ket{+}$, $\ket{-}$) basis states as shown below
+    \begin{align}
+    H\ket{0} &= \ket{+} \\
+    H\ket{1} &= \ket{-} \\
+    H\ket{+} &= \ket{0} \\
+    H\ket{-} &= \ket{1} 
+    </p>
+    <img src="Figures/Ch1_Basics_Figures/hadamard_gate_circuit_demonstration.png" alt="Quantum circuit showing Hadamard gates applied to Z and X basis states" width="412.5" height="436">
+    <p>Mathematical properties of $H$ that are useful to keep in mind is that it is Hermitian $H^{\dagger}=H$, squares to the identity $H^{2}=I$, and $H=\frac{X+Z}{2}$. 
+    I would recommend deriving the conversion between the Z and X basis states and the aforementioned properties of the Hadamard gate to build intuition.</p>
 
+
+
+    <p>The Z and S gates are related as $Z=SS$ as demonstrated
+    \begin{align}
+    SS &= \begin{bmatrix} 1 & 0 \\ 0 & i  \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & i \end{bmatrix} \\
+    &= \begin{bmatrix} 1 & 0 \\ 0 & i^{2} \end{bmatrix}
+    &= \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}
+    \end{align}
+    </p>
+
+    <p>The S and T gates are similarly related as $S=TT$, and thereby $Z=T^{4}$, due to the square root of $i=e^{i\frac{\pi}{2}}$ being $\sqrt{e^{i\frac{\pi}{2}}}=e^{i\frac{\pi}{4}}$, which can also be demonstrated in the following matrix form
+    \begin{align}
+    TT &= \begin{bmatrix} 1 & 0 \\ 0 & e^{\frac{i\pi}{4}}  \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & e^{\frac{i\pi}{4}}  \end{bmatrix} \\
+    &= \begin{bmatrix} 1 & 0 \\ 0 & e^{\frac{i\pi}{4} \cdot e^{\frac{i\pi}{4}}  \end{bmatrix}
+    &= \begin{bmatrix} 1 & 0 \\ 0 & e^{\frac{i\pi}{2} \end{bmatrix}
+    \end{align}
+    </p>
+
+    <p>The $S$ gate converts between the X ($\ket{+}$, $\ket{-}$) and Y ($\ket{i}$, $\ket{-i}$) basis state, though unlike the $H$ since it is not Hermitian the mapping between states is not two way
+    \begin{align}
+    S\ket{+} &=  \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 0 \\ 0 & i  \end{bmatrix} \begin{bmatrix} 1 \\ 1 \end{bmatrix}\\
+    &= \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ i  \end{bmatrix} \\
+    &= \ket{i} \\
+
+    S\ket{i} &=  \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 0 \\ 0 & i  \end{bmatrix} \begin{bmatrix} 1 \\ i \end{bmatrix}\\
+    &= \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ -1  \end{bmatrix} \\
+    &= \ket{-} \\
     
+    S\ket{-} &=  \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 0 \\ 0 & i  \end{bmatrix} \begin{bmatrix} 1 \\ -1 \end{bmatrix}\\
+    &= \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ -i  \end{bmatrix} \\
+    &= \ket{-i} \\
 
-    <!--bookmark: Hadamard operation, shown on Bloch sphere.-->
+
+    S\ket{-i} &=  \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 0 \\ 0 & i  \end{bmatrix} \begin{bmatrix} 1 \\ -i \end{bmatrix}\\
+    &= \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 1  \end{bmatrix} \\
+    &= \ket{+} \\
+    <!--bookmark: complete-->
+    \end{align}
+    </p>
+    <p>Such S gate rotations can also be visualised on the Bloch sphere as</p>
+    <img src="Figures/Ch1_Basics_Figures/s_gate_rotations.png" alt="Annotated Bloch Sphere demonstrating the rotational effect of the S gate around the z axis" width="400" height="400">
+    <p>So, as seen above the S, and thus the Z and T gates, rotate around the Z axis in the Bloch sphere. A similar statement can be made regarding the X and Y gates which respectively rotate qubit states around the x and y axes as shown below.</p>
+
+    <img src="Figures/Ch1_Basics_Figures/x_gate_rotations.png" alt="Annotated Bloch Sphere demonstrating the rotational effect of the X gate around the x axis" width="400" height="400">
+    <img src="Figures/Ch1_Basics_Figures/x_gate_rotations.png" alt="Annotated Bloch Sphere demonstrating the rotational effect of the Y gate around the y axis" width="400" height="400">
+
+
+
+    <p>Generalising the rotational nature of the Pauli matrices, more general rotational matrices along each axis can be posited using the following relation for the exponential of matrix $A$, which will not be explained here for brevity's sake
+    $$e^{i A x} = \cos(x) I - i\sin(x) A$$<!--bookmark: Explain ROTATIONAL MATRICES--></p>
+    <p>For the rotational gate along the x axis, $R_{X}(\theta) = e^{\frac{-i\theta X}{2}}$, this is derived as
+    \begin{align}
+    R_{X}(\theta) &= e^{\frac{-i\theta X}{2}}\\
+    &= \cos(\frac{\theta}{2}) I - i \sin(\frac{\theta}{2}) X \\
+    &= \cos(\frac{\theta}{2}) \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix} - i \sin(\frac{\theta}{2}) \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}\\
+    &= \begin{bmatrix} \cos(\frac{\theta}{2}) & - i \sin(\frac{\theta}{2}) \\ - i \sin(\frac{\theta}{2}) & \cos(\frac{\theta}{2}) \end{bmatrix}
+    \end{align}
+    </p>
+
+    <p>A similar process can be repeated for rotations along the z axis, $R_{Z}(\theta)= e^{\frac{-i\theta Z}{2}}$, and rotations along the Y axis $R_{Y}(\theta)=e^{\frac{-i\theta Y}{2}}$</p>
+    
+    <p><!--bookmark: Describe all three gates as agates--></p>
+    <p><!--bookmark: Explain the angles used in the rotational gates, including the R_Y gate, and VISUALISE ROTATIONS. Then compare with S, X and Y gate rotation images.--></p>
     <!--bookmark: Explain how Hamiltonians function with gates, and show circuit representation!-->
-    <!--bookmark: Born rule-->    
     <!--bookmark: General single qubit gate shown by decomposition, including general rotations. Describe how this means any operation can be carried out in a finite number of gates-->
+
+    <p><!--bookmark: Make a statement--></p>
 
     <h2 id="Multi_Qubit_Gates">Multi Qubit Gates</h2>
 
