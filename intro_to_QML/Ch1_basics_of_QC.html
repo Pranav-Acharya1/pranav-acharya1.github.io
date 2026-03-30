@@ -641,7 +641,7 @@ img {
 
     <p>Without going too far into the details, the sine, cosine and exponential functions in the qubit state vary with angles as shown below</p>
     <img src="Figures/Ch1_Basics_Figures/trig_exp_plots.png" alt="Trigonometric Functions which feature in the Bloch sphere" width="736" height="265">
-    <p>The sine, cosine and exponential functions all repeat with a periodicity of $2\pi$, it's just that in the case of $\sin{\frac{\theta}{2}}$ and $\cos{\frac{\theta}{2}}$ the argument is $\frac{\theta}{2}$, leading to a periodicity of $4\pi$.</p>
+    <p>The sine, cosine and exponential functions all repeat with a periodicity of $2\pi$, it's just that in the case of $\sin{\frac{\theta}{2}}$ and $\cos{\frac{\theta}{2}}$ the argument is $\frac{\theta}{2}$, leading to a periodicity of $4\pi$. Radians, which is the unit for rotational movement referred to here, can also be converted into degrees, with $2\pi$ radians being equivalent to the $360$ degrees of a circle.</p>
 
     <p>In the computational basis state $\ket{0}$, $\theta=0$ so the Bloch vector is vertically upwards along the positive 'z' axis</p>
     <img src="Figures/Ch1_Basics_Figures/bloch_sphere_computational_basis_0_state.png" alt="Bloch sphere in computational basis '0' state" width="400" height="400">
@@ -699,7 +699,7 @@ img {
     \end{align}
     </p>
     <p>Note, that for gate in matrix representation the rightmost gate ($U$ in this case) is applied <i>first</i> then the one to the left ($U^{\dagger}$ here) is applied afterwards.</p>
-    <p>Such a reversible property is also an essential requirement for quantum circuits to obey, because <i>irreversibility</i> indicates the irrecoverable loss of information, since the previous state cannot be reconstructed. The exception to this are measurements, which are placed at the end of a circuit to obtain a classical output by collapsing the circuit.</p>
+    <p>Such a reversible property is also an essential requirement for quantum circuits to obey, because the converse property of <i>irreversibility</i> indicates the irrecoverable loss of information, since the previous state cannot be reconstructed. The exception to this are measurements, which are placed at the end of a circuit to obtain a classical output by collapsing the superposition of measured qubits.</p>
 
     <p>Three archetypal gates are the Pauli gates X, Y and Z.<!--bookmark: finish with visualisations (matrix, dirac, Bloch, circuit)--> </p>
 
@@ -712,7 +712,7 @@ img {
     <!--bookmark: Demonstrate Pauli Matrices in circuit representation. Also show how they act on qubits in -->
 
 
-    <p>Their circuit representation, and their effect on the general qubit state $\alpha\ket{0} + \beta\ket{1}$is</p>
+    <p>Their circuit representation, and their effect on the general qubit state $\alpha\ket{0} + \beta\ket{1}$ is</p>
     <img src="Figures/Ch1_Basics_Figures/pauli_gate_circuit_demonstration_on_general_dirac_state.png" alt="Quantum circuit showing Pauli gates applied to a general state" class="circuit-image">
 
     <p>Pauli $X$ gates are the quantum equivalent of the 'not' gate, swapping the coefficients of the $\ket{0}$ and $\ket{1}$ states, so applying it is referred to as a 'bit flip' with the following action on the computational basis $\ket{0}$ and $\ket{1}$. 
@@ -746,7 +746,7 @@ img {
     &= \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix} 
     \end{align}</p>
 
-    <p>Pauli $Z$ gates instead multiplies the 'phase' on the $\ket{1}$ state by one, and hence the application of the $Z$ is referred to as a 'phase flip' with the following swapping action on the $\ket{+}$ and $\ket{-}$ basis states
+    <p>Pauli $Z$ gates instead multiplies the 'phase' on the $\ket{1}$ state by $-1$, and hence the application of the $Z$ is referred to as a 'phase flip' with the following swapping action on the $\ket{+}$ and $\ket{-}$ basis states
     \begin{align}
     Z\ket{+} &=  \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix} \begin{bmatrix} 1 \\ 1 \end{bmatrix} \\
     &= \begin{bmatrix} 1 \\ -1 \end{bmatrix}\\
@@ -808,13 +808,16 @@ img {
 
     <!--bookmark: complete--></p>
 
-    <p>Their unitary property of Pauli matrices naturally arises from their Hermitian nature and their 'square' being equal to the identity matrix $I$. This can be seen by rearranging $XX$ as follows
+    <p>The unitary property of Pauli matrices naturally arises from their Hermitian nature and their 'square' being equal to the identity matrix $I$. This can be seen by rearranging $XX$ as follows
     \begin{align}
     XX &= I\\
     X^{-1} X X &= X^{-1} I\\
     X &= X^{-1} 
     \end{align}
-    And by substituting in the Hermitian property of $X=X^{\dagger}$, we get the unitary relation $$X^{\dagger} = X$$
+    And by substituting in the Hermitian property of $X=X^{\dagger}$, we get the unitary relation 
+    $$X^{\dagger} = X^{-1}$$
+    Which in turn can be rearranged as
+    $$X^{\dagger}X = I$$
     Such a derivation similarly holds for the $Y$ and $Z$ Pauli matrices.
     </p>
 
@@ -833,26 +836,27 @@ img {
     H\ket{1} &= \ket{-} \\
     H\ket{+} &= \ket{0} \\
     H\ket{-} &= \ket{1} 
+    \end{align}
     </p>
     <img src="Figures/Ch1_Basics_Figures/hadamard_gate_circuit_demonstration.png" alt="Quantum circuit showing Hadamard gates applied to Z and X basis states" width="412.5" height="436">
-    <p>Mathematical properties of $H$ that are useful to keep in mind is that it is Hermitian $H^{\dagger}=H$, squares to the identity $H^{2}=I$, and $H=\frac{X+Z}{2}$. 
-    I would recommend deriving the conversion between the Z and X basis states and the aforementioned properties of the Hadamard gate to build intuition.</p>
+    <p>Mathematical properties of $H$ that are useful to keep in mind is that it is Hermitian $H^{\dagger}=H$, squares to the identity $H^{2}=I$, and that $H=\frac{X+Z}{\sqrt{2}}$.</p>
 
 
 
-    <p>The Z and S gates are related as $Z=SS$ as demonstrated
+    <p>The Z and S gates are related as $Z=SS$ as demonstrated here
     \begin{align}
     SS &= \begin{bmatrix} 1 & 0 \\ 0 & i  \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & i \end{bmatrix} \\
-    &= \begin{bmatrix} 1 & 0 \\ 0 & i^{2} \end{bmatrix}
+    &= \begin{bmatrix} 1 & 0 \\ 0 & i^{2} \end{bmatrix}\\
     &= \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}
     \end{align}
     </p>
 
-    <p>The S and T gates are similarly related as $S=TT$, and thereby $Z=T^{4}$, due to the square root of $i=e^{i\frac{\pi}{2}}$ being $\sqrt{e^{i\frac{\pi}{2}}}=e^{i\frac{\pi}{4}}$, which can also be demonstrated in the following matrix form
+    <p>The S and T gates are similarly related as $S=TT$, and thereby $Z=T^{4}$, due to the square root of $i=e^{i\frac{\pi}{2}}$ being $$\sqrt{e^{i\frac{\pi}{2}}}= (e^{i\frac{\pi}{4}})^{\frac{1}{2}}=e^{i\frac{\pi}{2} \cdot \frac{1}{2}}= e^{i\frac{\pi}{4}}$$</p>
+    <p>The relation $TT=S$ can also be demonstrated in matrix form as
     \begin{align}
     TT &= \begin{bmatrix} 1 & 0 \\ 0 & e^{\frac{i\pi}{4}}  \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & e^{\frac{i\pi}{4}}  \end{bmatrix} \\
-    &= \begin{bmatrix} 1 & 0 \\ 0 & e^{\frac{i\pi}{4} \cdot e^{\frac{i\pi}{4}}  \end{bmatrix}
-    &= \begin{bmatrix} 1 & 0 \\ 0 & e^{\frac{i\pi}{2} \end{bmatrix}
+    &= \begin{bmatrix} 1 & 0 \\ 0 & e^{\frac{i\pi}{4}} \cdot e^{\frac{i\pi}{4}}  \end{bmatrix}\\
+    &= \begin{bmatrix} 1 & 0 \\ 0 & e^{\frac{i\pi}{2}} \end{bmatrix}
     \end{align}
     </p>
 
@@ -879,10 +883,10 @@ img {
     </p>
     <p>Such S gate rotations can also be visualised on the Bloch sphere as</p>
     <img src="Figures/Ch1_Basics_Figures/s_gate_rotations.png" alt="Annotated Bloch Sphere demonstrating the rotational effect of the S gate around the z axis" width="400" height="400">
-    <p>So, as seen above the S, and thus the Z and T gates, rotate around the Z axis in the Bloch sphere. A similar statement can be made regarding the X and Y gates which respectively rotate qubit states around the x and y axes as shown below.</p>
+    <p>As seen above the S gate, and thus the Z and T gates, rotate around the Z axis in the Bloch sphere. A similar statement can be made regarding the X and Y gates which respectively rotate qubit states around the x and y axes as shown below.</p>
 
     <img src="Figures/Ch1_Basics_Figures/x_gate_rotations.png" alt="Annotated Bloch Sphere demonstrating the rotational effect of the X gate around the x axis" width="400" height="400">
-    <img src="Figures/Ch1_Basics_Figures/x_gate_rotations.png" alt="Annotated Bloch Sphere demonstrating the rotational effect of the Y gate around the y axis" width="400" height="400">
+    <img src="Figures/Ch1_Basics_Figures/y_gate_rotations.png" alt="Annotated Bloch Sphere demonstrating the rotational effect of the Y gate around the y axis" width="400" height="400">
 
 
 
@@ -892,23 +896,54 @@ img {
     \begin{align}
     R_{X}(\theta) &= e^{\frac{-i\theta X}{2}}\\
     &= \cos(\frac{\theta}{2}) I - i \sin(\frac{\theta}{2}) X \\
-    &= \cos(\frac{\theta}{2}) \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix} - i \sin(\frac{\theta}{2}) \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}\\
+    &= \cos(\frac{\theta}{2}) \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} - i \sin(\frac{\theta}{2}) \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}\\
     &= \begin{bmatrix} \cos(\frac{\theta}{2}) & - i \sin(\frac{\theta}{2}) \\ - i \sin(\frac{\theta}{2}) & \cos(\frac{\theta}{2}) \end{bmatrix}
     \end{align}
     </p>
+    <p>Such a rotation is an anti-clockwise rotation with the positive X pointing out of plane as shown in the image below for an angle of $\theta=\frac{\pi}{4}$ radians$=45$ degrees, with $R_{X}(\frac{\pi}{4})$ acting on $\ket{0}$</p>
+    <img src="Figures/Ch1_Basics_Figures/rx_pi4_rotation.png" alt="Annotated Bloch Sphere demonstrating the rotational X gate" width="400" height="400">
+    <p>This follows a convention called the 'right-hand' rule which can be visualised with a right hand with a thumb sticking out and a half-curled fist. The thumb aligns with the axis of rotation, in this case the positive x axis, and the curved fingers indicate the direction of rotation.</p>
 
-    <p>A similar process can be repeated for rotations along the z axis, $R_{Z}(\theta)= e^{\frac{-i\theta Z}{2}}$, and rotations along the Y axis $R_{Y}(\theta)=e^{\frac{-i\theta Y}{2}}$</p>
-    
-    <p><!--bookmark: Describe all three gates as agates--></p>
-    <p><!--bookmark: Explain the angles used in the rotational gates, including the R_Y gate, and VISUALISE ROTATIONS. Then compare with S, X and Y gate rotation images.--></p>
+    <p>Similarly the Z rotation gate is $R_{Z}(\theta)= e^{\frac{-i\theta Z}{2}}$, and the Y rotation gate is $R_{Y}(\theta)=e^{\frac{-i\theta Y}{2}}$.</p>
+    <p> For $R_Y$, the matrix form is derived as
+    \begin{align}
+    R_{Y}(\theta) &= e^{\frac{-i\theta Y}{2}}\\
+    &= \cos(\frac{\theta}{2}) I - i \sin(\frac{\theta}{2}) Y \\
+    &= \cos(\frac{\theta}{2}) \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} - i \sin(\frac{\theta}{2}) \begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix}\\
+    &= \begin{bmatrix} \cos(\frac{\theta}{2}) & i^{2} \sin(\frac{\theta}{2}) \\  -i^{2} \sin(\frac{\theta}{2}) & \cos(\frac{\theta}{2}) \end{bmatrix}\\
+    &= \begin{bmatrix} \cos(\frac{\theta}{2}) & -  \sin(\frac{\theta}{2}) \\  \sin(\frac{\theta}{2}) & \cos(\frac{\theta}{2}) \end{bmatrix}
+    \end{align}
+    </p>
+    <p>When $R_{Y}(\frac{\pi}{4})$ is applied to $\ket{0}$ the rotation along the Bloch sphere is</p>
+    <img src="Figures/Ch1_Basics_Figures/ry_pi4_rotation.png" alt="Annotated Bloch Sphere demonstrating the rotational Y gate" width="400" height="400">
+    <p>For $R_Z$ the matrix is
+    \begin{align}
+    R_{Z}(\theta) &= e^{\frac{-i\theta Z}{2}}\\
+    &= \cos(\frac{\theta}{2}) I - i \sin(\frac{\theta}{2}) Y \\
+    &= \cos(\frac{\theta}{2}) \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} - i \sin(\frac{\theta}{2}) \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}\\
+    &= \begin{bmatrix} \cos(\frac{\theta}{2})  -  i\sin(\frac{\theta}{2}) & 0 \\  0 & \cos(\frac{\theta}{2}) +i \sin(\frac{\theta}{2}) \end{bmatrix}
+    \end{align}
+    </p>
+    <p>Where the trigonometric relations $e^{-i\phi}=\cos(\phi)-i \sin(\phi)$ and $e^{i\phi}=\cos(\phi)+i \sin(\phi)$ can be used, along with taking a factor out of the matrix, to simplify the $R_{Z}(\theta)$ matrix as follows 
+    \begin{align}
+    R_{Z}(\theta) &= \begin{bmatrix} \cos(\frac{\theta}{2})  -  i\sin(\frac{\theta}{2}) & 0 \\  0 & \cos(\frac{\theta}{2}) +i \sin(\frac{\theta}{2}) \end{bmatrix}\\
+    &= \begin{bmatrix} e^{-i\frac{\theta}{2}} & 0 \\ 0 & e^{i\frac{\theta}{2}} \end{bmatrix}\\
+    &=  e^{-i\frac{\theta}{2}} \begin{bmatrix} 1 & 0 \\ 0 & e^{i\theta} \end{bmatrix}\\
+    &= \begin{bmatrix} 1 & 0 \\ 0 & e^{i\theta} \end{bmatrix}
+    \end{align}
+    </p>
+    <p>Where above the global phase factor has been moved out of the matrix and discarded.</p>
+    <p>$R_{Z}(\frac{\pi}{4})$ is equivalent to the $T$ gate, and can be visualised as</p>
+    <img src="Figures/Ch1_Basics_Figures/rz_pi4_rotation.png" alt="Annotated Bloch Sphere demonstrating the rotational Z gate" width="400" height="400">
     <!--bookmark: Explain how Hamiltonians function with gates, and show circuit representation!-->
     <!--bookmark: General single qubit gate shown by decomposition, including general rotations. Describe how this means any operation can be carried out in a finite number of gates-->
 
-    <p><!--bookmark: Make a statement--></p>
+    <p>With these three rotation matrices, which are themselves composed of the identity matrix and the Pauli matrices, single qubit states can rotate all around the Bloch sphere.<!--bookmark: Make a statement--></p>
 
     <h2 id="Multi_Qubit_Gates">Multi Qubit Gates</h2>
+    <p>This subsection is currently a work in progress</p>
 
-    <p>Multi-qubit gates are also unitary and thus reversible.</p>
+    <!--<p>Multi-qubit gates are also unitary and thus reversible.</p>-->
     <!--bookmark: Explain with examples and images how circuits are read from left to right, wires demonstraiting the flow of information, gates as operations, measurement operators, and classical information represented as double lines.-->
     <!--bookmark: NB: Show demonstrations of gates with circuit representations and Bloch sphere representation. This should include the Hadamard gate and controlled matrices-->
 
@@ -928,6 +963,7 @@ img {
     <!--bookmark: demonstrate tensor product with matrices and different operations such I and X acting on -->
 
     <h2 id="Measurement_Gates">Measurement</h2>
+    <p>This subsection is currently a work in progress.</p>
     <!--bookmark: describe how gates are related to measurement, is an operation needed?-->
     <!--bookmark: Demonstrate all three X, Y and Z measurement basis sets on the Bloch sphere-->
 
