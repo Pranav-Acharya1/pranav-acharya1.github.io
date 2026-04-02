@@ -715,7 +715,8 @@ img {
     <p>Their circuit representation, and their effect on the general qubit state $\alpha\ket{0} + \beta\ket{1}$ is</p>
     <img src="Figures/Ch1_Basics_Figures/pauli_gate_circuit_demonstration_on_general_dirac_state.png" alt="Quantum circuit showing Pauli gates applied to a general state" class="circuit-image">
 
-    <p>Pauli $X$ gates are the quantum equivalent of the 'not' gate, swapping the coefficients of the $\ket{0}$ and $\ket{1}$ states, so applying it is referred to as a 'bit flip' with the following action on the computational basis $\ket{0}$ and $\ket{1}$. 
+    <p>The circuit representation is read from left to right, with the rightward direction indicating the progress of time, and the lines represent qubits which can be acted on by gates, such as the Pauli gates as seen above.</p>
+    <p>Pauli $X$ gates are the quantum equivalent of the 'Not' gate, swapping the coefficients of the $\ket{0}$ and $\ket{1}$ states, so applying it is referred to as a 'bit flip' with the following action on the computational basis $\ket{0}$ and $\ket{1}$. 
     \begin{align}
     X\ket{0} &= \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} 1 \\ 0 \end{bmatrix} \\
     &= \begin{bmatrix} 0 \\ 1 \end{bmatrix}\\
@@ -940,18 +941,50 @@ img {
 
     <p>With these three rotation matrices, which are themselves composed of the identity matrix and the Pauli matrices, single qubit states can rotate all around the Bloch sphere.<!--bookmark: Make a statement--></p>
 
+    <p><!--bookmark: phase shift gate--></p>
     <h2 id="Multi_Qubit_Gates">Multi Qubit Gates</h2>
-    <p>This subsection is currently a work in progress</p>
 
-    <!--<p>Multi-qubit gates are also unitary and thus reversible.</p>-->
-    <!--bookmark: Explain with examples and images how circuits are read from left to right, wires demonstraiting the flow of information, gates as operations, measurement operators, and classical information represented as double lines.-->
-    <!--bookmark: NB: Show demonstrations of gates with circuit representations and Bloch sphere representation. This should include the Hadamard gate and controlled matrices-->
 
-    <!--bookmark: universal gate set. Parity?-->
-    <!--bookmark: Unitary property-->
-    <!--bookmark: all multiqubit gates can be composed of CNOT and single qubit gates-->
-    <!--bookmark: Swap operation demonstrated with three CNOTs-->
+    <p>To construct practical circuits, we need more than just single qubit gates; we need multi-qubit ones, such as the 'Controlled Not' or '$C_{NOT}$' gate.</p>
+
+    <p>The $C_{NOT}$ gate is a form of controlled operation, where if the value of the 'control' qubit is $\ket{1}$ then the $X$ gate (an equivalent to the classical 'NOT' gate) is applied on the 'target' qubit, thus flipping it's value. For this reason, the $C_{NOT}$ gate is also called the 'controlled X' or $C_{X}$ gate A visualisation of the CNOT gate is given below</p>
+    <img src="Figures/Ch1_Basics_Figures/cnot_gate_demonstration.png" alt="CNOT gate visualised" width=364 height=201>
+    <p>Another way of representing such a relation is $$\ket{c}\ket{t} \rightarrow \ket{c}\ket{t \oplus c}$$</p>
+    <p>Where, $\oplus$ is modulo two addition operation, which only returns '1' if exactly one of the two bits it is acting on is '1' (and the other is '0') as shown below
+    \begin{align}
+    \ket{0 \oplus 0} &= \ket{0}\\
+    \ket{0 \oplus 1} &= \ket{1}\\
+    \ket{1 \oplus 0} &= \ket{1}\\
+    \ket{1 \oplus 1} &= \ket{0}
+    \end{align}</p>
+
+    <p>It's worth noting that multi-qubit gates are also unitary and thus reversible, which can be seen in the case of the $C_{NOT}$ gate; if the CNOT gate is applied twice then it is equivalent to reverting the bit-flip of the target qubit.</p>
+    <p>In matrix form, the $C_{NOT}$ gate is
+    \begin{align}C_{NOT}=
+    \begin{bmatrix}
+    1 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 0 & 1 \\
+    0 & 0 & 1 & 0 
+    \end{bmatrix}
+    \end{align}</p>
+
+    <p>Together with the $H$, $T$ and $S$ single qubit gates the $C_{NOT}$ gate forms a 'universal gate-set' called the 'Clifford-T' group.<!--bookmark: Explain two universal gate sets--></p>
+    <p>A universal gate-set is a set of gates which can approximate, and thus reproduce, any possible quantum operation on a quantum circuit; the proof of universal gate sets being able to approximate any unitary operations is beyond the scope of this tutorial, and will have to be read as further reading (such as section 4.5 of 'Quantum Computation and Quantum Information' by Nielsen and Chuang) if you're interested.</p>
+
+    <p>An interesting trick for $C_{NOT}$ gate is flipping the control and target qubits is by applying the Hadamard gates to qubit states before and after as shown below<!--bookmark: Add hadamard before and after a CNOT gate, then explain the maths with a derivaiton--></p>
+    
+    <!--bookmark: Show how the Hadamard gate inverts the operation, and EXPLAIN WHAT THIS PROPERTY MEANS FOR QUANTUM GATES-->
+
+    <!--bookmark: Show the CNOT gate on more general states-->
+
+
+    <p>A more general controlled unitary gate is $C_U$ which is below</p>
+    <img src="Figures/Ch1_Basics_Figures/cnot_gate_demonstration.png" alt="Controlled U gate visualised" width=364 height=201>
+    <p>The $C_U$ qubit can also be represented as $$\ket{c}\ket{t} \rightarrow \ket{c} U^{c}\ket{t}$$</p>
+    <p>Where above, $U$ only acts if $c=1$, and otherwise $U^{0}=I$.</p>
     <!--bookmark: Controlled U gates, shown with matrix representation as well-->
+    <!--bookmark: Swap operation demonstrated with three CNOTs-->
 
     <!--bookmark: show how a controlled gate can be constructed with tensor products-->
     <!--bookmark: Demonstrate control and target swapping with basis change brought about by Hadamard gates-->
@@ -962,11 +995,15 @@ img {
     <!--Universal gate sets are-->
     <!--bookmark: demonstrate tensor product with matrices and different operations such I and X acting on -->
 
+
     <h2 id="Measurement_Gates">Measurement</h2>
     <p>This subsection is currently a work in progress.</p>
     <!--bookmark: describe how gates are related to measurement, is an operation needed?-->
     <!--bookmark: Demonstrate all three X, Y and Z measurement basis sets on the Bloch sphere-->
+    <!--bookmark: Principal of deferred measurement-->
+    <!--bookmark: Principal of implicit measurement-->
 
+    <!--bookmark: Explain with examples and images how circuits are read from left to right, wires demonstraiting the flow of information, gates as operations, measurement operators, and classical information represented as double lines.-->
     <h1 id="Quantum_Demonstrations">Simple Demonstrations of Quantum Effects</h1>
 
     <p>This section is currently a work in progress</p>
