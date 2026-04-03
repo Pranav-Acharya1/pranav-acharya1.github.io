@@ -100,11 +100,11 @@ img {
 	
     <p>This is the first part of a basic introduction to Quantum Machine Learning, based on the IBM Qiskit 2021 Summer School course. An accompanying Jupyter notebook with the Qiskit code used to generate the images in this chapter and instructions on how to install Qiskit is available <a href="https://github.com/Pranav-Acharya1/intro-to-quantum-machine-learning/blob/main/Ch1_Basics.ipynb">here</a>.
     <p>Note, that this chapter and the accompanying Jupyter notebook are currently a work in progress.<!--bookmark: CHANGE this when this web page is complete--></p>
-    <p>The source YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the course is freely available and worth checking out if you prefer learning in a lecture format.</p>
-    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang.</p>
+    <!--<p>The source YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the course is freely available and worth checking out if you prefer learning in a lecture format.</p>
+    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang.</p>-->
 
     <!--bookmark: Reword the following when done-->
-    <p>This chapter introduces basic concepts of quantum computing: <a href="#Quantum_Bits">quantum bits</a> or 'qubits', the <a href="#Fundamental_Postulates_of_Quantum_Mechanics">fundamental postulates of quantum mechanics</a>, and <a href="#Further_Representations_of_Qubits">further representations of quantum states</a> such as <a href="#Density_Matrices">density operators</a> and the <a href="#Bloch_Sphere">Bloch sphere</a>.</p>
+    <p>This chapter introduces basic concepts of quantum computing: <a href="#Quantum_Bits">quantum bits</a> or 'qubits', the <a href="#Fundamental_Postulates_of_Quantum_Mechanics">fundamental postulates of quantum mechanics</a>, <a href="#Further_Representations_of_Qubits">further representations of quantum states</a> (such as <a href="#Density_Matrices">density operators</a> and the <a href="#Bloch_Sphere">Bloch sphere</a>), and <a href="#Quantum_Circuits">quantum circuits</a> (which are composed of <a href="#Single_Qubit_Gates">single qubit gates</a> and <a href="#Multi_Qubit_Gates">multi-qubit gates</a>).</p>
 
     <!--bookmark: Explain how the following will be included quantum circuits, and how quantum effects such as entanglement enable action such as the teleportation of quantum states-->
     
@@ -688,7 +688,8 @@ img {
     <!--bookmark: Describe quantum circuits, and note wires as carrying information and gates as operations-->
     <p>Now that we've covered the <a href="#Fundamental_Postulates_of_Quantum_Mechanics">basics of quantum mechanics</a>, <a href="#Quantum_Bits">qubits</a>, and <a href="#Further_Representations_of_Qubits">methods of representing them</a>, we will explore how circuits can be constructed to perform computation in this section.</p>
     <p>As noted previously while describing the <a href="#Evolution">2nd postulate on the evolution of closed systems</a>, the evolution of individual qubits can be described by gates which act on qubit states. Such unitary gates, both single qubit and multi-qubit, can be used with qubits to construct quantum circuits.</p>
-    <p>This section will start out with <a href="#Single_Qubit_Gates">single qubit gates</a>, before expanding to <a href="#Multi_Qubit_Gates">multi qubit gates</a> and <a href="#Measurement_Gates">measurement operations</a>.</p>
+    <p>This section first will start out with <a href="#Single_Qubit_Gates">single qubit gates</a>, before expanding to <a href="#Multi_Qubit_Gates">multi-qubit gates</a>, providing examples and visualisations throughout.
+    <!--and <a href="#Measurement_Gates">measurement operations</a>.</p>-->
 
     <h2 id="Single_Qubit_Gates">Single Qubit Gates</h2>
     <!--bookmark: NB: use this subsection to demonstrate gates in multiple ways to reinforce stuff and learn intuition: Dirac/Matrix, Bloch sphere (with rotations shown, perhaps with two or more arrows of different colours and legend, or multiple Bloch spheres) and circuit representation-->
@@ -713,7 +714,7 @@ img {
 
 
     <p>Their circuit representation, and their effect on the general qubit state $\alpha\ket{0} + \beta\ket{1}$ is</p>
-    <img src="Figures/Ch1_Basics_Figures/pauli_gate_circuit_demonstration_on_general_dirac_state.png" alt="Quantum circuit showing Pauli gates applied to a general state" class="circuit-image">
+    <img src="Figures/Ch1_Basics_Figures/pauli_gate_circuit_demonstration_on_general_dirac_state.png" alt="Quantum circuit showing Pauli gates applied to a general state" width=400 height=174>
 
     <p>The circuit representation is read from left to right, with the rightward direction indicating the progress of time, and the lines represent qubits which can be acted on by gates, such as the Pauli gates as seen above.</p>
     <p>Pauli $X$ gates are the quantum equivalent of the 'Not' gate, swapping the coefficients of the $\ket{0}$ and $\ket{1}$ states, so applying it is referred to as a 'bit flip' with the following action on the computational basis $\ket{0}$ and $\ket{1}$. 
@@ -947,7 +948,7 @@ img {
 
     <p>To construct practical circuits, we need more than just single qubit gates; we need multi-qubit ones, such as the 'Controlled Not' or '$C_{NOT}$' gate.</p>
 
-    <p>The $C_{NOT}$ gate is a form of controlled operation, where if the value of the 'control' qubit is $\ket{1}$ then the $X$ gate (an equivalent to the classical 'NOT' gate) is applied on the 'target' qubit, thus flipping it's value. For this reason, the $C_{NOT}$ gate is also called the 'controlled X' or $C_{X}$ gate A visualisation of the CNOT gate is given below</p>
+    <p>The $C_{NOT}$ gate is a form of controlled operation, where if the value of the 'control' qubit is $\ket{1}$ then the $X$ gate (an equivalent to the classical 'NOT' gate) is applied on the 'target' qubit, thus flipping it's value. For this reason, the $C_{NOT}$ gate is also called the 'controlled X' or $C_{X}$ gate. A visualisation of the CNOT gate is given below</p>
     <img src="Figures/Ch1_Basics_Figures/cnot_gate_demonstration.png" alt="CNOT gate visualised" width=364 height=201>
     <p>Another way of representing such a relation is $$\ket{c}\ket{t} \rightarrow \ket{c}\ket{t \oplus c}$$</p>
     <p>Where, $\oplus$ is modulo two addition operation, which only returns '1' if exactly one of the two bits it is acting on is '1' (and the other is '0') as shown below
@@ -972,38 +973,128 @@ img {
     <p>Together with the $H$, $T$ and $S$ single qubit gates the $C_{NOT}$ gate forms a 'universal gate-set' called the 'Clifford-T' group.<!--bookmark: Explain two universal gate sets--></p>
     <p>A universal gate-set is a set of gates which can approximate, and thus reproduce, any possible quantum operation on a quantum circuit; the proof of universal gate sets being able to approximate any unitary operations is beyond the scope of this tutorial, and will have to be read as further reading (such as section 4.5 of 'Quantum Computation and Quantum Information' by Nielsen and Chuang) if you're interested.</p>
 
-    <p>An interesting trick for $C_{NOT}$ gate is flipping the control and target qubits is by applying the Hadamard gates to qubit states before and after as shown below<!--bookmark: Add hadamard before and after a CNOT gate, then explain the maths with a derivaiton--></p>
-    
+    <p>An interesting trick for the $C_{NOT}$ gate is flipping the control and target qubits is by applying the Hadamard gates to qubit states before and after as shown below effectively flips the control and target qubits<!--bookmark: Add hadamard before and after a CNOT gate, then explain the maths with a derivaiton--></p>
+    <img src="Figures/Ch1_Basics_Figures/cnot_with_hadamard_transform_gate_demonstration.png" alt="CNOT gate visualised with Hadamard gates applied before and afterwards" width=360 height=140>
+    <p>So this circuit is equivalent to the following $C_{NOT}$ gate with swapped target and control qubits</p>
+    <img src="Figures/Ch1_Basics_Figures/inverted_cnot_gate_demonstration.png" alt="CNOT gate visualised" width=364 height=201>
     <!--bookmark: Show how the Hadamard gate inverts the operation, and EXPLAIN WHAT THIS PROPERTY MEANS FOR QUANTUM GATES-->
 
-    <!--bookmark: Show the CNOT gate on more general states-->
+    <p>This is because applying the Hadamard shifts the qubit to the {$\ket{+}$,$\ket{-}$} basis
+    \begin{align}
+    \ket{0}\ket{0} &\rightarrow \ket{+}\ket{+} \\
+    \ket{1}\ket{0} &\rightarrow \ket{-}\ket{+} \\
+    \ket{0}\ket{1} &\rightarrow \ket{+}\ket{-} \\
+    \ket{1}\ket{1} &\rightarrow \ket{-}\ket{-}
+    \end{align}
+    </p>
+    <p>
+    Where applying the $C_{NOT}$ results in the following, where the first qubit flips between $\ket{+}$ and $\ket{-}$ if the second qubit is $\ket{-}$
+    \begin{align}
+    \ket{+}\ket{+} &\rightarrow \ket{+}\ket{+} \\
+    \ket{-}\ket{+} &\rightarrow \ket{-}\ket{+} \\
+    \ket{+}\ket{-} &\rightarrow \ket{-}\ket{-} \\
+    \ket{-}\ket{-} &\rightarrow \ket{+}\ket{-}
+    \end{align}
+    </p>
+    <p>This inverted effect of the $C_{NOT}$ can be seen with the example of $\ket{+}\ket{-}$, which can be expanded as 
+    \begin{align}
+    \ket{+}\ket{-} &= \frac{1}{2} (\ket{0}+\ket{1})(\ket{0}-\ket{1})\\
+    \ket{+}\ket{-} &= \frac{1}{2} (\ket{0}\ket{0}-\ket{0}\ket{1}+\ket{1}\ket{0}-\ket{1}\ket{1})\\
+    \end{align}
+    And then applying a $C_{NOT}$ with the first qubit $\ket{+}$ as the control qubit and the second qubit $\ket{-}$ as the target qubit leads to
+    \begin{align}
+    &= \frac{1}{2} (\ket{0}\ket{0}-\ket{0}\ket{1}+\ket{1}\ket{1}-\ket{1}\ket{0})\\
+    &= \frac{1}{2} (\ket{0}-\ket{1})(\ket{0}-\ket{1})\\
+    &= \ket{-}\ket{-}
+    \end{align}
+    </p>
+    <p>Lastly, by applying the Hadamard gates again, the qubit states convert back into the computational basis
+    \begin{align}
+    \ket{+}\ket{+} &\rightarrow \ket{0}\ket{0} \\
+    \ket{-}\ket{+} &\rightarrow \ket{1}\ket{0} \\
+    \ket{-}\ket{-} &\rightarrow \ket{1}\ket{1} \\
+    \ket{+}\ket{-} &\rightarrow \ket{0}\ket{1}
+    \end{align}
+    Which, as a comparison with the starting results indeed exhibit a bit flip in the first qubit if the second qubit is $\ket{0}$, as shown below
+    \begin{align}
+    \ket{0}\ket{0} &\rightarrow \ket{0}\ket{0} \\
+    \ket{1}\ket{0} &\rightarrow \ket{1}\ket{0} \\
+    \ket{0}\ket{1} &\rightarrow \ket{1}\ket{1} \\
+    \ket{1}\ket{1} &\rightarrow \ket{0}\ket{1}
+    \end{align}
+    </p>
 
 
     <p>A more general controlled unitary gate is $C_U$ which is below</p>
-    <img src="Figures/Ch1_Basics_Figures/cnot_gate_demonstration.png" alt="Controlled U gate visualised" width=364 height=201>
+    <img src="Figures/Ch1_Basics_Figures/control_u_gate_demonstration.png" alt="Controlled U gate visualised" width=364 height=201>
     <p>The $C_U$ qubit can also be represented as $$\ket{c}\ket{t} \rightarrow \ket{c} U^{c}\ket{t}$$</p>
     <p>Where above, $U$ only acts if $c=1$, and otherwise $U^{0}=I$.</p>
+
     <!--bookmark: Controlled U gates, shown with matrix representation as well-->
     <!--bookmark: Swap operation demonstrated with three CNOTs-->
 
-    <!--bookmark: show how a controlled gate can be constructed with tensor products-->
-    <!--bookmark: Demonstrate control and target swapping with basis change brought about by Hadamard gates-->
-    <!--bookmark: Show Toffoli gate-->
-    <!--bookmark: Show control not gate which only acts with $\ket{0}$ input, which is shown with an open circle and can be composed of X C_{X} X-->
+
+    <p>The swap gate is another multi-qubit gate which swaps two qubit states</p>
+    <img src="Figures/Ch1_Basics_Figures/swap_gate_demonstration.png" alt="Swap gate visualised" width=400 height=163>
+    <p>Which in matrix form is
+    \begin{align}
+    \begin{bmatrix}
+    1 & 0 & 0 & 0\\
+    0 & 0 & 1 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 0 & 1 
+    \end{bmatrix}
+    \end{align}
+    </p>
+    <p>The swap gate can be composed of three $C_{NOT}$ gates as seen below</p>
+    <img src="Figures/Ch1_Basics_Figures/three_cnot_swap_equivalent.png" alt="Swap gate equivalent composed of three Controlled not gate" width=400 height=127>
+    <p>This can be seen by running the following general two qubit state through the three $C_{NOT}$ gates
+    $$(\alpha\ket{0}+\beta\ket{1})\otimes(a\ket{0}+b\ket{1})$$
+    Which when expanded is
+    $$\alpha a \ket{00} + \alpha b \ket{01} + \beta a \ket{10} + \beta b \ket{11}$$
+    </p>
+    <p>After the first $C_{NOT}$ with the first qubit as the control qubit it becomes
+    $$\alpha a \ket{00} + \alpha b \ket{01} + \beta a \ket{11} + \beta b \ket{10}$$
+    </p>
+    <p>After the second $C_{NOT}$ with the second qubit as the control qubit
+    $$\alpha a \ket{00} + \alpha b \ket{11} + \beta a \ket{01} + \beta b \ket{10}$$
+    </p>
+    <p>After the third $C_{NOT}$ with the first qubit as the control qubit
+    $$\alpha a \ket{00} + \alpha b \ket{10} + \beta a \ket{01} + \beta b \ket{11}$$
+    </p>
+    <p>Which can be rearranged as
+    $$(a\ket{0}+b\ket{1})\otimes(\alpha\ket{0}+\beta\ket{1})$$
+    Where the first and second qubit states have been swapped.
+    </p>
+
+    <p>Another useful multi-qubit gate is the Toffoli gate, also known at the 'controlled-controlled-not' gate, which has two control qubits and swaps the target qubit state when both control qubits are $\ket{1}$.</p>
+    <img src="Figures/Ch1_Basics_Figures/toffoli_gate_demonstration.png" alt="Toffoli gate" width=400 height=278>
+
+
+    <p>Another useful trick is that by applying bit-flips, through $X$ gates before and after a control qubit, you can cause controlled unitary gates to instead act if the control qubit is $\ket{0}$, as shown in the two equivalent circuits below</p>
+
+    <img src="Figures/Ch1_Basics_Figures/zero_control_state_cnot_gate_demonstration.png" alt="Controlled-not gate which performs a bit flip when the control qubit is 0" width=400 height=221>
+    <img src="Figures/Ch1_Basics_Figures/x_gates_and_cnot_zero_control_state_cnot_equivalent.png" alt="Controlled-not gate which performs a bit flip when the control qubit is 0, constructed by applying two X gates on either side of the control qubit of a controlled-not gate" width=400 height=155>
     <!--bookmark: control not gates with multiple targets-->
 
-    <!--Universal gate sets are-->
-    <!--bookmark: demonstrate tensor product with matrices and different operations such I and X acting on -->
+    <p>As can be seen above, if the condition for the controlled unitary gate to act is $\ket{0}$, then the 'circle' on the control qubit is empty, while if the condition is instead the standard $\ket{1}$ the circle is filled.</p>
 
 
-    <h2 id="Measurement_Gates">Measurement</h2>
-    <p>This subsection is currently a work in progress.</p>
+
+
+    <!--<h2 id="Measurement_Gates">Measurement</h2>-->
+    <!--<p>This subsection is currently a work in progress.</p>-->
     <!--bookmark: describe how gates are related to measurement, is an operation needed?-->
     <!--bookmark: Demonstrate all three X, Y and Z measurement basis sets on the Bloch sphere-->
     <!--bookmark: Principal of deferred measurement-->
     <!--bookmark: Principal of implicit measurement-->
 
     <!--bookmark: Explain with examples and images how circuits are read from left to right, wires demonstraiting the flow of information, gates as operations, measurement operators, and classical information represented as double lines.-->
+
+
+    <p>Now that the basics of quantum circuits have been covered, and some examples given, the foundations to understand quantum circuits have been laid.</p>
+    <p>The next section will look at simple quantum circuits demonstrating quantum effects.</p>
+
     <h1 id="Quantum_Demonstrations">Simple Demonstrations of Quantum Effects</h1>
 
     <p>This section is currently a work in progress</p>
@@ -1023,8 +1114,8 @@ img {
 
     <h1 id="Further_Comprehension">Further Comprehension</h1>
     <p>To internalise the concepts here, it helps to write out derivations with pen-and-paper.</p>
-    <p>The source YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the course is freely available and definitely worth checking out if you prefer learning in a lecture format. Specifically, I based this chapter on lectures 1.1 and 1.2.</p>
-    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not freely available, it is worth going through this or another textbook (or a similar resource) and solve questions with pen-and-paper to build a more rigorous understanding after reviewing this course. In the case of 'Quantum Computation and Quantum Information', I would recommend going through chapter 1, which an overview of quantum computing, and chapter 2 which introduces the maths of quantum mechanics. For further reading on top of this, chapter 4 which introduces quantum circuits with qubits is worth going through, especially with the exercises which will help build intuition for the circuit model.</p>
+    <p>The source YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the course is freely available, along with <a href="https://github.com/Qiskit/platypus/tree/main/notebooks/summer-school/2021">lecture notes</a>, and definitely worth checking out if you prefer learning in a lecture format. Specifically, I based this chapter on lectures 1.1 and 1.2.</p>
+    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not freely available, it is worth going through this or another textbook (or a similar resource) and solve questions with pen-and-paper to build a more rigorous understanding after reviewing this course. In the case of 'Quantum Computation and Quantum Information', I would recommend going through chapter 1, which an overview of quantum computing, and chapter 2 which introduces the maths of quantum mechanics. For further reading on top of this, chapter 4 which introduces quantum circuits with qubits is worth going through, especially with the exercises which will help build intuition for quantum circuits.</p>
     <!--bookmark: Perhaps recommend resources for quantum circuits and 'simple demonstration of Quantum effects' sections.-->
     <!--bookmark: recommend resources. Check them out. -->
 
