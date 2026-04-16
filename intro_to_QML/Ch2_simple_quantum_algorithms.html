@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href='https://fonts.googleapis.com/css?family=STIX Two Text' rel='stylesheet'>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"/>
+<style>
+body {
+    font-family: 'STIX Two Text';font-size: 22px;
+}
+img {
+  display: block;
+  margin: auto;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.other-navbar {
+    display: flex; /* KEY CHANGE: Use Flexbox for layout */
+    width: 100%; /* Ensure it spans the full width of the container */
+    overflow: hidden;
+    background-color: #333 !important; /* Dark grey background */
+    padding: 0; 
+}
+
+/* Style the links in the new 'other' navbar */
+.other-navbar a {
+    /* Removed float: left; as Flexbox handles alignment */
+    display: block;
+    color: white; 
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    background-color: #333 !important; 
+}
+
+/* Active state for the currently selected page (Home) */
+.other-navbar a.active-page {
+    /* Slightly lighter background to show selection, simulating a 'pressed' look */
+    background-color: #555 !important; 
+    cursor: default; /* Indicates it's not a link to another page */
+}
+
+/* Change the background color on hover, only for non-active links */
+.other-navbar a:hover:not(.active-page) {
+    background-color: #666 !important; /* Lighter grey on hover */
+    color: white;
+}/* ------------------------------------------- */
+
+.circuit-image {
+    max-width: 800px; /* Caps the width on desktop */
+    width: 100%;      /* Still allows it to shrink on mobile */
+    height: auto;     /* Prevents squashing */
+    display: block;
+    margin: 20px auto;
+}
+
+</style>
+<title>Chapter 1 of Introduction to Quantum Machine Learning: Basics of Quantum Computing</title>
+
+<script>
+    window.MathJax = {
+        tex: {
+            // Enable $...$ for inline math alongside the default \(...\)
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            // Append the braket package to the standard packages
+            packages: {'[+]': ['braket']}             
+        },
+        loader: {
+            // Tell MathJax to fetch the braket extension from the CDN
+            load: ['[tex]/braket']
+        }
+    };
+</script>
+
+<script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js">
+</script>
+
+</head>
+
+<div class="other-navbar">
+	<a href="../index.html">Home</a>
+	<a href="../research.html">Research</a>
+	<a href="../blog.html">Blog</a>
+	<a href="../Pranav-Acharya-CV.pdf" download>CV</a>
+	<a href="../tutorials_index.html" class="active-page">Tutorials</a>
+	<a href="https://github.com/Pranav-Acharya1/MOOC-Certificates">Certificates</a> <!--Improve-->
+</div>
+
+
+
+<!-- This element uses the clearfix class to stop the H1 from wrapping around the floating navbar -->
+<div class="clearfix"></div>
+
+<body>
+	<!--bookmark: review this and make sure that it is coherent and understandable to those without a strong background. NB: perhaps link to concepts for further understanding, such as maths. Note the required background needed, perhaps say this might be helpful to read this first then go to further reading.-->
+<h1 id="Chapter_Title">Chapter 2: Quantum Algorithms</h1>
+
+<p>This section goes over the basics of Quantum Algorithms, starting with <a href="#quantum_demonstration">simple demonstrations of quantum effects</a>.<!--bookmark: Rewrite and link to sections when completed. Remove the work in progressi section--></p>
+<p>This chapter is currently a work in progress.<!--bookmark: remove when completed--></p>
+
+<h1 id="quantum_demonstration">Simple Demonstrations of Quantum effects</h1>
+<p>This section will go through demonstrations of quantum effects in quantum circuits. While these are toy examples, rather than practically useful circuits, it's worth going through them to develop a foundational grasp of quantum algorithms.<!--bookmark: Rewrite this sentence after drafting this section and the rest. Link to the other sections and subsections as appropriate-->.</p>
+    <!--bookmark: Cover the following:-->
+
+    <h2 id="quantum_teleportation">Quantum Teleportation</h2>
+
+
+    <!--<p>The Qiskit implementation here and in the following <a href="#super_dense_encoding">subsection</a> is taken from the following <a href="https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/entanglement-in-action/qiskit-implementation">Qiskit learning material</a>.</p>-->
+
+    <!--bookmark: Quantum Teleportation-->
+    <h2 id="superdense_coding">Superdense Coding</h2>
+
+
+    <!--bookmark: Deutsch's Algorithm-->
+    <h2 id="deutsch_algorithm">Deutsch's Algorithm</a>
+
+
+    <h2 id="deutsch_jozsa_algorithm">Deutsch-Jozsa Algorithm</a>
+    <!--bookmark: Mention Walsh-Hadamard state preparation, as it is used in the Deutsch-Jozsa algorithm and more generally to set up superpositions for other algorithms-->
+    <!--bookmark: Deutsch-Jozsa Algorithm-->
+
+    <!--<p>The Qiskit implementation here and in the preceding <a href="#quantum_teleportation">subsection</a> is taken from the following <a href="https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/entanglement-in-action/qiskit-implementation">Qiskit learning material</a>.</p>-->
+
+
+    <h1 id="Fourier_Transforms">Quantum Fourier Transform</h1><!--bookmark: NB: DERIVE all MATHs on pen and paper (solving questions) first, then come up with simplified explanations to put here.--> 
+
+    <p>This section is currently a work in progress.<!--bookmark: Remove when completed--></p>
+<!--bookmark: Explain Fourier Transform in quantum algorithms. Show a 3 qubit example with T and S and swap gates. Also further Fourier stuff, such as inverse Fourier circuit, decomposition of controlled $R_k$ gates into rotations and $C_{NOT}$ gates.-->
+    <!--bookmark: Basics of order finding and factoring as it relates to cracking RSA. Also perhaps LEARN ABOUT and briefly note post-quantum cryptography.-->
+    <!--bookmark: Briefly not general application of Quantum Fourier Transform-->
+    <h1 id="Grover_Algorithm">Grover's Quantum Search Algorithm</h1>
+    <p>This section is currently a work in progress.<!--bookmark: Remove when completed--></p>
+    <!--bookmark: Grover's Algorithm-->
+    <!--bookmark: Quantum simulation and quantum search as quantum simulation-->
+    <!--bookmark: Quantum Counting-->
+    
+
+    <!--<h1 id="Current_State_of_Things"></h1>-->
+
+    <p><!--bookmark: Explain the current state of quantum algoriths, dating this statement, and how things are going. Refer to other resources to support points made, and MAKE SURE they are defensible. Similarly, do not hold overly strong positions, and qualify as needed.--></p>
+<h1 id="Further_Comprehension">Further Comprehension</h1>
+    <p>To internalise the concepts presented here, it helps to write out derivations with pen-and-paper.</p>
+    <p>The source YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the course is freely available, along with <a href="https://github.com/Qiskit/platypus/tree/main/notebooks/summer-school/2021">lecture notes</a>, and definitely worth checking out if you prefer learning in a lecture format. Specifically, I based this chapter on lectures 2.1 and 2.2.</p>
+    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not freely available, it is worth going through this or another textbook (or a similar resource) and solve questions with pen-and-paper to build a more rigorous understanding after going through this tutorial. In the case of 'Quantum Computation and Quantum Information', I would recommend going through chapters 1, 5 and 6<!--bookmark: explain what is in these two chapters, and explain how they relate to this tutorial-->.
+    
+
+    <!--bookmark:    chapter 1, which an overview of quantum computing, and chapter 2 which introduces the maths of quantum mechanics. For further reading on top of this, chapter 4 which introduces quantum circuits with qubits is worth going through, especially with the exercises which will help build intuition for quantum circuits.-->
+	    </p>
+    <!--bookmark: Perhaps recommend resources for quantum circuits and 'simple demonstration of Quantum effects' sections.-->
+    <!--bookmark: recommend resources. Check them out. -->
+</body>
+</html>
