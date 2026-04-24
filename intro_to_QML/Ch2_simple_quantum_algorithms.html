@@ -96,33 +96,302 @@ img {
 
 <body>
 	<!--bookmark: review this and make sure that it is coherent and understandable to those without a strong background. NB: perhaps link to concepts for further understanding, such as maths. Note the required background needed, perhaps say this might be helpful to read this first then go to further reading.-->
+	<!--bookmark: Sort image stretching issue!!! Check on the phone as well -->
 <h1 id="Chapter_Title">Chapter 2: Quantum Algorithms</h1>
 
 <p>This section goes over the basics of Quantum Algorithms, starting with <a href="#quantum_demonstration">simple demonstrations of quantum effects</a>.<!--bookmark: Rewrite and link to sections when completed. Remove the work in progressi section--></p>
-<p>This chapter is currently a work in progress.<!--bookmark: remove when completed--></p>
+<p>An accompanying Jupyter notebook with the Qiskit code used to generate the images in this chapter is available <a href="https://github.com/Pranav-Acharya1/intro-to-quantum-machine-learning/blob/main/Ch2_Quantum_Algorithms.ipynb">here</a><!--bookmark: -->.<p>
+<p>This chapter and the accompanying Jupyter notebook are currently a work in progress.<!--bookmark: CHANGE this when this web page is complete--></p>
+
 
 <h1 id="quantum_demonstration">Simple Demonstrations of Quantum effects</h1>
-<p>This section will go through demonstrations of quantum effects in quantum circuits. While these are toy examples, rather than practically useful circuits, it's worth going through them to develop a foundational grasp of quantum algorithms.<!--bookmark: Rewrite this sentence after drafting this section and the rest. Link to the other sections and subsections as appropriate-->.</p>
-    <!--bookmark: Cover the following:-->
+<p>This section will go through demonstrations of quantum effects in quantum circuits. While these are of limited practical use, they are worth going through to develop a foundational grasp of quantum algorithms.</p>
+
+<p>The first and second subsection cover the <a href=#quantum_teleportation">Quantum Teleportation</a> and <a href="#superdense_coding">Superdense Coding</a> quantum communication protocols which both make use of Bell states of entangled qubits in different ways. The last subsection describes the <a href="#deutsch_jozsa_algorithm">Deutsch-Jozsa algorithm</a> which leverages the nature of quantum systems to form superpositions of states.</p>
 
     <h2 id="quantum_teleportation">Quantum Teleportation</h2>
 
+    <p>Quantum Teleportation is a protocol for sharing quantum information over a distance by using the quantum property of entanglement.</p>
+    <p>If two parties, Alice and Bob, share a pair of entangled qubits they can use this to 'teleport' the state of another qubit from one party to the other, as shown in the sketch below.</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/quantum_teleportation_sketch.png" alt="Sketch demonstrating Quantum Teleportation" width=1000 height=241>
+    
+    <p>To summarise what's occurring in the quantum teleportation protocol:</p> 
+    <ol>
+	    <li>A pair of qubits $A$ and $B$ are prepared in the Bell state $\beta_{00}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$ and shared among two parties, referred to as 'Alice' and 'Bob'.</li>
+	    <li>Alice interacts a qubit $Q$, in the state $\alpha\ket{0}+\beta\ket{1}$,  with her qubit $A$. This is done by performing a controlled-not operation on $A$ by using qubit $Q$ as the control qubit, followed by performing the Hadamard gate on qubit $Q$.</li>
+	    <li>Alice measures her two qubits, then sends the results to Bob.</li>
+	    <li>Depending on the result of the measurement, Bob performs an X and/or Z gate on his qubit $B$, which modifies its state to recover qubit state $\alpha\ket{0}+\beta\ket{1}$. Specifically, if Alice measures $A$ as $\ket{1}$ then the $X$ gate is applied on qubit $B$, and if Alice measures $Q$ as $\ket{1}$ then the $Z$ gate is applied on qubit $B$.</li> 
+    </ol>
 
-    <!--<p>The Qiskit implementation here and in the following <a href="#super_dense_encoding">subsection</a> is taken from the following <a href="https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/entanglement-in-action/qiskit-implementation">Qiskit learning material</a>.</p>-->
+    <p>To get a better grasp of how the Quantum Teleportation protocol functions, it is worth looking at the annotated Qiskit circuit below and go through the states at different points along the circuit.</p>
+
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/quantum_teleportation_annotated_circuit.png" alt="Annotated Quantum Teleportation Qiskit circuit" width=1000 height=328>
+
+
+    <p>At the beginning of the circuit, before the Bell state has been initialised, the qubit can be represented by the composite state $\ket{\psi_0}$
+    $$\psi_0=(\alpha\ket{0}+\beta\ket{1})\otimes\ket{0}\otimes\ket{0}$$</p>
+    <p>Bell state then is generated on $A\otimes B=\ket{00}$.</p>
+    <p>First, the Hadamard gate is applied on qubit $A$
+    $$\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})(\ket{0})$$
+    Which can be reformulated for ease of calculation as
+    $$\frac{1}{\sqrt{2}}(\ket{00}+\ket{10})$$</p>
+    <p>Then, a $C_{NOT}$ gate is applied to qubit $B$ using qubit $A$ as the control qubit, resulting in qubits $A$ and $B$ forming the following Bell state 
+    $$\beta_{00}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$$</p>
+
+
+    <p>This results in the following prepared state for the Quantum Teleportation protocol
+    $$\psi_1 = \frac{1}{\sqrt{2}}(\alpha\ket{0}+\beta\ket{1})(\ket{00}+\ket{11})$$
+    Which can be expanded as
+    $$\psi_1 = \frac{1}{\sqrt{2}}(\alpha\ket{000} + \alpha\ket{011} + \beta\ket{100} + \beta\ket{111})$$
+    </p>
+
+
+    <p>As the first part of the protocol, Alice applies the $C_{NOT}$ gate on the second qubit $A$, using the first qubit $Q$ as the control qubit.
+    $$\frac{1}{\sqrt{2}}(\alpha\ket{000} + \alpha\ket{011} + \beta\ket{110} + \beta\ket{101})$$
+    Which again can be rearranged as
+    $$\frac{1}{\sqrt{2}}(\alpha\ket{0}(\ket{00} + \ket{11}) + \beta\ket{1}(\ket{10} + \ket{01}))$$</p>
+    <p>Then the $H$ gate is applied on the first qubit leading to $\ket{\psi_2}$
+    $$\ket{\psi_2} = \frac{1}{2}\alpha(\ket{0}+\ket{1})(\ket{00} + \ket{11}) + \beta(\ket{0}-\ket{1})(\ket{10} + \ket{01}))$$</p>
+
+    <p>$\ket{\psi_2}$ can be rearranged by grouping together the first and second qubits $Q$ and $A$, both of which Alice possesses.</p>
+    \begin{align}
+    \ket{\psi_2} = \frac{1}{2}(&\ket{00}(\alpha\ket{0} + \beta\ket{1})\\
+    + &\ket{01}(\alpha\ket{1} + \beta\ket{0})\\
+    + &\ket{10}(\alpha\ket{0} - \beta\ket{1})\\
+    + &\ket{11}(\alpha\ket{1} - \beta\ket{0}))
+    \end{align}
+
+    <p>The first two qubits are measured by Alice, also breaking this Bell pair, and this classical data is shared with Bob, as noted by the measurement gates connected to the classical channels $a$ and $b$. This results in the composite qubit state $\psi_3$ being one of the four following states, each with a probability $(\frac{1}{2})^{2}=\frac{1}{4}$</p>
+    \begin{align}
+    &\ket{00}(\alpha\ket{0} + \beta\ket{1})\\ 
+    &\ket{01}(\alpha\ket{1} + \beta\ket{0})\\
+    &\ket{10}(\alpha\ket{0} - \beta\ket{1})\\
+    &\ket{11}(\alpha\ket{1} - \beta\ket{0})
+    \end{align}
+
+
+    <p>An interesting thing can be seen from these states; the third qubit $B$ can be changed to the initial state $\alpha\ket{0} + \beta\ket{1}$ through the conditional application of $X$ and $Z$ gates. By applying a phase-flip on the third qubit $B$ via the $Z$ gate if the first qubit $Q$ is measured as $\ket{1}$, and a bit-flip on $B$ via the $X$ gate if the second qubit $A$ is measured as $\ket{1}$, we can recover $\alpha\ket{0} + \beta\ket{1}$ on qubit $B$. With this, we have achieved a teleportation of states from Alice to Bob.</p>
+    <p>Now of course, since this uses a classical channel to share information between Alice and Bob, the speed of transfer is limited by the speed of this classical communication, with an upper limit of the speed of light.</p>
+
+    <!--bookmark: No cloning theorem-->
+    <!--bookmark: Can it be reset?-->
+
 
     <!--bookmark: Quantum Teleportation-->
     <h2 id="superdense_coding">Superdense Coding</h2>
 
 
+    <p>Another quantum communication protocol which makes use of Bell states is Superdense Coding.</p>
+
+    <p>Superdense Coding involves two parties, Alice and Bob, initially sharing one qubit each of the Bell state $\beta_{00}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$. To encode two bits of classical information Alice performs two gate operations on her qubit, before sending her qubit to Bob, who after simple gate operation can measure the two bit Alice encoded. This protocol is called 'Superdense' because while only one qubit is sent, two bits of information are transferred from Alice to Bob, contrary to what we would expect classically. It is visualised in the diagram below.</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/superdense_coding_sketch.png" alt="Visualisation of Superdense Encoding protocol" width=1000 height=372 >
+
+    <p>To briefly explain what happens in Superdense Coding:</p>
+    <ol>
+	    <li>A pair of qubits $A$ and $B$ are prepared in the Bell state $\beta_{00}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$ and shared among two parties, referred to as 'Alice' and 'Bob'.</li>
+	    <li>Alice encodes information on $A$ by applying $X$ and $Z$ gate conditionally based on the classical information she wishes to send. If she wishes to encode $1$ for her first classical bit $a$ she applies an $X$ gate (and does not apply it if she wishes to encode $0$), and similarly if she wishes to encode $1$ for her second classical bit $b$ she applies an $Z$ gate (and does not apply it is she wishes to encode $0$).</li>
+	    <li>Alice sends her qubit $A$ to Bob.</li>
+	    <li>Bob transforms the qubits $A$ and $B$ by applying a $C_{NOT}$ gate and $H$ gate; first he applies a $C_{NOT}$ gate with $A$ as the target qubit and $B$ as the control qubit, then he applies $H$ on the second qubit $B$.</li>
+	    <li>Bob measures qubits $A$ and $B$ in the computational basis to recover classical bits $a$ and $b$ respectively.</li>
+    </ol>
+
+    <p>To get a better grasp of how the Superdense Coding protocol functions, it is worth looking at the annotated Qiskit circuit below and understand the evolution of the Bell state.</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/superdense_coding_annotated_circuit.png" alt="Circuit diagram of Superdense Encoding protocol" width=1000 height=422 >
+
+    <p>Similarly to the <a href="#quantum_teleportation">Quantum Teleportation protocol</a>, a Bell state $\beta_{00}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$ is prepared beforehand with a $H$ gate applied on Alice's qubit $A$, followed by a $C_{NOT}$ gate applied on Bob's qubit $B$ with $A$ as the control qubit.</p>
+
+    <p>The conditional application of $X$ and $Z$ gates changes the Bell state $\beta_{00}$ to other Bell states.</p>
+    <p>If Alice decides to encode classical bits $a=0$ and $b=0$, then she needn't do anything, and we are left with
+    $$\beta_{00}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$$</p>
+    <p>If she instead encodes $a=1$ and $b=0$, then the $X$ gate is applies on $A$ to cause a bit-flip, leading to the $\beta_{10}$ state
+    $$\beta_{10}=\frac{1}{\sqrt{2}}(\ket{10}+\ket{01})$$</p>
+    <p>If Alice encodes $a=0$ and $b=1$, then the $Z$ gate is applies on $A$ to cause a phase-flip, leading to the $\beta_{01}$ state
+    $$\beta_{01}=\frac{1}{\sqrt{2}}(\ket{00}-\ket{11})$$</p>
+    <p>Finally if $a=1$ and $b=1$ is encoded then both $X$ and $Z$ gates are applied on qubit $A$, leading to the $\beta_{11}$ state
+    $$\beta_{11}=\frac{1}{\sqrt{2}}(\ket{01}-\ket{10})$$</p>
+
+
+
+    <p>After this, Alice sends qubit $A$ to Bob, who now has full access to both qubits in the Bell state. Since the Bell states form an orthonormal basis, Bob can distinguish each state. To measure in the computational basis though, he first has to transform them with unitary gates: a $C_{NOT}$ applied on the first qubit $A$ with the second qubit $B$ as the control qubit, followed by a Hadamard gate applied on $B$.</p>
+
+    <p>For $\beta_{00}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$ the $C_{NOT}$ leads to
+    $$\frac{1}{\sqrt{2}}(\ket{00}+\ket{01})=\ket{0}\otimes\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})=\ket{0}\ket{+}$$
+    Which with a Hadamard gate applied to $B$ leads to
+    $$\ket{0}\ket{0}$$
+    Which can be be measured in the computational basis to return $a=0$ and $b=0$ for $A$ and $B$ respectively.</p>
+
+
+    <p>For $\beta_{10}=\frac{1}{\sqrt{2}}(\ket{10}+\ket{01})$ the $C_{NOT}$ applied to $A$ leads to
+    $$\frac{1}{\sqrt{2}}(\ket{10}+\ket{11})=\ket{1}\otimes\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})=\ket{1}\ket{+}$$
+    Which with $H$ applied to $B$ leads to
+    $$\ket{1}\ket{0}$$
+    Which upon measurement leads to $a=1$ and $b=0$.</p>
+
+
+    <p>For $\beta_{01}=\frac{1}{\sqrt{2}}(\ket{00}-\ket{11})$ the $C_{NOT}$ applied to $A$ results in 
+    $$\frac{1}{\sqrt{2}}(\ket{00}-\ket{01})=\ket{0}\otimes\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})=\ket{0}\ket{-}$$
+    Which with $H$ applied to $B$ leads to
+    $$\ket{0}\ket{1}$$
+    Which upon measurement leads to $a=0$ and $b=1$.
+    </p>
+
+
+    <p>Finally for $\beta_{11}=\frac{1}{\sqrt{2}}(\ket{01}-\ket{10})$ the $C_{NOT}$ applied to $A$ results in 
+    $$\frac{1}{\sqrt{2}}(\ket{11}-\ket{10})=-\ket{1}\otimes{\sqrt{2}}(\ket{0}-\ket{1})=-\ket{1}\ket{-}$$
+    Which with $H$ applied to $B$ leads to
+    $$-\ket{1}\ket{1}$$
+    Which upon measurement leads to $a=1$ and $b=1$.
+    </p>
+
+
+    <!--bookmark: Explain what it means for interceptor Eve-->
     <!--bookmark: Deutsch's Algorithm-->
-    <h2 id="deutsch_algorithm">Deutsch's Algorithm</a>
+    <h2 id="deutsch_jozsa_algorithm">Deutsch-Jozsa Algorithm</h2>
+    <!--bookmark: Polish this subsection!-->
+
+    <p>To conclude this section on simple demonstrations of quantum effects, we'll cover the Deutsch-Jozsa algorithm. The Deutsch-Jozsa algorithm demonstrates the advantage quantum circuits to place qubits to be in a superposition of states, which can be operated on in parallel and also interfere with each other.</p>
+
+    <p>Though first, we'll build up to the algorithm from circuits to develop an understanding of it. The algorithm deals with a unitary 'black boxes' operation acting on multiple qubits. Such a black box is also known as an 'oracle' and can be formulated as seen in the sketch below.</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/two_qubit_oracle_sketch.png" alt="Diagram of two qubit black box" width=1000 height=500>
+    <p>The unitary black box $U_f$ acts on the target qubit $\ket{y}$, with a function dependent on the data qubit $\ket{x}$.</p>
+    <p>Note, that the $\oplus$ is modulo two addition operation, which only returns '1' if exactly one of the two bits it is acting on is '1' (and the other is '0'). This also means that the following property holds regardless of whether $k$ is $0$ or $1$
+    $$0 \oplus k = k$$</p>
+    <p>In the case of the initial state $\ket{x}=\ket{+}$ and $\ket{y}=\ket{0}$ the resulting state is</p>
+    \begin{align}
+    \ket{x}\ket{y\oplus f(x)} &= \frac{1}{\sqrt{2}}(\ket{0}\ket{0 \oplus f(0)} + \ket{1}\ket{0\oplus f(1)})\\ 
+    &= \frac{1}{\sqrt{2}}(\ket{0}\ket{f(0)} + \ket{1}\ket{f(1)})
+    \end{align}
+    <p>
+    Such a state simultaneously holds information on the results $f(0)$ and $f(1)$, as if $f(x)$ was evaluated for two possible values in parallel. Such a feature is known as quantum parallelism.</p>
+
+    <p>Though there is a caveat to keep in mind here: upon measurement this superposition collapses, into $\ket{0}\ket{f(0)}$ or $\ket{0}\ket{f(1)}$.<!--bookmark: Explain how this caveat is overcome as: So the true advantage of this...--></p>
+
+    <p>The Hadamard gate is crucial for setting up state in a superposition to exploit quantum parallelism, and a general operation on multiple qubits is is known as the Hadamard Transform (or Walsh-Hadamard Transform). The Hadamard transform involves simply applying a $H$ gate on each qubit to place them in a superposition as seen below with three qubits initially in a $\ket{0}$ state</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/three_qubit_hadamard_transform.png" alt="Quantum circuit demonstration of the Hadamard Transform performed on three qubits a, b and c initially in the 0, 1 and 1 states respectively. This is done by applying a Hadamard gate to each qubit." width=400 height=454>
+    <p>The resulting state is</p>
+    \begin{align}
+    H\ket{0}\otimes H\ket{1} \otimes H\ket{0} &= \frac{1}{\sqrt{2^{3}}}(\ket{0}+\ket{1}) (\ket{0}-\ket{1}) (\ket{0}+\ket{1})\\
+    &= \frac{1}{\sqrt{2^{3}}}(\ket{000} + \ket{001} - \ket{010} - \ket{011} \\
+    & + \ket{100} + \ket{101} - \ket{110} - \ket{111})
+    \end{align}
 
 
-    <h2 id="deutsch_jozsa_algorithm">Deutsch-Jozsa Algorithm</a>
-    <!--bookmark: Mention Walsh-Hadamard state preparation, as it is used in the Deutsch-Jozsa algorithm and more generally to set up superpositions for other algorithms-->
+    <p>Generalising this for $n$ qubits, we can represent the operation as $H^{\otimes n}$ acting on a state $\ket{x_1, x_2, ... x_n}$ resulting in a superposition of states $\ket{z_1, z_2, ... z_n}$. Such a superposition can be represented by the following sum
+    $$H^{\otimes n} \ket{x_1, ... x_n} = \frac{1}{\sqrt{2^n}} \sum_{z}  (-1)^{x_1 z_1 + ... + x_n z_n} \ket{z_1, ... z_n}$$
+    Which can be represented more succinctly by dropping the subscripts and using a dot product between wavevector state values $x \cdot z$
+    $$H^{\otimes n} \ket{x} = \frac{1}{\sqrt{2^n}} \sum_{z}  (-1)^{x \cdot z} \ket{z}$$
+    </p>
+    <p>The coefficient of $(-1)^{x \cdot z}$ in the sum above can be explained by the following: when $z_i=0$ then the coefficient is $+1$ such as $\ket{0}$ within $\ket{+}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$ and $\ket{-}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})$ (for $n=1$), negative factors only appear when $x_i=1$ such as $\frac{-\ket{1}}{\sqrt{2}}$ within $H\ket{1}=\ket{-}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})$, and the coefficient is only negative when the dot product $x \cdot z$ is odd since an even number of $-1$ factors cancel out to $+1$.</p>
+
+
+
+    <p>Now, let's move onto the Deutsch Algorithm which builds upon quantum parallelism by including interference between superpositions. The Deutsch Algorithm in particular determines whether an unknown function $f(x)$ with possible inputs $x={0,1}$, and two possible outputs of $0$ and $1$, is <i>constant</i> or <i>balanced</i>. If a function is constant, then this results in the same output for all inputs, so in this case $f(0)=f(1)$. Otherwise if a function is balanced, then there is an equal likelihood of all outputs, which in this case with two possible inputs leads to $f(0)\neq f(1)$.</p>
+    <p>
+    The advantage of the Deutsch algorithm is that we only have to evaluate $f(x)$ once, as opposed to twice for each possible input $x={0,1}$ to determine this global property of this function, as shown in the circuit diagram shown below.</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/deutsch_algorithm_sketch.png" alt="Annotated diagram of Deutsch's Algorithm" width=1000 height=330>
+
+    <p>The input state is
+    $$\ket{\psi_0} = \ket{01}$$
+    Upon applying the two Hadamard gates it becomes
+    $$\ket{\psi_1} = \frac{\ket{0}+\ket{1}}{\sqrt{2}} \frac{\ket{0}-\ket{1}}{\sqrt{2}}$$ </p>
+
+    <p>The unitary gate $U_f$ then changes the target qubit $\ket{y}$ into $\ket{y\oplus f(x)}$, applying a function $f(x)$ dependent on the data qubit state $\ket{x}$.
+    $$\ket{\psi_2} = \ket{x}\ket{y\oplus f(x)}$$
+    In the case of this algorithm $\ket{x}=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$ and $\ket{y}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})$, so
+    $$\ket{\psi_2}=\frac{1}{\sqrt{2}} (\ket{0} \frac{\ket{0\oplus f(0)} - \ket{1\oplus f(0)}}{\sqrt{2}} + \ket{1} \frac{\ket{0\oplus f(1)} - \ket{1\oplus f(1)}}{\sqrt{2}}  )$$</p>
+
+
+
+    <p>To simplify this we can use the following relation
+    $$\frac{1}{\sqrt{2}} (\ket{0\oplus k} - \ket{1\oplus k} ) = (-1)^{k} \ket{-}$$
+    Which holds for $k=0$
+    </p>
+    \begin{align}
+    \frac{1}{\sqrt{2}} (\ket{0\oplus 0} - \ket{1\oplus 0}) &= \frac{1}{\sqrt{2}} (\ket{0} - \ket{1}) \\
+    &= (+1) \ket{-} \\
+    &= (-1)^{0} \ket{-} 
+    \end{align}
+    <p>And for $k=1$</p>
+    \begin{align}
+    \frac{1}{\sqrt{2}} (\ket{0\oplus 1} - \ket{1\oplus 1}) &= \frac{1}{\sqrt{2}} (\ket{1} - \ket{0}) \\
+    &= (-1)\frac{1}{\sqrt{2}} (\ket{0} - \ket{1}) \\
+    &= (-1) \ket{-} \\
+    &= (-1)^{1} \ket{-} 
+    \end{align}
+
+    <p>Substituting the relation into $\ket{\psi_2}$ results in</p>
+    \begin{align}
+    \ket{\psi_2} &= \frac{1}{\sqrt{2}} ((-1)^{f(0)}\ket{0}\ket{-} +(-1)^{f(1)}\ket{1}\ket{-}) \\
+    &= \frac{(-1)^{f(0)}}{\sqrt{2}} (\ket{0} + (-1)^{f(1)-f(0)}\ket{1})\ket{-}
+    \end{align}
+
+    <p>So</p>
+    $$\ket{\psi_2} = 
+    \begin{cases}
+    \pm \ket{+} \ket{-} & \text{if } f(0) = f(1) \\
+    \pm \ket{-} \ket{-} & \text{if } f(0) \neq f(1)
+    \end{cases}$$
+
+    <p>Upon applying the Hadamard gate to the data qubit, which is the first qubit, this leads to
+    $$\ket{\psi_3} = 
+    \begin{cases}
+    \pm \ket{0} \ket{-} & \text{if } f(0) = f(1)\\
+    \pm \ket{1} \ket{-} & \text{if } f(0) \neq f(1)
+    \end{cases}$$</p>
+
+    <p>Upon measurement of the data qubit $\ket{x'}$ in $\ket{\psi_4}=\ket{x'}\ket{-}$, we can determine whether the function $f(x)$ is constant ($f(0)=f(1)$) or balanced ($f(0)\neq f(1)$)
+    $$x' = 
+    \begin{cases}
+    0 & \text{if } f(0) = f(1) \text{, hence constant} \\
+    1 & \text{if } f(0) \neq f(1) \text{, hence balanced}
+    \end{cases}$$
+    </p>
+
+    <p>Thanks to the interference between the two possible function outcomes $f(0)$ and $f(1)$, in one measurement we can determine the global property of whether the function is constant or balanced. This interference can be seen in the $(-1)^{f(1)-f(0)}$ term within $\ket{\psi_2}$. This means that after transformation to $\ket{\psi_3}$ and measurement of the data qubit, if the output is $0$ then $f(x)$ is constant, and if the output is $1$ then $f(x)$ is balanced.</p>
+    <!--<p>If the functions are the same and thus constant, then the measured result is $0$, and if the functions are different and thus balanced then the result is $1$.</p>-->
+    <!--bookmark: Explain interference-->
+
+
+    <!--bookmark: explain phase kickback-->
+
+    <p>Now, let's generalise this from merely one data qubit to $n$ data qubits in the Deutsch-Jozsa algorithm, as depicted below which now depends on $x$ being a value which varies from $0$ to $2^{n}-1$.</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/deutsch_jozsa_algorithm_sketch.png" alt="Annotated diagram of Deutsch's Algorithm" width=1000 height=511>
+
+
+    <p>The input state is
+    $$\ket{\psi_0}=\ket{0}^{\otimes n} \ket{1}$$</p>
+
+    <p>After the Hadamard transform it becomes
+    $$\ket{\psi_1}=  H^{\otimes n}\ket{0}^{\otimes n} \otimes \frac{\ket{0}-\ket{1}}{\sqrt{2}}$$</p>
+
+    <p>We can substitute in the sum of superpositions we explained earlier
+    $$H^{\otimes n} \ket{x} = \frac{1}{\sqrt{2^n}} \sum_{z}  (-1)^{x \cdot z} \ket{z}$$
+    Which for $n$ qubits in the $\ket{0}$ state leads to an equal superposition of states
+    $$H^{\otimes n} \ket{0}^{\otimes n} = \frac{1}{\sqrt{2^n}} \sum_{z} \ket{z}$$
+    So by substituting this in, and relabeling $z$ as $x$, we get the state
+    $$\ket{\psi_1}=  \frac{1}{\sqrt{2^n}} \sum_{x} \ket{x} \frac{\ket{0}-\ket{1}}{\sqrt{2}}$$
+    </p>
+
+
+    <p>Upon application of the unitary gate $U_f$, the function $f(x)$ is evaluated so $\ket{x, y}$ evolves into $\ket{x, y\oplus f(x)}$ as seen in the Deutsch algorithm, this time leading to
+    $$\ket{\psi_2} = \frac{1}{\sqrt{2^n}}\sum_{x} \ket{x} \frac{\ket{0\oplus f(x)}-\ket{1 \oplus f(x)}}{\sqrt{2}} $$
+    Similarly we can again use the following relation
+    $$\frac{1}{\sqrt{2}} (\ket{0\oplus k} - \ket{1\oplus k} ) = (-1)^{k} \ket{-}$$
+    So the state $\ket{\psi_2}$ is
+    $$\ket{\psi_2} = \frac{1}{\sqrt{2^n}}\sum_{x}  (-1)^{f(x)} \ket{x} \ket{-}$$</p>
+
+
+    <p>We can again use the following relation
+    $$H^{\otimes n} \ket{x} = \frac{1}{\sqrt{2^n}} \sum_{z}  (-1)^{x \cdot z} \ket{z}$$
+    So that after the application of $n$ Hadamard gates, $H^{\otimes n}$, the state becomes
+    $$\ket{\psi_3} = \frac{1}{\sqrt{2^n}}\sum_{x}  (-1)^{x\cdot z f(x)} \ket{x} \ket{-}$$</p>
+
+
+    <p>Then $n$ measurements are carried out to in the computational basis. If we get a bitstring of all $0$s then the function $f(x)$ is constant, otherwise if there is even one $1$ then the function is balanced.</p>
+    <!--bookmark: EXPLAIN WHY for the Deutsch-Jozsa Algorithm $0$ is the value for constant values by default (as opposed to $1$)-->
+
+    <!--bookmark: explain phase kickback-->
     <!--bookmark: Deutsch-Jozsa Algorithm-->
-
-    <!--<p>The Qiskit implementation here and in the preceding <a href="#quantum_teleportation">subsection</a> is taken from the following <a href="https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/entanglement-in-action/qiskit-implementation">Qiskit learning material</a>.</p>-->
 
 
     <h1 id="Fourier_Transforms">Quantum Fourier Transform</h1><!--bookmark: NB: DERIVE all MATHs on pen and paper (solving questions) first, then come up with simplified explanations to put here.--> 
