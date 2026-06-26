@@ -402,13 +402,64 @@ img {
 
     <p>One way of solving mathematical problems is to transform it into a problem which is easier to solve, such as the discrete Fourier transform.</p><!--bookmark: explain other transforms which can be used by quantum circuits-->
     <!--<p>and an advantage quantum circuits hold is that they perform such transformations quickly.</p>-->
-    <!--bookmark: Explain why quantum circuits can perform transforms quickly, is it because of the superposition, and give examples-->
-
-
+    <!--bookmark: Explain why quantum circuits can perform transforms quickly, is it because of the superposition, and give examples-->i
     
-    <p>The Fourier Transform is a centrally important and widely sed mathematical tool. In the case of signal processing of an audio or electromagnetic wave, it can convert a signal which varies in time (also called the 'time domain') into a visualisation of the component frequencies (called the 'frequency domain').</p>
+    <p>The Fourier Transform is a centrally important and widely used mathematical tool. In the case of signal processing of an audio or electromagnetic wave, it can convert a signal which varies in time (also called the 'time domain') into a visualisation of the component frequencies (called the 'frequency domain').</p>
+
+    <p>So, for a time varying equation $f(t)$ can be transformed into a frequency varying $F(\omega)$ through the following equation, where $\omega$ is angular frequency which can be related to frequency $f$ as $\omega = 2\pi f$.</p>
+    <p>$$F(\omega) = \int_{-\infty}^{\infty} g(t) e^{-i\omega t} dt$$</p>
+
     <!--bookmark: Visualise the discrete Fourier transform with graphs and explain.-->
-    <p>As a </p>
+    <p>To better understand this, it's worth demonstrating superposition by superimposing waveforms as seen below.</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/waveform_superposition_demonstration.png" alt="Graphs with different frequencies and their composite waveform" width=1000 height=1226 >
+
+
+    <p>Before performing Fourier Transforms on the above waveforms, it's worth noting a rather useful integral identity</p>
+    <p>$$2\pi \delta (a - b) = \int_{-\infty}^{\infty} e^{-i (a-b) x }  dx $$</p>
+    <p>Where $\delta (a-b)$ is the Dirac delta, which is only equal to 1 if its argument, $a-b$, is equal to $0$, and is otherwise zero.</p>
+
+    <p>Let's start with the Fourier Transform of the first waveform which is a sine wave with a frequency of 5 Hz. Its angular frequency is given by $\omega_1=2\pi \times 5$.</p>
+    <p>$$F_{1}(\omega) = \int_{-\infty}^{\infty} sin(\omega_1 t) e^{-i\omega t} dt$$</p>
+    <p>The sine equation can also be re-expressed as
+    $$sin(\theta) = \frac{1}{2 i} (e^{i\theta}-e^{-i\theta})$$
+    Which when substituted into $F_{1}(\omega)$ leads to
+    </p>
+    <p>\begin{align}
+    F_{1}(\omega) &= \frac{1}{2 i}  \int_{-\infty}^{\infty} (e^{i\omega_{1}t}-e^{-i\omega_{1} t}) e^{-i\omega t} dt \\
+    &= frac{1}{2 i}\int_{-\infty}^{\infty} e^{-i(\omega-\omega_{1})t} dt - frac{1}{2 i}\int_{-\infty}^{\infty} e^{-i(\omega+\omega_{1})t} dt \\
+    \end{align}
+    </p>
+    <p>Then, we can substitute the aforementioned integral identity leading to the Dirac delta
+    $$F_{1}(\omega) = \frac{\pi}{i} \delta(\omega-\omega_{1}) - \frac{\pi}{i}\delta(\omega+\omega_{1})$$
+    Which when using $\frac{1}{i}=-i$ turns into
+    $$F_{1}(\omega) = -i\pi\delta(\omega-\omega_{1}) + i\pi\delta(\omega+\omega_{1})$$
+    </p>
+
+    <p>When this Fourier transform $F_{1}$ is plotted, it leads to</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/fourier_spectrum_for_sine_wave.png" alt="Fourier spectrum of sine wave" width=1000 height=599>
+
+    <p>A similar conclusion can be drawn from the third waveform $w_{3}=1.2 sin(60\pi t)$, since it is also a sine wave, except with an amplitude factor of $1.2$ which leads to peaks of magnitude $1.2 \pi$ at $|\omega|=\omega_{3}=60\pi$</p>
+
+
+    <p>For cosine waveforms, such as $w_{2}=cos(30\pi t)$ we have to instead substitute in the following identity
+    $$sin(\theta) = \frac{1}{2} (e^{i\theta}+e^{-i\theta})$$
+    Following a similar derivation as above, and using $\omega_{3}=60\pi$ leads to</p>
+    <p>
+    \begin{align}
+    F_{3}(\omega) &= \int_{-\infty}^{\infty} cos(\omega_{3} t) e^{-i\omega t} dt\\
+    &= \frac{1}{2} \int_{-\infty}^{\infty} (e^{i\omega_{3}t}+e^{-i\omega_{3} t}) e^{-i\omega t} dt \\
+    &= \frac{1}{2} \int_{-\infty}^{\infty} e^{-i(\omega-\omega_{3})t} dt + frac{1}{2} \int_{-\infty}^{\infty} e^{-i(\omega+\omega_{3})t} dt 
+    &= \pi \delta(\omega-\omega_{3}) + \pi \delta(\omega+\omega_{3})
+    \end{align}
+    </p>
+
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/fourier_spectrum_for_cosine_wave.png" alt="Fourier spectrum of cosine wave" width=1000 height=599>
+
+    <!--bookmark: Explain how Fourier transform for the composite waveform works, check and briefly describe the properties of the Fourier transform and how they can be used for such purposes, and demonstrate with a figure-->
+
+    <!--bookmark: Discrete Fourier Transform. Explain it, and the forward and inverse transforms-->
+    <h2>Quantum Fourier Transform</h2>
+
 
 
     <!--bookmark: Explain the Quantum Fourier transform, both mathematically wand with a circuit.-->
