@@ -406,8 +406,11 @@ img {
     
     <p>The Fourier Transform is a centrally important and widely used mathematical tool. In the case of signal processing of an audio or electromagnetic wave, it can convert a signal which varies in time (also called the 'time domain') into a visualisation of the component frequencies (called the 'frequency domain').</p>
 
-    <p>So, for a time varying equation $f(t)$ can be transformed into a frequency varying $F(\omega)$ through the following equation, where $\omega$ is angular frequency which can be related to frequency $f$ as $\omega = 2\pi f$.</p>
-    <p>$$F(\omega) = \int_{-\infty}^{\infty} g(t) e^{-i\omega t} dt$$</p>
+    <p>So, for a time varying equation $f(t)$ can be transformed into a frequency varying $F(\xi)$ through the Fourier transform, where $\xi$ is frequency and $t$ is time, as shown below</p>
+    <p>$$F(\xi) = \int_{-\infty}^{\infty} f(t) e^{2\pi i\xi t} dt$$</p>
+    <p>The inverse Fourier transform inverts this, yielding the time domain $f(t)$ from the Frequency domain $F(\xi)$</p>
+    <p>$$f(t) = \int_{-\infty}^{\infty} F(\xi) e^{2\pi i \xi t} dt$$</p>
+
 
     <!--bookmark: Visualise the discrete Fourier transform with graphs and explain.-->
     <p>To better understand this, it's worth demonstrating superposition by superimposing waveforms as seen below.</p>
@@ -415,54 +418,67 @@ img {
 
 
     <p>Before performing Fourier Transforms on the above waveforms, it's worth noting a rather useful integral identity</p>
-    <p>$$2\pi \delta (a - b) = \int_{-\infty}^{\infty} e^{-i (a-b) x }  dx $$</p>
+    <p>$$\delta (a - b) = \int_{-\infty}^{\infty} e^{-2 \pi i (a-b) x }  dx $$</p>
     <p>Where $\delta (a-b)$ is the Dirac delta, which is only equal to 1 if its argument, $a-b$, is equal to $0$, and is otherwise zero.</p>
 
-    <p>Let's start with the Fourier Transform of the first waveform which is a sine wave with a frequency of 5 Hz. Its angular frequency is given by $\omega_1=2\pi \times 5$.</p>
-    <p>$$F_{1}(\omega) = \int_{-\infty}^{\infty} sin(\omega_1 t) e^{-i\omega t} dt$$</p>
+    <p>Let's start with the Fourier Transform of the first waveform which is a sine wave with a frequency of $\xi_1=5$ Hz. </p>
+    <p>$$F_{1}(\omega) = \int_{-\infty}^{\infty} sin(2\pi \xi_1 t) e^{-2 \pi i \xi t} dt$$</p>
     <p>The sine equation can also be re-expressed as
     $$sin(\theta) = \frac{1}{2 i} (e^{i\theta}-e^{-i\theta})$$
-    Which when substituted into $F_{1}(\omega)$ leads to
+    Which when substituted into $F_{1}(\xi)$ leads to
     </p>
     <p>\begin{align}
-    F_{1}(\omega) &= \frac{1}{2 i}  \int_{-\infty}^{\infty} (e^{i\omega_{1}t}-e^{-i\omega_{1} t}) e^{-i\omega t} dt \\
-    &= frac{1}{2 i}\int_{-\infty}^{\infty} e^{-i(\omega-\omega_{1})t} dt - frac{1}{2 i}\int_{-\infty}^{\infty} e^{-i(\omega+\omega_{1})t} dt \\
+    F_{1}(\xi) &= \frac{1}{2 i}  \int_{-\infty}^{\infty} (e^{2\pi i\xi_{1}t}-e^{-2\pi i\xi_{1} t}) e^{-2\pi i\xi t} dt \\
+    &= \frac{1}{2 i}\int_{-\infty}^{\infty} e^{-2\pi i(\xi-\xi_{1})t} dt - \frac{1}{2 i}\int_{-\infty}^{\infty} e^{-2\pi i(\xi+\xi_{1})t} dt \\
     \end{align}
     </p>
     <p>Then, we can substitute the aforementioned integral identity leading to the Dirac delta
-    $$F_{1}(\omega) = \frac{\pi}{i} \delta(\omega-\omega_{1}) - \frac{\pi}{i}\delta(\omega+\omega_{1})$$
+    $$F_{1}(\omega) = \frac{1}{2i} \delta(\xi-\xi_{1}) - \frac{1}{2i}\delta(\xi+\xi_{1})$$
     Which when using $\frac{1}{i}=-i$ turns into
-    $$F_{1}(\omega) = -i\pi\delta(\omega-\omega_{1}) + i\pi\delta(\omega+\omega_{1})$$
+    $$F_{1}(\omega) = -\frac{i}{2}\delta(\xi-\xi_{1}) + \frac{i}{2}\delta(\xi+\xi_{1})$$
     </p>
 
     <p>When this Fourier transform $F_{1}$ is plotted, it leads to</p>
     <img src="Figures/Ch2_Quantum_Algorithms_Figures/fourier_spectrum_for_sine_wave.png" alt="Fourier spectrum of sine wave" width=1000 height=599>
 
-    <p>A similar conclusion can be drawn from the third waveform $w_{3}=1.2 sin(60\pi t)$, since it is also a sine wave, except with an amplitude factor of $1.2$ which leads to peaks of magnitude $1.2 \pi$ at $|\omega|=\omega_{3}=60\pi$</p>
+    <p>A similar conclusion can be drawn from the third waveform $w_{3}=1.2 sin(60\pi t)$, since it is also a sine wave, except with an amplitude factor of $1.2$ which leads to peaks of magnitude $1.2 \pi$ at $|\xi|=\xi_{3}=30$</p>
 
 
     <p>For cosine waveforms, such as $w_{2}=cos(30\pi t)$ we have to instead substitute in the following identity
-    $$sin(\theta) = \frac{1}{2} (e^{i\theta}+e^{-i\theta})$$
-    Following a similar derivation as above, and using $\omega_{3}=60\pi$ leads to</p>
+    $$cos(\theta) = \frac{1}{2} (e^{i\theta}+e^{-i\theta})$$
+    Following a similar derivation as above, and using $\omega_{2}=30\pi$ leads to</p>
     <p>
     \begin{align}
-    F_{3}(\omega) &= \int_{-\infty}^{\infty} cos(\omega_{3} t) e^{-i\omega t} dt\\
-    &= \frac{1}{2} \int_{-\infty}^{\infty} (e^{i\omega_{3}t}+e^{-i\omega_{3} t}) e^{-i\omega t} dt \\
-    &= \frac{1}{2} \int_{-\infty}^{\infty} e^{-i(\omega-\omega_{3})t} dt + frac{1}{2} \int_{-\infty}^{\infty} e^{-i(\omega+\omega_{3})t} dt 
-    &= \pi \delta(\omega-\omega_{3}) + \pi \delta(\omega+\omega_{3})
+    F_{2}(\xi) &= \int_{-\infty}^{\infty} cos(2\pi\xi_{2} t) e^{-2\pi i\xi t} dt\\
+    &= \frac{1}{2} \int_{-\infty}^{\infty} (e^{2\pi i\xi_{2}t}+e^{-2\pi i\xi_{2} t}) e^{-2\pi i\xi t} dt \\
+    &= \frac{1}{2} \int_{-\infty}^{\infty} e^{-2\pi i(\xi-\xi_{2})t} dt + \frac{1}{2} \int_{-\infty}^{\infty} e^{-2\pi i(\xi+\xi_{2})t} dt\\ 
+    &=  \frac{1}{2} \delta(\xi-\xi_{2}) + \frac{1}{2} \delta(\xi+\xi_{2})
     \end{align}
     </p>
 
     <img src="Figures/Ch2_Quantum_Algorithms_Figures/fourier_spectrum_for_cosine_wave.png" alt="Fourier spectrum of cosine wave" width=1000 height=599>
 
+    <p>With the linear nature of Fourier transform, we can sum the Fourier transforms of the component waveforms to arrive at the Fourier transform of the total waveform $F_{t}(\omega)$</p>
+
+    <p>
+    \begin{align}
+    w &= w_1 + w_2 + w_3 \\
+    F(w) &= F(w_1) + F(w_2) + F(w_3) \\
+    F_{t}(\omega) &= F_{1}(\omega) + F_{2}(\omega) + F_{3}(\omega) \\
+    F_{t}(\omega) &= -0.5i\delta(\xi-5) + 0.5i\delta(\xi+5) \\ &+ 0.5 \delta(\xi-15) + 0.5 \delta(\xi+15) \\ &-0.6 i\delta(\xi-30) + 0.6 i\delta(\xi+30)
+    \end{align}
+    </p>
+    <p>Due to the complex nature of this equation, containing both imaginary and real terms, the following visualisation is of the magnitude $|F_{t}(\omega)|$</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/magnitude_of_fourier_spectrum_for_composite_waveform.png" width=1000 height=601 alt="Magnitude of Fourier spectrum of composite wave">
     <!--bookmark: Explain how Fourier transform for the composite waveform works, check and briefly describe the properties of the Fourier transform and how they can be used for such purposes, and demonstrate with a figure-->
 
+
+    <h2>Quantum Fourier Transform Circuit</h2>
+
     <!--bookmark: Discrete Fourier Transform. Explain it, and the forward and inverse transforms-->
-    <h2>Quantum Fourier Transform</h2>
-
-
-
-    <!--bookmark: Explain the Quantum Fourier transform, both mathematically wand with a circuit.-->
+    <!--bookmark: Explain the QFT and its inverse mathematically -->
+    
+    <!--bookmark: Explain the Quantum Fourier transform in circuit form-->
     <!--bookmark: Show the inverse Fourier circuit.--> 
     <!--bookmark: Show a 3 qubit example with T and S and swap gate-->
 
