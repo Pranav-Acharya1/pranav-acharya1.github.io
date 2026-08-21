@@ -9,7 +9,10 @@ body {
 }
 img {
   display: block;
-  margin: auto;
+  margin: 20px auto; /* modified from margin" auto 13/8/26 */
+  max-width: 100%; /* new addition 13/08/26 */
+  height: auto; /* new addition 13/08/26 */
+
 }
 
 .clearfix {
@@ -397,23 +400,22 @@ img {
     <h1 id="Fourier_Transforms">Quantum Fourier Transform</h1><!--bookmark: REVIEW, SIMPLIFY and REWRITE. This is a draft.--> 
     <h2>Fourier Transform</h2>
 
-    <p>This section is currently a work in progress.<!--bookmark: Remove when completed--></p>
     <!--bookmark: Explain Fourier Transform in quantum algorithms. Show a 3 qubit example with T and S and swap gates. Also further Fourier stuff, such as inverse Fourier circuit, decomposition of controlled $R_k$ gates into rotations and $C_{NOT}$ gates.-->
 
-    <p>One way of solving mathematical problems is to transform it into a problem which is easier to solve, such as the discrete Fourier transform.</p><!--bookmark: explain other transforms which can be used by quantum circuits-->
+    <p>One way of solving mathematical problems is to transform it into a problem which is easier to solve, such as the Fourier transform.</p><!--bookmark: explain other transforms which can be used by quantum circuits-->
     <!--<p>and an advantage quantum circuits hold is that they perform such transformations quickly.</p>-->
-    <!--bookmark: Explain why quantum circuits can perform transforms quickly, is it because of the superposition, and give examples-->i
+    <!--bookmark: Explain why quantum circuits can perform transforms quickly, is it because of the superposition, and give examples-->
     
-    <p>The Fourier Transform is a centrally important and widely used mathematical tool. In the case of signal processing of an audio or electromagnetic wave, it can convert a signal which varies in time (also called the 'time domain') into a visualisation of the component frequencies (called the 'frequency domain').</p>
+    <p>The Fourier transform is a centrally important and widely used mathematical tool. In the case of signal processing of an audio or electromagnetic wave, it can convert a signal which varies in time (also called the 'time domain') into a visualisation of the component frequencies (called the 'frequency domain').</p>
 
     <p>So, for a time varying equation $f(t)$ can be transformed into a frequency varying $F(\xi)$ through the Fourier transform, where $\xi$ is frequency and $t$ is time, as shown below</p>
-    <p>$$F(\xi) = \int_{-\infty}^{\infty} f(t) e^{2\pi i\xi t} dt$$</p>
+    <p>$$F(\xi) = \int_{-\infty}^{\infty} f(t) e^{-2\pi i\xi t} dt$$</p>
     <p>The inverse Fourier transform inverts this, yielding the time domain $f(t)$ from the Frequency domain $F(\xi)$</p>
     <p>$$f(t) = \int_{-\infty}^{\infty} F(\xi) e^{2\pi i \xi t} dt$$</p>
 
 
     <!--bookmark: Visualise the discrete Fourier transform with graphs and explain.-->
-    <p>To better understand this, it's worth demonstrating superposition by superimposing waveforms as seen below.</p>
+    <p>To better understand this, it's worth demonstrating the Fourier transform of a superposition of waveforms as seen below.</p>
     <img src="Figures/Ch2_Quantum_Algorithms_Figures/waveform_superposition_demonstration.png" alt="Graphs with different frequencies and their composite waveform" width=1000 height=1226 >
 
 
@@ -422,9 +424,9 @@ img {
     <p>Where $\delta (a-b)$ is the Dirac delta, which is only equal to 1 if its argument, $a-b$, is equal to $0$, and is otherwise zero.</p>
 
     <p>Let's start with the Fourier Transform of the first waveform which is a sine wave with a frequency of $\xi_1=5$ Hz. </p>
-    <p>$$F_{1}(\omega) = \int_{-\infty}^{\infty} sin(2\pi \xi_1 t) e^{-2 \pi i \xi t} dt$$</p>
+    <p>$$F_{1}(\omega) = \int_{-\infty}^{\infty} \text{sin}(2\pi \xi_1 t) e^{-2 \pi i \xi t} dt$$</p>
     <p>The sine equation can also be re-expressed as
-    $$sin(\theta) = \frac{1}{2 i} (e^{i\theta}-e^{-i\theta})$$
+    $$\text{sin}(\theta) = \frac{1}{2 i} (e^{i\theta}-e^{-i\theta})$$
     Which when substituted into $F_{1}(\xi)$ leads to
     </p>
     <p>\begin{align}
@@ -441,15 +443,15 @@ img {
     <p>When this Fourier transform $F_{1}$ is plotted, it leads to</p>
     <img src="Figures/Ch2_Quantum_Algorithms_Figures/fourier_spectrum_for_sine_wave.png" alt="Fourier spectrum of sine wave" width=1000 height=599>
 
-    <p>A similar conclusion can be drawn from the third waveform $w_{3}=1.2 sin(60\pi t)$, since it is also a sine wave, except with an amplitude factor of $1.2$ which leads to peaks of magnitude $1.2 \pi$ at $|\xi|=\xi_{3}=30$</p>
+    <p>A similar conclusion can be drawn from the third waveform $w_{3}=1.2 \text{sin}(60\pi t)$ since it is also a sine wave, except with an amplitude factor of $1.2$ which leads to peaks of magnitude $1.2$ at $|\xi|=\xi_{3}=30$.</p>
 
 
-    <p>For cosine waveforms, such as $w_{2}=cos(30\pi t)$ we have to instead substitute in the following identity
-    $$cos(\theta) = \frac{1}{2} (e^{i\theta}+e^{-i\theta})$$
+    <p>For cosine waveforms, such as $w_{2}=\text{cos}(30\pi t)$ we have to instead substitute in the following identity
+    $$\text{cos}(\theta) = \frac{1}{2} (e^{i\theta}+e^{-i\theta})$$
     Following a similar derivation as above, and using $\omega_{2}=30\pi$ leads to</p>
     <p>
     \begin{align}
-    F_{2}(\xi) &= \int_{-\infty}^{\infty} cos(2\pi\xi_{2} t) e^{-2\pi i\xi t} dt\\
+    F_{2}(\xi) &= \int_{-\infty}^{\infty} \text{cos}(2\pi\xi_{2} t) e^{-2\pi i\xi t} dt\\
     &= \frac{1}{2} \int_{-\infty}^{\infty} (e^{2\pi i\xi_{2}t}+e^{-2\pi i\xi_{2} t}) e^{-2\pi i\xi t} dt \\
     &= \frac{1}{2} \int_{-\infty}^{\infty} e^{-2\pi i(\xi-\xi_{2})t} dt + \frac{1}{2} \int_{-\infty}^{\infty} e^{-2\pi i(\xi+\xi_{2})t} dt\\ 
     &=  \frac{1}{2} \delta(\xi-\xi_{2}) + \frac{1}{2} \delta(\xi+\xi_{2})
@@ -473,9 +475,47 @@ img {
     <!--bookmark: Explain how Fourier transform for the composite waveform works, check and briefly describe the properties of the Fourier transform and how they can be used for such purposes, and demonstrate with a figure-->
 
 
+    
+    <p>While we were working with continuous integrals with infinite limits to grasp the basics of Fourier Transforms, in reality when applying the Fourier Transform to real data we will work with a discrete and finite dataset with $N$ elements.</p>
+
+    <p>For this, we need to discretise the continuous variables $t$ and $\xi$.</p>
+
+    <p>For $t$, this is $$t = n \Delta t \text{ for } n=0, 1, ..., N-1$$</p>
+    <!--bookmark: <p>This means that $t$ covers a range from $0$ to $(N-1)(\Delta t)$</p>--> 
+    <p>As for the frequency term, we can define its discrete spacing as $\Delta \xi=\frac{1}{N\Delta t}$ </p><!--bookmark: Justify this definition for frequency!--> 
+
+    <p>Then, for $\xi$ it is discretised as $$\xi = \frac{k}{N\Delta t} \text{ for } k=0, 1, ..., N-1$$</p>
+    <p>Finally, we need to change from a continuous integral into a discrete sum, so for the Fourier Transform we start with
+    $$F_{k} = \sum_{n=0}^{N-1} f_{n} e^{- 2\pi i \Delta \xi \Delta t}$$</p>
+
+    <p>Substituting in $\xi$ and $t$ results in
+    \begin{align}
+    F_{k} &= \sum_{n=0}^{N-1} f_{n} e^{-2\pi i \frac{k}{N\Delta t} n \Delta t} \Delta t\\
+    F_{k} &= \Delta t \sum_{n=0}^{N-1} f_{n} e^{-2\pi i \frac{k n}{N}}
+    \end{align}
+    </p>
+    <p>Repeating this with the inverse Fourier Transform results in
+    \begin{align}
+    f_{n} &= \sum_{k=0}^{N-1} F_{k} e^{2\pi i \frac{k}{N\Delta t} n \Delta t} \Delta \xi \\
+    &= \frac{1}{N \Delta t} \sum_{k=0}^{N-1} F_{k} e^{2\pi i \frac{k n}{N}} 
+      \end{align}</p>
+
+    <p>To make this Fourier and inverse Fourier transform pair unitary, we will modify these so that both sums share the same factor of $\frac{1}{\sqrt{N}}$
+    \begin{align}
+    F_{k} &= \frac{1}{\sqrt{N}}\sum_{n=0}^{N-1} f_{n} e^{-2\pi i \frac{k n}{N}}\\
+    f_{n} &= \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} F_{k} e^{2\pi i \frac{k n}{N}}
+    \end{align}
+    </p>
+
+    <!--bookmark: Review the maths here!-->
+
     <h2>Quantum Fourier Transform Circuit</h2>
 
-    <!--bookmark: Discrete Fourier Transform. Explain it, and the forward and inverse transforms-->
+    <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
+
+    <!--bookmark: briefly describe QFT equations-->
+    <!--bookmark: Explain how it will be used in the QFT circuit section going forward.-->    
+
     <!--bookmark: Explain the QFT and its inverse mathematically -->
     
     <!--bookmark: Explain the Quantum Fourier transform in circuit form-->
@@ -485,9 +525,13 @@ img {
 
 
     <h2>Phase Estimation</h2>
+    <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
     <h2>Order Finding</h2>
+    <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
     <h2>Risk to RSA</h2>
+    <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
     <h2>General Applications</h2>
+    <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
     <!--bookmark: Basics of order finding and factoring as it relates to cracking RSA. Also perhaps LEARN ABOUT and briefly note post-quantum cryptography.-->
     <!--bookmark: Briefly not general application of Quantum Fourier Transform-->
 
