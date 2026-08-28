@@ -480,30 +480,30 @@ img {
 
     <p>For this, we need to discretise the continuous variables $t$ and $\xi$.</p>
 
-    <p>For $t$, this is $$t = n \Delta t \text{ for } n=0, 1, ..., N-1$$</p>
+    <p>For $t$, this is $$t = j \Delta t \text{ for } j=0, 1, ..., N-1$$</p>
     <!--bookmark: <p>This means that $t$ covers a range from $0$ to $(N-1)(\Delta t)$</p>--> 
     <p>As for the frequency term, we can define its discrete spacing as $\Delta \xi=\frac{1}{N\Delta t}$ </p><!--bookmark: Justify this definition for frequency!--> 
 
     <p>Then, for $\xi$ it is discretised as $$\xi = \frac{k}{N\Delta t} \text{ for } k=0, 1, ..., N-1$$</p>
     <p>Finally, we need to change from a continuous integral into a discrete sum, so for the Fourier Transform we start with
-    $$F_{k} = \sum_{n=0}^{N-1} f_{n} e^{- 2\pi i \Delta \xi \Delta t}$$</p>
+    $$F_{k} = \sum_{j=0}^{N-1} f_{j} e^{- 2\pi i \Delta \xi \Delta t}$$</p>
 
     <p>Substituting in $\xi$ and $t$ results in
     \begin{align}
-    F_{k} &= \sum_{n=0}^{N-1} f_{n} e^{2\pi i \frac{k}{N\Delta t} n \Delta t} \Delta t\\
-    F_{k} &= \Delta t \sum_{n=0}^{N-1} f_{n} e^{2\pi i \frac{k n}{N}}
+    F_{k} &= \sum_{j=0}^{N-1} f_{j} e^{2\pi i \frac{k}{N\Delta t} j \Delta t} \Delta t\\
+    F_{k} &= \Delta t \sum_{j=0}^{N-1} f_{j} e^{2\pi i \frac{k j}{N}}
     \end{align}
     </p>
     <p>Repeating this with the inverse Fourier Transform results in
     \begin{align}
-    f_{n} &= \sum_{k=0}^{N-1} F_{k} e^{-2\pi i \frac{k}{N\Delta t} n \Delta t} \Delta \xi \\
-    &= \frac{1}{N \Delta t} \sum_{k=0}^{N-1} F_{k} e^{-2\pi i \frac{k n}{N}} 
+    f_{j} &= \sum_{k=0}^{N-1} F_{k} e^{-2\pi i \frac{k}{N\Delta t} j \Delta t} \Delta \xi \\
+    &= \frac{1}{N \Delta t} \sum_{k=0}^{N-1} F_{k} e^{-2\pi i \frac{k j}{N}} 
       \end{align}</p>
 
     <p>To make this Fourier and inverse Fourier transform pair unitary, we will modify these so that both sums share the same factor of $\frac{1}{\sqrt{N}}$
     \begin{align}
-    F_{k} &= \frac{1}{\sqrt{N}}\sum_{n=0}^{N-1} f_{n} e^{2\pi i \frac{k n}{N}}\\
-    f_{n} &= \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} F_{k} e^{-2\pi i \frac{k n}{N}}
+    F_{k} &= \frac{1}{\sqrt{N}}\sum_{j=0}^{N-1} f_{j} e^{2\pi i \frac{k j}{N}}\\
+    f_{j} &= \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} F_{k} e^{-2\pi i \frac{k j}{N}}
     \end{align}
     </p>
 
@@ -512,22 +512,85 @@ img {
 
     <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
 
-    <!--    <p>In this subsection we will go over the quantum Fourier transform circuit, building atop the introduction to the Fourier transform in the preceding subsection. The quantum Fourier transform circuit is an efficient algorithm for applying the Fourier transform to the amplitudes of qubits, and is pivotal to further applications as explored in the following subsections.</p>-->
+    <p>In this subsection we will go over the quantum Fourier transform (QFT) circuit, building atop the introduction to the Fourier transform in the preceding subsection. The QFT circuit is an efficient algorithm for applying the Fourier transform to the amplitudes of qubits, and is pivotal to further applications as explored in the following subsections.</p>
     <!--bookmark: TODO: briefly explain other applications, and link to them-->
+    <p>QFT effectively applies the forward discrete Fourier transform by acting as an operator
+    $$\ket{j} \rightarrow \frac{1}{\sqrt{N}}\sum_{k=0}^{N-1} e^{2\pi i \frac{k j}{N}} \ket{k} $$
+    </p>
 
+    <p>When applied to a more general state, QFT generalises to
+    $$\sum_{j=0}^{N-1} x_{j}\ket{j} \rightarrow \sum_{k=0}^{N-1} y_{k}\ket{k}$$
+    Where
+    $$y_{k} = \frac{1}{\sqrt{N}}\sum_{j=0}^{N-1} x_{j} e^{2\pi i \frac{k j}{N}} $$</p>
 
-    <!--<p>The quantum Fourier transform utilises the discrete Fourier transform,</p>-->
+    <p>For QFT performed on $n$ qubits, $N=2^{n}$ and the transformation occurs with regards to an orthonormal basis state ranging from $\ket{0}$ to $\ket{2^{n}-1}$.
+    </p>
 
+    <p>Represented in operator form, QFT is then
+    $$\hat{F}_{QFT}= \frac{1}{\sqrt{2^n}}\sum^{2^{n}-1}_{k=0} \sum^{2^{n}-1}_{j=0} e^{2\pi i \frac{jk}{2^{n}}} \ket{k}\bra{j}$$
+    <!--bookmark: CHECK above QFT operator--></p>
+    <!--bookmark: that the following binary representation maths and derivation works. And explain why I am using binary fractions-->
+    <p>The number $j$ represented by a state $\ket{j}$ can be presented in binary form, as $j = j_1 j_2 \ldots j_n$ which can be expanded out into $j = j_1 2^{n-1} + j_2 2^{n-2} + \ldots + j_n 2^{0}=\sum^{n}_{l=1} j_l 2^{n-l}$. 
+    Binary representation also extends past the decimal point, with $0.j_{l} j_{l+1} \ldots j_{m} = \frac{j_{l}}{2^1} + \frac{j_{l+1}}{2^2} + \ldots \frac{j_m}{2^{m-l+1}} = \sum_{p=l}^{m} j_{p} 2^{-(p-l+1)}$.</p>
+    <p>Using this binary representation for $k=k_1 k_2 \ldots k_n=\sum^{n-1}_{l=0} k_l 2^{n-l} $<!--bookmark: CHECK that the k representation is correct, and explain why it is a fraction--> , one can rearrange the state resulting from application of QFT to $\ket{j}$ as follows<!--bookmark: CHECK and fix any rendering issues, like above the sum sign-->:
+    \begin{align}
+    \hat{F}_{QFT} \ket{j} &= \frac{1}{\sqrt{2^n}} \sum^{2^{n}-1}_{k=0} \exp \left( 2\pi i \frac{k j}{2^{n}}\right) \ket{k} \\
+    &=  \frac{1}{\sqrt{2^n}} \sum^{2^{n}-1}_{k=0} \exp \left(2\pi i \frac{j}{2^{n}} \sum^{n}_{l=1} k_l 2^{n-l} \right) \ket{k} \\
+    &=  \frac{1}{\sqrt{2^n}} \sum^{2^{n}-1}_{k=0} \exp \left(2\pi i j\sum^{n}_{l=1} k_l 2^{-l} \right) \ket{k} \\
+    &=  \frac{1}{\sqrt{2^n}} \sum^{2^{n}-1}_{k=0} \prod^{n}_{l=1} \left[ \exp \left(2\pi i j k_l 2^{-l} \right) \right]\ket{k} 
+    \end{align}
+    Above, the exponential term was rearranged and the product symbol $\prod$ was used, which acts as $\prod_{l=1}^{m}x_{l} = x_{1} \times x_{2} \times \ldots \times x_{m}$. 
+    Continuing on with the rearrangement, this time targeting the sum symbol and ket vector to replace $k$ with its binary representation: 
+    \begin{align}
+    \hat{F}_{QFT} \ket{j} &= \frac{1}{\sqrt{2^n}} \sum^{1}_{k_{1}=0} \sum^{1}_{k_{2}=0} \ldots \sum^{1}_{k_{n}=0} \prod^{n}_{l=1} \left[ e^{2\pi i j k_l 2^{-l}} \right]\ket{k_{1} k_{2}\ldots k_{n}}\\ 
+    &= \frac{1}{\sqrt{2^n}} \sum^{1}_{k_{1}=0} \sum^{1}_{k_{2}=0} \ldots \sum^{1}_{k_{n}=0} \bigotimes^{n}_{l=1} \left[ e^{2\pi i j k_l 2^{-l}} \ket{k_{l}}\right] 
+    \end{align}
+    Above $\bigotimes$ is a tensor product symbol, which multiplies together the scalar terms ($e^{2\pi i j k_l 2^{-l}}$) and performs a tensor of the component vectors $\ket{k_l}$ (which reassemble $\ket{k}$). As a reminder, <a href="Ch1_basics_of_QC.html#Tensor_Product">tensor products</a> were explained in the <a href="Ch1_basics_of_QC.html">previous chapter</a>.
+    The sums over $k_l$ can then be moved into the tensor product and expanded as follows:
+    \begin{align}
+    \hat{F}_{QFT} \ket{j} &= \frac{1}{\sqrt{2^n}}  \bigotimes^{n}_{l=1} \left[  \sum^{1}_{k_{l}=0}e^{2\pi i j k_l 2^{-l}} \ket{k_{l}}\right]\\ 
+    &= \frac{1}{\sqrt{2^n}}  \bigotimes^{n}_{l=1} \left[ \ket{0} + e^{2\pi i j 2^{-l}} \ket{1}\right]
+    \end{align}
+    </p>
+    <p>
+    The exponential coefficient of $\ket{1}$ can be expanded by substituting in $j=\sum^{n}_{p=1} j_p 2^{n-p}$ , as
+    \begin{align}
+    \exp \left( 2\pi i j 2^{-l} \right) &= \exp \left( 2\pi i j \sum^{n}_{p=1} j_p 2^{n-p} 2^{-l} \right)  \\
+     &= \exp \left( 2\pi i j \sum^{n}_{p=1} j_p 2^{(n-l)-p} \right)  \\
+     &= \exp \left( 2\pi i j \left[ \sum^{n-l}_{p=1} j_p 2^{(n-l)-p} +  \sum^{n}_{p=n-l+1} j_p 2^{(n-l)-p} \right] \right) 
+    \end{align}
+    We can observe that $e^{2\pi i x} = 1$ for integer values of $x$, and the first sum only contains integer values (ranging from $j_1 2^{n-l-1}$ to $j_{n-1} 2^{0}$) so the whole sum effectively cancels out as a factor of unity $1$ and can be removed.
+    \begin{align}
+    \exp \left( 2\pi i j 2^{-l} \right) &= \exp \left( 2\pi i j \left[ \sum^{n}_{p=n-l+1} j_p 2^{(n-l)-p} \right] \right) \\
+    &=    \exp \left( 2\pi i j \left[ \frac{j_{n-l+1}}{2^{1}} + \frac{j_{n-l+2}}{2^{2}} + \ldots + \frac{j_{n}}{2^{l}} \right] \right)
+    \end{align}
+    Now, using the binary fraction representation we are left with different exponential terms depending on the value of $l$.
+    Keep in mind that $j_p$ values can only go up to $j_n$, and that further values such as $j_{n+1}$ are dropped.
+    \begin{align}
+    \text{if } l=1 \text{: } & \exp \left( 2\pi i j \left[\frac{j_{n}}{2} \right] \right)\\ &= e^{(2\pi i) 0.j_{n}}\\ 
+    \text{if } l=2 \text{: } & \exp \left( 2\pi i j \left[\frac{j_{n-1}}{2} + \frac{j_{n}}{2^{2}} \right] \right)\\ &= e^{(2\pi i) 0.j_{n-1}j_{n}}\\ 
+    \text{if } l=n \text{: } & \exp \left( 2\pi i j \left[\frac{j_{1}}{2} + \frac{j_{2}}{2^{2}} + \ldots \frac{j_{n}}{2^{n}} \right] \right)\\ &= e^{(2\pi i) 0.j_{1}j_{2}\ldots j_{n}}
+    \end{align}
+    Substituting this exponential term back into $\hat{F}_{QFT}\ket{j}$, it can be expanded out as follows<!--bookmark: Check--> 
+    \begin{align}
+    \hat{F}_{QFT}\ket{j} &= \frac{1}{\sqrt{2^n}}  \left( \ket{0} + e^{(2\pi i) 0.j_{n} } \ket{1}\right) \left( \ket{0} + e^{(2\pi i) 0.j_{n-1}j_{n} } \ket{1}\right) \ldots \left( \ket{0} + e^{(2\pi i) 0.j_{1}j_{2}\ldots j_{n} } \ket{1}\right)     
+    \end{align}
+    </p>
+
+    <p>Now that we have an equation demonstrating how QFT evolves an $n$ qubit state $\ket{j}$, the next step is implement this operation with gates.</p>
+    <!--bookmark: Start explaining the application of gates to reproduce the maths-->
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/qft_circuit_without_swaps.png" alt="First part of the QFT circuit, missing the swaps at the end of the circuit which invert the order of states" width=1000 height=212>
+    <p></p>
     <!--bookmark: briefly describe QFT equations-->
-    <!--bookmark: Explain how it will be used in the QFT circuit section going forward.-->    
+    <!--bookmark: Show a 3/4/5 qubit example phase and swap gates-->
+    <!--bookmark: Show Qiskit circuits, and how it changes input values-->
 
+    <!--bookmark: inverse QFT circuit-->
     <!--bookmark: Explain the QFT and its inverse mathematically -->
-    
-    <!--bookmark: Explain the Quantum Fourier transform in circuit form-->
     <!--bookmark: Show the inverse Fourier circuit.--> 
-    <!--bookmark: Show a 3 qubit example with T and S and swap gate-->
 
 
+    <!--bookmark: Explain how it will be used in the QFT circuit section going forward.-->    
 
     <h2>Phase Estimation</h2>
     <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>

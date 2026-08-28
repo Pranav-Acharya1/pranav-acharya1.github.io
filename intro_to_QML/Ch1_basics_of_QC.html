@@ -299,396 +299,396 @@ img {
 <!--bookmark: maybe include this later, or just leave out. explain relation between projection measurements and POVM formalism, then show example with orthogonal projectors, and then a less trivial example <h3>Positive Over Value Measurements</h3>
     <p>The POVM (Positive Over Value Measurement) formalism is a mathematical tool for the analysis of measurement derived from measurement postulate, with a focus on measurement probability over post-measurement state.</p> --> 
 
-    <h2>Tensor Product</h2>
-    <p><b>Postulate 4:</b> A quantum system can be a composite of multiple smaller quantum systems, denoted by a tensor product $\otimes$. So a system $\ket{\psi_{AB}}$ composed of $\ket{\psi_A}$ and $\ket{\psi_B}$ is $\ket{\psi_A}\otimes\ket{\psi_B}$.</p>
-    <p>A tensor product is a way of composing a larger vector space from smaller vector spaces, and mathematically is a form of operation between matrices as shown in the following examples.</p>
-    <p>Starting with the tensor product of two wave vectors $\ket{\psi}=\alpha \ket{0}+\beta \ket{1}$ and $\ket{\phi} = a \ket{0} + b \ket{1}$, it is 
-    \begin{align}
-    \ket{\psi}\otimes\ket{\phi} &=
-    \begin{bmatrix}
-    \alpha \\ \beta
-    \end{bmatrix}
-    \otimes
-    \begin{bmatrix}
-    a \\ b
-    \end{bmatrix} \\
-    &=
-    \begin{bmatrix}
-    \alpha \otimes \ket{\phi} \\
-    \beta \otimes \ket{\phi}
-    \end{bmatrix}\\
-    &=
-    \begin{bmatrix}
-    \alpha a \\
-    \alpha b \\
-    \beta a\\
-    \beta b
-    \end{bmatrix}
-    \end{align}</p>
-    <p>In the case of $\ket{0}\otimes\ket{1}$ this is
-    \begin{align}
-    \ket{0}\otimes\ket{1} &=
-    \begin{bmatrix}
-    1 \\ 0
-        \end{bmatrix}
-    \otimes
-    \begin{bmatrix}
-    0 \\ 1
-    \end{bmatrix} \\
-    &=
-    \begin{bmatrix}
-    1 \otimes \ket{1} \\
-    0 \otimes \ket{1}
-    \end{bmatrix}\\
-    &=
-    \begin{bmatrix}
-     0 \\
-     1 \\
-     0\\
-     0
-    \end{bmatrix}\\
-    &= \ket{01}
-    \end{align}</p>
-    <p>As shown in the last line often the tensor product symbol is dropped, with its usage implied by multiple symbols within a composite state vector.</p>
+<h2 id="Tensor_Product">Tensor Product</h2>
+<p><b>Postulate 4:</b> A quantum system can be a composite of multiple smaller quantum systems, denoted by a tensor product $\otimes$. So a system $\ket{\psi_{AB}}$ composed of $\ket{\psi_A}$ and $\ket{\psi_B}$ is $\ket{\psi_A}\otimes\ket{\psi_B}$.</p>
+<p>A tensor product is a way of composing a larger vector space from smaller vector spaces, and mathematically is a form of operation between matrices as shown in the following examples.</p>
+<p>Starting with the tensor product of two wave vectors $\ket{\psi}=\alpha \ket{0}+\beta \ket{1}$ and $\ket{\phi} = a \ket{0} + b \ket{1}$, it is 
+\begin{align}
+\ket{\psi}\otimes\ket{\phi} &=
+\begin{bmatrix}
+\alpha \\ \beta
+\end{bmatrix}
+\otimes
+\begin{bmatrix}
+a \\ b
+\end{bmatrix} \\
+&=
+\begin{bmatrix}
+\alpha \otimes \ket{\phi} \\
+\beta \otimes \ket{\phi}
+\end{bmatrix}\\
+&=
+\begin{bmatrix}
+\alpha a \\
+\alpha b \\
+\beta a\\
+\beta b
+\end{bmatrix}
+\end{align}</p>
+<p>In the case of $\ket{0}\otimes\ket{1}$ this is
+\begin{align}
+\ket{0}\otimes\ket{1} &=
+\begin{bmatrix}
+1 \\ 0
+\end{bmatrix}
+\otimes
+\begin{bmatrix}
+0 \\ 1
+\end{bmatrix} \\
+&=
+\begin{bmatrix}
+1 \otimes \ket{1} \\
+0 \otimes \ket{1}
+\end{bmatrix}\\
+&=
+\begin{bmatrix}
+0 \\
+1 \\
+0\\
+0
+\end{bmatrix}\\
+&= \ket{01}
+\end{align}</p>
+<p>As shown in the last line often the tensor product symbol is dropped, with its usage implied by multiple symbols within a composite state vector.</p>
 
 
-    <p>The tensor product obeys the following mathematical properties:<!--bookmark: polish and expand later--></p>
-    <p>$$l(\ket{g}\otimes\ket{h})=(l\ket{g})\otimes\ket{h}=\ket{g}\otimes(\ket{h})$$
-    $$(\ket{g_1}+\ket{g_2})\otimes\ket{h} = \ket{g_1}\otimes\ket{h} + \ket{g_2}\otimes\ket{h}$$
-    $$\ket{g}\otimes(\ket{h_1}+\ket{h_2}) = \ket{g}\otimes\ket{h_1} + \ket{g}\otimes\ket{h_2}$$</p>
-    <p>Where $l$ is a scalar.</p>
+<p>The tensor product obeys the following mathematical properties:<!--bookmark: polish and expand later--></p>
+<p>$$l(\ket{g}\otimes\ket{h})=(l\ket{g})\otimes\ket{h}=\ket{g}\otimes(\ket{h})$$
+$$(\ket{g_1}+\ket{g_2})\otimes\ket{h} = \ket{g_1}\otimes\ket{h} + \ket{g_2}\otimes\ket{h}$$
+$$\ket{g}\otimes(\ket{h_1}+\ket{h_2}) = \ket{g}\otimes\ket{h_1} + \ket{g}\otimes\ket{h_2}$$</p>
+<p>Where $l$ is a scalar.</p>
 
-    <p>Tensor products also apply to matrices of arbitrary sizes, such as the following two square matrices $A$ and $B$:
-    \begin{align}
-    A\otimes B
-    &= 
-    \begin{bmatrix}
-    \alpha & \beta \\
-    \gamma & \delta
-    \end{bmatrix}
-    \otimes
-    \begin{bmatrix}
-    a & b \\
-    c & d
-    \end{bmatrix} \\
-    &= 
-    \begin{bmatrix}
-    \alpha \otimes B & \beta \otimes B\\
-    \gamma \otimes B & \delta \otimes B
-    \end{bmatrix}\\
-    &= 
-    \begin{bmatrix}
-    \alpha a & \alpha b & \beta a & \beta b \\
-    \alpha c & \alpha d & \beta c & \beta d \\
-    \gamma a & \gamma b & \delta a & \delta b \\
-    \gamma c & \gamma d & \delta c & \delta d 
-    \end{bmatrix}
-    \end{align}
-    </p>
-    <p>For a tensor product of matrices of sizes $n\times m$ and $p \times q$ the size of the resulting matrix will be $n \cdot p \times m \cdot q$.</p>
-
-
-    <p>Tensor products allow operations to be applied selectively to component wave vectors, for example $A\otimes B$ when applied to $\ket{a}\otimes\ket{b}$ leads to $(A\ket{a})\otimes(B\ket{b})$, which is useful for finer control of multi-qubit systems.</p>
-
-    <p>Now that we've gone over the 4 postulates of quantum mechanics, we have the theoretical foundation to understand quantum states in quantum computing. But the Dirac formulation is not the only way to represent qubit states, as shown in the next section.</p>
+<p>Tensor products also apply to matrices of arbitrary sizes, such as the following two square matrices $A$ and $B$:
+\begin{align}
+A\otimes B
+&= 
+\begin{bmatrix}
+\alpha & \beta \\
+\gamma & \delta
+\end{bmatrix}
+\otimes
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix} \\
+&= 
+\begin{bmatrix}
+\alpha \otimes B & \beta \otimes B\\
+\gamma \otimes B & \delta \otimes B
+\end{bmatrix}\\
+&= 
+\begin{bmatrix}
+\alpha a & \alpha b & \beta a & \beta b \\
+\alpha c & \alpha d & \beta c & \beta d \\
+\gamma a & \gamma b & \delta a & \delta b \\
+\gamma c & \gamma d & \delta c & \delta d 
+\end{bmatrix}
+\end{align}
+</p>
+<p>For a tensor product of matrices of sizes $n\times m$ and $p \times q$ the size of the resulting matrix will be $n \cdot p \times m \cdot q$.</p>
 
 
-    <h1 id="Further_Representations_of_Qubits">Further Representations of Qubits</h1>
+<p>Tensor products allow operations to be applied selectively to component wave vectors, for example $A\otimes B$ when applied to $\ket{a}\otimes\ket{b}$ leads to $(A\ket{a})\otimes(B\ket{b})$, which is useful for finer control of multi-qubit systems.</p>
 
-    <!--bookmark: summarise this section and the reason for looking at it-->
-    <h2 id="Density_Matrices">Density Matrices</h2>
+<p>Now that we've gone over the 4 postulates of quantum mechanics, we have the theoretical foundation to understand quantum states in quantum computing. But the Dirac formulation is not the only way to represent qubit states, as shown in the next section.</p>
 
-    <p>Another way of representing quantum systems, as an alternative to the Dirac formulation with 'bra-ket' state vectors, is to use density matrices.</p>
-    <!--bookmark: Define the density matrix-->
-    <p>A density matrix, also known as a density operator, has a spectral decomposition into vectors $$\rho = \sum_i p_i \ket{\psi_i}\bra{\psi}$$</p> 
-    <p>Where $p_i$ is the probability to measure a pure state of $\ket{\psi_i}$, such as $\ket{0}$ or $\ket{1}$.</p>
-    <p>Density operators are positive operators, meaning that $\bra{\psi} \rho \ket{\psi} \geq 0$ for all $\ket{\psi}$, which can be seen from their formulation and the fact that $p_i \geq 0$.</p>
 
-    <!--bookmark: rewrite:<p>A density matrix has a spectral decomposition of $$\rho = \sum_i p_i \ket{\psi_i}\bra{\psi}$$</p>
-    <p>Where $p_i$ is the probability to measure a pure state of \ket{\psi_i}\bra{\psi}, such as $\ket{0}\bra{0}$ or $\ket{1}\bra{1}$.</p>
-    -->
-    <p>Impure density matrices are those composed of multiple pure states.</p>
-    <p>Whether a density matrix is pure or not can be checked by performing a mathematical operation, called the trace, on the square of the density matrix, $\rho \rho = \rho^{2}$.</p>
-    <p>A trace is the sum of the diagonal components of a matrix, as demonstrated for matrix A: 
-    \begin{align}
-    tr(A)
-    &= 
-    tr\begin{bmatrix}
-    a & b \\
-    c & d
-    \end{bmatrix}\\
-    &= a + b
-    \end{align}
-    </p>
-    <!--bookmark:
-    <p>As discussed above the density matrix for a vector $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$ is given by
-    \rho = |\alpha|^{2} \ket{0} \bra{0}  + |\beta|^{2} \ket{1}\bra{1}
-    </p>
-    <p>The square of the density matrix is then
-    \begin{align}
-    \rho^{2} &= (|\alpha|^{2} \ket{0} \bra{0}  + |\beta|^{2} \ket{1}\bra{1}) (|\alpha|^{2} \ket{0} \bra{0}  + |\beta|^{2} \ket{1}\bra{1})\\
-    \rho^{2} &= |\alpha|^{4}\ket{0}\bra{0} + |\beta|^{4}\ket{1}\bra{1}
-    \end{\align}
-    </p>
-    <p>Where above, the orthonormal nature of the computational basis was used ($\braket{0|0}=\braket{1|1}=0$ and $\braket{0|1}=\braket{1|0}=0$)</p>
-    <p>Only in the case of a pure state, such as $\ket{\psi}=\ket{0}$, will the trace of $\rho^{2}=1$.</p>
- -->
-    <p>Now dealing with the trace of the square of a density matrix with two orthogonal basis states with probabilities $p_1$ and $p_2$:
-    \begin{align}
-    \rho &= 
-    \begin{bmatrix}
-    p_1 & 0 \\
-    0 & p_2
-    \end{bmatrix} \\
-    \rho^{2} &= 
-    \begin{bmatrix}
-    p_1 & 0 \\
-    0 & p_2
-    \end{bmatrix} 
-    \begin{bmatrix}
-    p_1 & 0 \\
-    0 & p_2
-    \end{bmatrix} \\
-    &=
-    \begin{bmatrix}
-    p_1\cdot p_1 + 0 \cdot 0 & p_1 \cdot 0 + 0 \cdot p_2 \\
-    0\cdot p_1 + p_2\cdot 0 & 0\cdot 0 + p_2 \cdot p_2  
-    \end{bmatrix} \\
-    &=
-    \begin{bmatrix}
-    p_{1}^{2} & 0 \\
-    0 & p_{2}^{2}
-    \end{bmatrix} \\
-    tr(\rho^{2}) &=  p_{1}^{2} + p_{2}^{2}
-    \end{align}
-    </p>
+<h1 id="Further_Representations_of_Qubits">Further Representations of Qubits</h1>
 
-    <p>$tr(\rho^2)=1$ occurs only when one basis state probability is unity, that is either $p_1=1$ or $p_2=1$.</p>
-    <p>This is because if both $p_1\lt 1$ and $p_2\lt 1$, then both terms reduce with the square so $p_{1}^{2}\lt p_1$ and $p_{2}^{2}\lt p_2$, hence $p_{1}^{2}+p_{2}^{2} \lt p_1 + p_2 = 1$. This turns the condition $tr(\rho^2)=1$ into a test for whether $\rho$ describes a pure state, with $tr(\rho^2)\lt 1$ indicating an impure state.</p>
+<!--bookmark: summarise this section and the reason for looking at it-->
+<h2 id="Density_Matrices">Density Matrices</h2>
 
-    <p>Let's look at some examples to get a clearer idea regarding density matrices.</p>
-    <p>For pure states $\rho_1 = \ket{0}\bra{0}$ and $\rho_2 =\ket{1}\bra{1}$<!--bookmark: pure state in computational basis-->
-    \begin{align}
-    \rho_{1}^{2} &= 
-    \begin{bmatrix}
-    1 & 0 \\
-    0 & 0
-    \end{bmatrix} 
-    \begin{bmatrix}
-    1 & 0 \\
-    0 & 0
-    \end{bmatrix} \\
+<p>Another way of representing quantum systems, as an alternative to the Dirac formulation with 'bra-ket' state vectors, is to use density matrices.</p>
+<!--bookmark: Define the density matrix-->
+<p>A density matrix, also known as a density operator, has a spectral decomposition into vectors $$\rho = \sum_i p_i \ket{\psi_i}\bra{\psi}$$</p> 
+<p>Where $p_i$ is the probability to measure a pure state of $\ket{\psi_i}$, such as $\ket{0}$ or $\ket{1}$.</p>
+<p>Density operators are positive operators, meaning that $\bra{\psi} \rho \ket{\psi} \geq 0$ for all $\ket{\psi}$, which can be seen from their formulation and the fact that $p_i \geq 0$.</p>
+
+<!--bookmark: rewrite:<p>A density matrix has a spectral decomposition of $$\rho = \sum_i p_i \ket{\psi_i}\bra{\psi}$$</p>
+<p>Where $p_i$ is the probability to measure a pure state of \ket{\psi_i}\bra{\psi}, such as $\ket{0}\bra{0}$ or $\ket{1}\bra{1}$.</p>
+-->
+<p>Impure density matrices are those composed of multiple pure states.</p>
+<p>Whether a density matrix is pure or not can be checked by performing a mathematical operation, called the trace, on the square of the density matrix, $\rho \rho = \rho^{2}$.</p>
+<p>A trace is the sum of the diagonal components of a matrix, as demonstrated for matrix A: 
+\begin{align}
+tr(A)
+&= 
+tr\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}\\
+&= a + b
+\end{align}
+</p>
+<!--bookmark:
+<p>As discussed above the density matrix for a vector $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$ is given by
+\rho = |\alpha|^{2} \ket{0} \bra{0}  + |\beta|^{2} \ket{1}\bra{1}
+</p>
+<p>The square of the density matrix is then
+\begin{align}
+\rho^{2} &= (|\alpha|^{2} \ket{0} \bra{0}  + |\beta|^{2} \ket{1}\bra{1}) (|\alpha|^{2} \ket{0} \bra{0}  + |\beta|^{2} \ket{1}\bra{1})\\
+\rho^{2} &= |\alpha|^{4}\ket{0}\bra{0} + |\beta|^{4}\ket{1}\bra{1}
+\end{\align}
+</p>
+<p>Where above, the orthonormal nature of the computational basis was used ($\braket{0|0}=\braket{1|1}=0$ and $\braket{0|1}=\braket{1|0}=0$)</p>
+<p>Only in the case of a pure state, such as $\ket{\psi}=\ket{0}$, will the trace of $\rho^{2}=1$.</p>
+-->
+<p>Now dealing with the trace of the square of a density matrix with two orthogonal basis states with probabilities $p_1$ and $p_2$:
+\begin{align}
+\rho &= 
+\begin{bmatrix}
+p_1 & 0 \\
+0 & p_2
+\end{bmatrix} \\
+\rho^{2} &= 
+\begin{bmatrix}
+p_1 & 0 \\
+0 & p_2
+\end{bmatrix} 
+\begin{bmatrix}
+p_1 & 0 \\
+0 & p_2
+\end{bmatrix} \\
+&=
+\begin{bmatrix}
+p_1\cdot p_1 + 0 \cdot 0 & p_1 \cdot 0 + 0 \cdot p_2 \\
+0\cdot p_1 + p_2\cdot 0 & 0\cdot 0 + p_2 \cdot p_2  
+\end{bmatrix} \\
+&=
+\begin{bmatrix}
+p_{1}^{2} & 0 \\
+0 & p_{2}^{2}
+\end{bmatrix} \\
+tr(\rho^{2}) &=  p_{1}^{2} + p_{2}^{2}
+\end{align}
+</p>
+
+<p>$tr(\rho^2)=1$ occurs only when one basis state probability is unity, that is either $p_1=1$ or $p_2=1$.</p>
+<p>This is because if both $p_1\lt 1$ and $p_2\lt 1$, then both terms reduce with the square so $p_{1}^{2}\lt p_1$ and $p_{2}^{2}\lt p_2$, hence $p_{1}^{2}+p_{2}^{2} \lt p_1 + p_2 = 1$. This turns the condition $tr(\rho^2)=1$ into a test for whether $\rho$ describes a pure state, with $tr(\rho^2)\lt 1$ indicating an impure state.</p>
+
+<p>Let's look at some examples to get a clearer idea regarding density matrices.</p>
+<p>For pure states $\rho_1 = \ket{0}\bra{0}$ and $\rho_2 =\ket{1}\bra{1}$<!--bookmark: pure state in computational basis-->
+\begin{align}
+\rho_{1}^{2} &= 
+\begin{bmatrix}
+1 & 0 \\
+0 & 0
+\end{bmatrix} 
+\begin{bmatrix}
+1 & 0 \\
+0 & 0
+\end{bmatrix} \\
 \rho_{1}^{2}    &= \begin{bmatrix}
-    1 & 0 \\
-    0 & 0
-    \end{bmatrix}\\
-    tr(\rho_{1}^{2}) &= 1 + 0 \\
-    tr(\rho_{1}^{2}) &= 1 \\
+1 & 0 \\
+0 & 0
+\end{bmatrix}\\
+tr(\rho_{1}^{2}) &= 1 + 0 \\
+tr(\rho_{1}^{2}) &= 1 \\
 
 
-    \rho_{2}^{2} &= 
-    \begin{bmatrix}
-    0 & 0 \\
-    0 & 1
-    \end{bmatrix} 
-    \begin{bmatrix}
-    0 & 0 \\
-    0 & 1
-    \end{bmatrix} \\
+\rho_{2}^{2} &= 
+\begin{bmatrix}
+0 & 0 \\
+0 & 1
+\end{bmatrix} 
+\begin{bmatrix}
+0 & 0 \\
+0 & 1
+\end{bmatrix} \\
 \rho_{2}^{2}    &= \begin{bmatrix}
-    0 & 0 \\
-    0 & 1
-    \end{bmatrix}\\
-    tr(\rho_{2}^{2}) &= 0 + 1 \\
-    tr(\rho_{2}^{2}) &= 1 \\
+0 & 0 \\
+0 & 1
+\end{bmatrix}\\
+tr(\rho_{2}^{2}) &= 0 + 1 \\
+tr(\rho_{2}^{2}) &= 1 \\
 
-    \end{align}
-    </p>
-    <p>Now, let's look at an impure state $\rho_3$ which is composed of $\rho_1$ and $\rho_2$, each with a probability weighting of 0.5, so $\rho_3 = 0.5 \rho_1 + 0.5 \rho_2$
-    \begin{align}    
-    \rho_3 &= 
-    \frac{1}{2}\begin{bmatrix}
-    1 & 0 \\
-    0 & 1
-    \end{bmatrix}\\ 
-    \rho_{3}^{2} &= 
-    (\frac{1}{2})^{2}\begin{bmatrix}
-    1 & 0 \\
-    0 & 1
-    \end{bmatrix} 
-    \begin{bmatrix}
-    1 & 0 \\
-    0 & 1
-    \end{bmatrix} \\
-    \rho_{3}^{2} &= \frac{1}{4}\begin{bmatrix}
-    1 & 0 \\
-    0 & 1
-    \end{bmatrix}\\
-    tr(\rho_{3}^{2}) &= \frac{1}{4}(1 + 1) \\
-    tr(\rho_{3}^{2}) &= \frac{1}{2} \\
-    tr(\rho_{3}^{2}) &\lt 1
-    \end{align}
-    </p>
-    <p><!--bookmark: the full 1 example, using this as an example to show another orthogonal basis state. Note that it is composed of pure states--></p>
+\end{align}
+</p>
+<p>Now, let's look at an impure state $\rho_3$ which is composed of $\rho_1$ and $\rho_2$, each with a probability weighting of 0.5, so $\rho_3 = 0.5 \rho_1 + 0.5 \rho_2$
+\begin{align}    
+\rho_3 &= 
+\frac{1}{2}\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}\\ 
+\rho_{3}^{2} &= 
+(\frac{1}{2})^{2}\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix} 
+\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix} \\
+\rho_{3}^{2} &= \frac{1}{4}\begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix}\\
+tr(\rho_{3}^{2}) &= \frac{1}{4}(1 + 1) \\
+tr(\rho_{3}^{2}) &= \frac{1}{2} \\
+tr(\rho_{3}^{2}) &\lt 1
+\end{align}
+</p>
+<p><!--bookmark: the full 1 example, using this as an example to show another orthogonal basis state. Note that it is composed of pure states--></p>
 
-    <p><!--bookmark: Spectral decomposition--></p>
-    <p>Lastly let's look at a pure state $\rho_4$ formed by the state $\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$ 
-    \begin{align}
-    \rho_4 &= (\frac{1}{\sqrt{2}})^{2} (\ket{0}+\ket{1})(\bra{0}+\bra{1})\\
-    \rho_4 &= \frac{1}{2}(\ket{0}\bra{0} + \ket{0}\bra{1} + \ket{1}\bra{0} + \ket{1}\bra{1}) \\
-    \rho_4 &= \frac{1}{2} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} \\
-    \rho_{4}^{2} &= (\frac{1}{2})^{2} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} \\
-    \rho_{4}^{2} &= \frac{1}{4} \begin{bmatrix} 1+1 & 1+1 \\ 1+1 & 1+1 \end{bmatrix}\\
-    \rho_{4}^{2} &= \frac{1}{4} \begin{bmatrix} 2 & 2 \\ 2 & 2 \end{bmatrix}\\
-    \rho_{4}^{2} &= \frac{1}{2} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}\\
-    tr(\rho_{4}^{2}) &= \frac{1}{2} (1 + 1)\\
-    tr(\rho_{4}^{2}) &= 1
-    \end{align}
-    </p>
+<p><!--bookmark: Spectral decomposition--></p>
+<p>Lastly let's look at a pure state $\rho_4$ formed by the state $\frac{1}{\sqrt{2}}(\ket{0}+\ket{1})$ 
+\begin{align}
+\rho_4 &= (\frac{1}{\sqrt{2}})^{2} (\ket{0}+\ket{1})(\bra{0}+\bra{1})\\
+\rho_4 &= \frac{1}{2}(\ket{0}\bra{0} + \ket{0}\bra{1} + \ket{1}\bra{0} + \ket{1}\bra{1}) \\
+\rho_4 &= \frac{1}{2} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} \\
+\rho_{4}^{2} &= (\frac{1}{2})^{2} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} \\
+\rho_{4}^{2} &= \frac{1}{4} \begin{bmatrix} 1+1 & 1+1 \\ 1+1 & 1+1 \end{bmatrix}\\
+\rho_{4}^{2} &= \frac{1}{4} \begin{bmatrix} 2 & 2 \\ 2 & 2 \end{bmatrix}\\
+\rho_{4}^{2} &= \frac{1}{2} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}\\
+tr(\rho_{4}^{2}) &= \frac{1}{2} (1 + 1)\\
+tr(\rho_{4}^{2}) &= 1
+\end{align}
+</p>
 
-    <h3>Postulate of Quantum Mechanics: Density Matrix version</h3>
-    <p>Due to the equivalence of the density matrix approach and the Dirac formalism, the postulates of quantum mechanics can be reformulated within the density matrix approach, as briefly recounted here.</p>
-    <!--bookmark: Recommend sources for further reading including derivation of this-->
-    <p><b>Postulate 1:</b> An isolated system has an associated complex vector inner product space, and its state can be described an density operator $\rho$ which acts on this state space. The density operator $\rho$ is positive and has a trace of 1. If the system is in state $\rho_i$ with probability of $p_i$, then a weighted sum of possible states can be done as follows to achieve the total $\rho$</p>
-    <p>$$\rho=\sum_i p_i \rho_i$$</p>
+<h3>Postulate of Quantum Mechanics: Density Matrix version</h3>
+<p>Due to the equivalence of the density matrix approach and the Dirac formalism, the postulates of quantum mechanics can be reformulated within the density matrix approach, as briefly recounted here.</p>
+<!--bookmark: Recommend sources for further reading including derivation of this-->
+<p><b>Postulate 1:</b> An isolated system has an associated complex vector inner product space, and its state can be described an density operator $\rho$ which acts on this state space. The density operator $\rho$ is positive and has a trace of 1. If the system is in state $\rho_i$ with probability of $p_i$, then a weighted sum of possible states can be done as follows to achieve the total $\rho$</p>
+<p>$$\rho=\sum_i p_i \rho_i$$</p>
 
-    <p><b>Postulate 2:</b> The evolution of a closed state over time is described by a unitary operator $U$, which is dependent on the difference in time from the initial to the evolved state. This unitary operator is applied to the density operator $\rho$ to evolve into state $\rho'$ as noted below</p>
-    <p>$$\rho' = U \rho U^{\dagger}$$</p>
-
-
-    <p><b>Postulate 3:</b> Quantum measurements can be described by a collection of measurement operators {$M_{m}$}, where $m$ refers to measurement outcomes, which act on the state space of the system being measured.</p>
-    <p>If the state is $\rho$ before measurement, then the probability of measurement outcome $m$ being measured is $$p(m) = tr(M^{\dagger}_{m}M_{m} \rho)$$</p>
-    <p>The state after this measurement is $$\frac{M_{m} \rho M^{\dagger}_{m}}{ tr(M^{\dagger}_{m}M_{m} \rho)}$$</p>
-    <p>Such measurement operators obey the completeness theorem $$\sum_{m} M^{\dagger}M = I$$</p>
+<p><b>Postulate 2:</b> The evolution of a closed state over time is described by a unitary operator $U$, which is dependent on the difference in time from the initial to the evolved state. This unitary operator is applied to the density operator $\rho$ to evolve into state $\rho'$ as noted below</p>
+<p>$$\rho' = U \rho U^{\dagger}$$</p>
 
 
-    <p><b>Postulate 4:</b> A quantum system can be a composite of multiple smaller quantum systems, denoted by a tensor product '$\otimes$'. So a state $\rho_{AB}$ with two component states of $\rho_A$ and $\rho_B$ is $\rho_{A}\otimes\rho_{B}$.</p>
-
-    <p>An advantage of the density matrix approach is that component systems can be analysed with an operation called partial trace. For a composite system $AB$ composed of systems $A$ and $B$, the partial trace over system $B$ recovers the density matrix of $A$ $$\rho_A = tr_{B}(\rho_{AB})$$<!--bookmark: explain how the reduced density operator works with partial trace, and the use of it.--></p>
-    <p>This partial trace that acts over system $B$, can be carried out as follows
-    \begin{align}
-    tr_{B}(\rho_{AB}) &= tr_{B}(\rho_{A} \otimes \rho_{B}) \\ &= \rho_{A} tr(\rho_B) \\ &= \rho_{A} \cdot 1 \\  &= \rho_A
-    \end{align}
-    </p>
-    <p>Above, the property $tr(\rho_B)=1$ was used.</p>
+<p><b>Postulate 3:</b> Quantum measurements can be described by a collection of measurement operators {$M_{m}$}, where $m$ refers to measurement outcomes, which act on the state space of the system being measured.</p>
+<p>If the state is $\rho$ before measurement, then the probability of measurement outcome $m$ being measured is $$p(m) = tr(M^{\dagger}_{m}M_{m} \rho)$$</p>
+<p>The state after this measurement is $$\frac{M_{m} \rho M^{\dagger}_{m}}{ tr(M^{\dagger}_{m}M_{m} \rho)}$$</p>
+<p>Such measurement operators obey the completeness theorem $$\sum_{m} M^{\dagger}M = I$$</p>
 
 
-    <p>Let's look at an example of an interesting two-qubit pure state called a 'Bell state', $\ket{\Psi_{00}}=\frac{1}{\sqrt{2}} (\ket{00}+\ket{11})$</p>
-    <p>\begin{align}
-    \rho &= \frac{1}{2}((\ket{00}+\ket{11}))(\bra{00}+\bra{11})\\
-    &= \frac{1}{2}(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})
-    \end{align}</p>
-    <p>A useful trick in the following trace calculations is $tr(\ket{\psi_1}\bra{\psi_2})=\braket{\psi_1|\psi_2}$, brought about by trace being the addition of diagonal terms.<!--bookmark: IMPROVE EXPLANATION of trace condition being equivalent to an inner product--></p>
-    <p>Tracing over the second qubit results in the following density matrix $\rho_1$ for the first qubit
-    \begin{align}
-    \rho_1 &= tr_{2}(\rho) \\
-    &= \frac{1}{2}(tr_{2}(\ket{00}\bra{00})+tr_{2}(\ket{00}\bra{11})+tr_{2}(\ket{11}\bra{00})+tr_{2}(\ket{11}\bra{11}))\\
-    &= \frac{1}{2}(\ket{0}\bra{0}\braket{0|0}+\ket{0}\bra{1}\braket{0|1}+\ket{1}\bra{0}\braket{1|0}+\ket{1}\bra{1}\braket{11}) \\
-    &= \frac{1}{2}(\ket{0}\bra{0}\cdot 1+\ket{0}\bra{1}\cdot 0+\ket{1}\bra{0}\cdot 0+\ket{1}\bra{1}\cdot 1) \\
-    &= \frac{1}{2}(\ket{0}\bra{0}+\ket{1}\bra{1}) \\
-    &= \frac{1}{2} I
-    \end{align}</p>
+<p><b>Postulate 4:</b> A quantum system can be a composite of multiple smaller quantum systems, denoted by a tensor product '$\otimes$'. So a state $\rho_{AB}$ with two component states of $\rho_A$ and $\rho_B$ is $\rho_{A}\otimes\rho_{B}$.</p>
 
-    <p>$tr(\ket{\psi_1}\bra{\psi_2})=\braket{\psi_1|\psi_2}$ was used on the second qubit state, allowing the orthonormal relations $\braket{0|0}=\braket{1|1}=1$ and $\braket{0|1}=\braket{1|0}=0$ to be applied.</p>
-    <p>Interestingly enough, while the Bell state is pure, the first qubit isn't. First let's show that the Bell state is pure. Note, for the following calculation the orthonormal relations $\braket{00|00}=\braket{11|11}=1$ and $\braket{00|11}=\braket{11|00}=0$ will be used implicitly to avoid having too many terms.
-    \begin{align}
-    \rho &= \frac{1}{2}(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})\\
-    \rho^{2} &= \frac{1}{4}(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})\\&\cdot (\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11}) \\
-    \rho^{2} &= \frac{1}{4} (\ket{00}(\bra{00} + \bra{11} + 0 + 0)\\ & + \ket{00}( 0 + 0 +\bra{00}+\bra{11})\\ & + \ket{11}(\bra{00} + \bra{11} + 0 + 0)\\ & + \ket{11}( 0 + 0 + \bra{00} + \bra{11})) \\
-    \rho^{2} &= \frac{1}{4} ( 2\ket{00}(\bra{00} + \bra{11}) + 2\ket{11}(\bra{00}+\bra{11}))\\
-    \rho^{2} &= \frac{1}{2} (\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})\\
-    \rho^{2} &= \rho\\
-    tr(\rho^{2}) &= \frac{1}{2}tr(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11}) \\
-    tr(\rho^{2}) &= \frac{1}{2}(1 + 1) \\
-    tr(\rho^{2}) &= 1 \\
-    \end{align}
-    The trace operation is the addition of diagonal terms in a matrix and hence is equivalent to $\braket{\psi|\psi}$, where orthonormal relations mean that $\braket{00|11}$ and $\braket{11|00}$ do not contribute to the trace.<p>
+<p>An advantage of the density matrix approach is that component systems can be analysed with an operation called partial trace. For a composite system $AB$ composed of systems $A$ and $B$, the partial trace over system $B$ recovers the density matrix of $A$ $$\rho_A = tr_{B}(\rho_{AB})$$<!--bookmark: explain how the reduced density operator works with partial trace, and the use of it.--></p>
+<p>This partial trace that acts over system $B$, can be carried out as follows
+\begin{align}
+tr_{B}(\rho_{AB}) &= tr_{B}(\rho_{A} \otimes \rho_{B}) \\ &= \rho_{A} tr(\rho_B) \\ &= \rho_{A} \cdot 1 \\  &= \rho_A
+\end{align}
+</p>
+<p>Above, the property $tr(\rho_B)=1$ was used.</p>
 
 
-    <p> Now, let's look at the trace of first qubit state $\rho_{1}$, making use of the idempotent property of the identity matrix that $II=I$
-    \begin{align}
-    \rho_{1} &= \frac{1}{2} I\\
-    \rho_{1}^{2} &= \frac{1}{4} I\\
-    tr(\rho_{1}^{2}) &= \frac{1}{4} tr\begin{bmatrix}1 & 0\\ 0 & 1\end{bmatrix}\\
-    tr(\rho_{1}^{2}) &= \frac{1}{4}(1+1)\\
-    tr(\rho_{1}^{2}) &= \frac{1}{2} \\
-    tr(\rho_{1}^{2}) &\lt 1
-    \end{align}</p>
-    
-    <p>This impure first qubit state (which holds true for the second state because similarly $\rho_2=\frac{1}{2} I $) indicates uncertainty about the state of the qubit. We need the full Bell state, which is pure, to be fully certain about the state. This uncertainty about component systems, while being certain about the composite state, is a hallmark of entanglement.<!-- a quantum property which will be explored further below-->
-    <!--bookmark: explain where exactly entanglement will be explored, and link to it!--> 
-    <!--bookmark: Link Bell state to a later section in this page.-->
-    <!--bookmark: Explain why uncertainty leads to entanglement-->
-    <!--bookmark: Explain why exactly the density matrix appproach should be used-->
-    </p>
+<p>Let's look at an example of an interesting two-qubit pure state called a 'Bell state', $\ket{\Psi_{00}}=\frac{1}{\sqrt{2}} (\ket{00}+\ket{11})$</p>
+<p>\begin{align}
+\rho &= \frac{1}{2}((\ket{00}+\ket{11}))(\bra{00}+\bra{11})\\
+&= \frac{1}{2}(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})
+\end{align}</p>
+<p>A useful trick in the following trace calculations is $tr(\ket{\psi_1}\bra{\psi_2})=\braket{\psi_1|\psi_2}$, brought about by trace being the addition of diagonal terms.<!--bookmark: IMPROVE EXPLANATION of trace condition being equivalent to an inner product--></p>
+<p>Tracing over the second qubit results in the following density matrix $\rho_1$ for the first qubit
+\begin{align}
+\rho_1 &= tr_{2}(\rho) \\
+&= \frac{1}{2}(tr_{2}(\ket{00}\bra{00})+tr_{2}(\ket{00}\bra{11})+tr_{2}(\ket{11}\bra{00})+tr_{2}(\ket{11}\bra{11}))\\
+&= \frac{1}{2}(\ket{0}\bra{0}\braket{0|0}+\ket{0}\bra{1}\braket{0|1}+\ket{1}\bra{0}\braket{1|0}+\ket{1}\bra{1}\braket{11}) \\
+&= \frac{1}{2}(\ket{0}\bra{0}\cdot 1+\ket{0}\bra{1}\cdot 0+\ket{1}\bra{0}\cdot 0+\ket{1}\bra{1}\cdot 1) \\
+&= \frac{1}{2}(\ket{0}\bra{0}+\ket{1}\bra{1}) \\
+&= \frac{1}{2} I
+\end{align}</p>
+
+<p>$tr(\ket{\psi_1}\bra{\psi_2})=\braket{\psi_1|\psi_2}$ was used on the second qubit state, allowing the orthonormal relations $\braket{0|0}=\braket{1|1}=1$ and $\braket{0|1}=\braket{1|0}=0$ to be applied.</p>
+<p>Interestingly enough, while the Bell state is pure, the first qubit isn't. First let's show that the Bell state is pure. Note, for the following calculation the orthonormal relations $\braket{00|00}=\braket{11|11}=1$ and $\braket{00|11}=\braket{11|00}=0$ will be used implicitly to avoid having too many terms.
+\begin{align}
+\rho &= \frac{1}{2}(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})\\
+\rho^{2} &= \frac{1}{4}(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})\\&\cdot (\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11}) \\
+\rho^{2} &= \frac{1}{4} (\ket{00}(\bra{00} + \bra{11} + 0 + 0)\\ & + \ket{00}( 0 + 0 +\bra{00}+\bra{11})\\ & + \ket{11}(\bra{00} + \bra{11} + 0 + 0)\\ & + \ket{11}( 0 + 0 + \bra{00} + \bra{11})) \\
+\rho^{2} &= \frac{1}{4} ( 2\ket{00}(\bra{00} + \bra{11}) + 2\ket{11}(\bra{00}+\bra{11}))\\
+\rho^{2} &= \frac{1}{2} (\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11})\\
+\rho^{2} &= \rho\\
+tr(\rho^{2}) &= \frac{1}{2}tr(\ket{00}\bra{00}+\ket{00}\bra{11}+\ket{11}\bra{00}+\ket{11}\bra{11}) \\
+tr(\rho^{2}) &= \frac{1}{2}(1 + 1) \\
+tr(\rho^{2}) &= 1 \\
+\end{align}
+The trace operation is the addition of diagonal terms in a matrix and hence is equivalent to $\braket{\psi|\psi}$, where orthonormal relations mean that $\braket{00|11}$ and $\braket{11|00}$ do not contribute to the trace.<p>
+
+
+<p> Now, let's look at the trace of first qubit state $\rho_{1}$, making use of the idempotent property of the identity matrix that $II=I$
+\begin{align}
+\rho_{1} &= \frac{1}{2} I\\
+\rho_{1}^{2} &= \frac{1}{4} I\\
+tr(\rho_{1}^{2}) &= \frac{1}{4} tr\begin{bmatrix}1 & 0\\ 0 & 1\end{bmatrix}\\
+tr(\rho_{1}^{2}) &= \frac{1}{4}(1+1)\\
+tr(\rho_{1}^{2}) &= \frac{1}{2} \\
+tr(\rho_{1}^{2}) &\lt 1
+\end{align}</p>
+
+<p>This impure first qubit state (which holds true for the second state because similarly $\rho_2=\frac{1}{2} I $) indicates uncertainty about the state of the qubit. We need the full Bell state, which is pure, to be fully certain about the state. This uncertainty about component systems, while being certain about the composite state, is a hallmark of entanglement.<!-- a quantum property which will be explored further below-->
+<!--bookmark: explain where exactly entanglement will be explored, and link to it!--> 
+<!--bookmark: Link Bell state to a later section in this page.-->
+<!--bookmark: Explain why uncertainty leads to entanglement-->
+<!--bookmark: Explain why exactly the density matrix appproach should be used-->
+</p>
 
 
 
-    <h2 id="Bloch_Sphere">Bloch Sphere</h2>
-    <!--bookmark: Review and improve, including an expanded explanation of $e^{i\phi}$ and sine and cosine functions and values as their arguments vary. Perhaps with matplotlib plots-->
-    <!--bookmark: Describe phases to a greater degree-->
-    <!--bookmark: Describe the link between phases and angles to a greater degree, noting how 2 pi rotation leads to 1-->
-    <!--bookmark: explain orthonormal nature-->
+<h2 id="Bloch_Sphere">Bloch Sphere</h2>
+<!--bookmark: Review and improve, including an expanded explanation of $e^{i\phi}$ and sine and cosine functions and values as their arguments vary. Perhaps with matplotlib plots-->
+<!--bookmark: Describe phases to a greater degree-->
+<!--bookmark: Describe the link between phases and angles to a greater degree, noting how 2 pi rotation leads to 1-->
+<!--bookmark: explain orthonormal nature-->
 
-    <p>The Bloch sphere is another representation of individual qubits which I would recommend to become familiar with.<p>
-    <p>The Bloch sphere represents superpositions of the $\ket{0}$ and $\ket{1}$ states on the surface of a 3D sphere with a radius of 1. This shape is constrained by the fact that the total probability of states is  $p_0+p_1=|\alpha|^{2}+|\beta|^{2}=1$ for $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$</p>
-
-
-    <p>Specifically, a general qubit state is $$\ket{\psi} = e^{i \gamma}(\cos(\frac{\theta}{2})\ket{0}+e^{i\phi} \sin(\frac{\theta}{2})\ket{1})$$</p>
-    <p>The $e^{i \gamma}$ factor, also known as the 'global phase factor', does not show up in measurement statistics<!--bookmark: perhaps explain why this does not show up-->, and hence can be ignored to give
-    $$\ket{\psi} = \cos(\frac{\theta}{2})\ket{0}+e^{i\phi} \sin(\frac{\theta}{2})\ket{1}$$</p>
-
-    <p>For example, with $\theta=\frac{\pi}{4}$ and $\phi=\frac{\pi}{4}$, the Bloch sphere is</p>
-    <img src="Figures/Ch1_Basics_Figures/annotated_bloch_sphere.png" alt="Annotated Bloch sphere" width="400" height="400">
-
-    <p>Without going too far into the details, the sine, cosine and exponential functions in the qubit state vary with angles as shown below</p>
-    <img src="Figures/Ch1_Basics_Figures/trig_exp_plots.png" alt="Trigonometric Functions which feature in the Bloch sphere" width="736" height="265">
-    <p>The sine, cosine and exponential functions all repeat with a periodicity of $2\pi$, it's just that in the case of $\sin{\frac{\theta}{2}}$ and $\cos{\frac{\theta}{2}}$ the argument is $\frac{\theta}{2}$, leading to a periodicity of $4\pi$. Radians, which is the unit for rotational movement referred to here, can also be converted into degrees, with $2\pi$ radians being equivalent to the $360$ degrees of a circle.</p>
-
-    <p>In the computational basis state $\ket{0}$, $\theta=0$ so the Bloch vector is vertically upwards along the positive 'z' axis</p>
-    <img src="Figures/Ch1_Basics_Figures/bloch_sphere_computational_basis_0_state.png" alt="Bloch sphere in computational basis '0' state" width="400" height="400">
-    <p>For the orthogonal state in the computational basis $\ket{1}$, $\theta=\pi$ so the Bloch vector is vertically downwards along the negative 'z' axis</p>
-
-    <img src="Figures/Ch1_Basics_Figures/bloch_sphere_computational_basis_1_state.png" alt="Bloch sphere in computational basis '1' state" width="400" height="400">
+<p>The Bloch sphere is another representation of individual qubits which I would recommend to become familiar with.<p>
+<p>The Bloch sphere represents superpositions of the $\ket{0}$ and $\ket{1}$ states on the surface of a 3D sphere with a radius of 1. This shape is constrained by the fact that the total probability of states is  $p_0+p_1=|\alpha|^{2}+|\beta|^{2}=1$ for $\ket{\psi}=\alpha\ket{0}+\beta\ket{1}$</p>
 
 
-    <p>Two other orthonormal basis sets are the $(\ket{+}, \ket{-})$ basis states and the $(\ket{+i}, \ket{-i})$ basis states. In these states $\theta=\frac{\pi}{2}$, which leads to $\cos(\frac{\pi}{4})=\sin(\frac{\pi}{4})=\frac{1}{\sqrt{2}}$, hence these basis states are 'equatorial' and along the 'xy' plane bisecting the Bloch sphere.</p>
-    <p>First, starting with the $\ket{+}$ and $\ket{-}$ states, these have the 'relative' phase $\phi$ of respectively $0$ and $\pi$, which when substituted into $e^{i\phi}$ leads to $e^{0}=1$ and $e^{i\pi}=-1$ respectively, hence
-    \begin{align}
-    \ket{+}&=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1}) \\
-    &=\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ 1\end{bmatrix} \\    
-    \ket{-}&=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1}) \\
-    &=\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ -1\end{bmatrix} \\
-    \end{align}
-    </p>
-    <p>On the Bloch sphere, $\ket{+}$ is along the positive 'x' axis</p>
-    <img src="Figures/Ch1_Basics_Figures/bloch_sphere_hadamard_basis_plus_state.png" alt="Bloch sphere in Hadamard basis '+' state" width="400" height="400">
-    <p>And the orthonormal basis state $\ket{-}$ points to the opposite side of the Bloch sphere, along the negative 'x' axis</p>
-    <img src="Figures/Ch1_Basics_Figures/bloch_sphere_hadamard_basis_minus_state.png" alt="Bloch sphere in Hadamard basis '-' state" width="400" height="400">
+<p>Specifically, a general qubit state is $$\ket{\psi} = e^{i \gamma}(\cos(\frac{\theta}{2})\ket{0}+e^{i\phi} \sin(\frac{\theta}{2})\ket{1})$$</p>
+<p>The $e^{i \gamma}$ factor, also known as the 'global phase factor', does not show up in measurement statistics<!--bookmark: perhaps explain why this does not show up-->, and hence can be ignored to give
+$$\ket{\psi} = \cos(\frac{\theta}{2})\ket{0}+e^{i\phi} \sin(\frac{\theta}{2})\ket{1}$$</p>
+
+<p>For example, with $\theta=\frac{\pi}{4}$ and $\phi=\frac{\pi}{4}$, the Bloch sphere is</p>
+<img src="Figures/Ch1_Basics_Figures/annotated_bloch_sphere.png" alt="Annotated Bloch sphere" width="400" height="400">
+
+<p>Without going too far into the details, the sine, cosine and exponential functions in the qubit state vary with angles as shown below</p>
+<img src="Figures/Ch1_Basics_Figures/trig_exp_plots.png" alt="Trigonometric Functions which feature in the Bloch sphere" width="736" height="265">
+<p>The sine, cosine and exponential functions all repeat with a periodicity of $2\pi$, it's just that in the case of $\sin{\frac{\theta}{2}}$ and $\cos{\frac{\theta}{2}}$ the argument is $\frac{\theta}{2}$, leading to a periodicity of $4\pi$. Radians, which is the unit for rotational movement referred to here, can also be converted into degrees, with $2\pi$ radians being equivalent to the $360$ degrees of a circle.</p>
+
+<p>In the computational basis state $\ket{0}$, $\theta=0$ so the Bloch vector is vertically upwards along the positive 'z' axis</p>
+<img src="Figures/Ch1_Basics_Figures/bloch_sphere_computational_basis_0_state.png" alt="Bloch sphere in computational basis '0' state" width="400" height="400">
+<p>For the orthogonal state in the computational basis $\ket{1}$, $\theta=\pi$ so the Bloch vector is vertically downwards along the negative 'z' axis</p>
+
+<img src="Figures/Ch1_Basics_Figures/bloch_sphere_computational_basis_1_state.png" alt="Bloch sphere in computational basis '1' state" width="400" height="400">
 
 
-    <p>Secondly, the $\ket{+i}$ and $\ket{-i}$ states have the relative phase $\phi$ of respectively $\frac{\pi}{2}$ and $\frac{3\pi}{2}$, leading to $e^{i\frac{\pi}{2}}=i$ and $e^{i\frac{3\pi}{2}}=-i$, so</p>
-    <p>
-    \begin{align}
-    \ket{+i}&=\frac{1}{\sqrt{2}}(\ket{0}+i\ket{1}) \\
-    &=\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ i\end{bmatrix} \\    
-    \ket{-i}&=\frac{1}{\sqrt{2}}(\ket{0}-i\ket{1}) \\
-    &=\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ -i\end{bmatrix} \\
-    \end{align}
-    </p>
+<p>Two other orthonormal basis sets are the $(\ket{+}, \ket{-})$ basis states and the $(\ket{+i}, \ket{-i})$ basis states. In these states $\theta=\frac{\pi}{2}$, which leads to $\cos(\frac{\pi}{4})=\sin(\frac{\pi}{4})=\frac{1}{\sqrt{2}}$, hence these basis states are 'equatorial' and along the 'xy' plane bisecting the Bloch sphere.</p>
+<p>First, starting with the $\ket{+}$ and $\ket{-}$ states, these have the 'relative' phase $\phi$ of respectively $0$ and $\pi$, which when substituted into $e^{i\phi}$ leads to $e^{0}=1$ and $e^{i\pi}=-1$ respectively, hence
+\begin{align}
+\ket{+}&=\frac{1}{\sqrt{2}}(\ket{0}+\ket{1}) \\
+&=\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ 1\end{bmatrix} \\    
+\ket{-}&=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1}) \\
+&=\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ -1\end{bmatrix} \\
+\end{align}
+</p>
+<p>On the Bloch sphere, $\ket{+}$ is along the positive 'x' axis</p>
+<img src="Figures/Ch1_Basics_Figures/bloch_sphere_hadamard_basis_plus_state.png" alt="Bloch sphere in Hadamard basis '+' state" width="400" height="400">
+<p>And the orthonormal basis state $\ket{-}$ points to the opposite side of the Bloch sphere, along the negative 'x' axis</p>
+<img src="Figures/Ch1_Basics_Figures/bloch_sphere_hadamard_basis_minus_state.png" alt="Bloch sphere in Hadamard basis '-' state" width="400" height="400">
 
-    <p>The Bloch sphere representation of the $\ket{+i}$ state is along the positive 'y' axis</p>
-    <img src="Figures/Ch1_Basics_Figures/bloch_sphere_circular_basis_i_state.png" alt="Bloch sphere in circular basis '+i' state" width="400" height="400">
-    <p>The orthonormal $\ket{-i}$ state is in the opposite direction, along the negative 'y' axis</p>
-    <img src="Figures/Ch1_Basics_Figures/bloch_sphere_circular_basis_minus_i_state.png" alt="Bloch sphere in circular basis '-i' state" width="400" height="400">
+
+<p>Secondly, the $\ket{+i}$ and $\ket{-i}$ states have the relative phase $\phi$ of respectively $\frac{\pi}{2}$ and $\frac{3\pi}{2}$, leading to $e^{i\frac{\pi}{2}}=i$ and $e^{i\frac{3\pi}{2}}=-i$, so</p>
+<p>
+\begin{align}
+\ket{+i}&=\frac{1}{\sqrt{2}}(\ket{0}+i\ket{1}) \\
+&=\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ i\end{bmatrix} \\    
+\ket{-i}&=\frac{1}{\sqrt{2}}(\ket{0}-i\ket{1}) \\
+&=\frac{1}{\sqrt{2}}\begin{bmatrix}1 \\ -i\end{bmatrix} \\
+\end{align}
+</p>
+
+<p>The Bloch sphere representation of the $\ket{+i}$ state is along the positive 'y' axis</p>
+<img src="Figures/Ch1_Basics_Figures/bloch_sphere_circular_basis_i_state.png" alt="Bloch sphere in circular basis '+i' state" width="400" height="400">
+<p>The orthonormal $\ket{-i}$ state is in the opposite direction, along the negative 'y' axis</p>
+<img src="Figures/Ch1_Basics_Figures/bloch_sphere_circular_basis_minus_i_state.png" alt="Bloch sphere in circular basis '-i' state" width="400" height="400">
 
 
-    <!--bookmark: describe how the statistics of measurement is invariant to global phase, but relative phases are important. -->   
-    
+<!--bookmark: describe how the statistics of measurement is invariant to global phase, but relative phases are important. -->   
 
-    <h1 id="Quantum_Circuits">Quantum Circuits</h1>
-    <!--bookmark: Describe quantum circuits, and note wires as carrying information and gates as operations-->
-    <p>Now that we've covered the <a href="#Fundamental_Postulates_of_Quantum_Mechanics">basics of quantum mechanics</a>, <a href="#Quantum_Bits">qubits</a>, and <a href="#Further_Representations_of_Qubits">methods of representing them</a>, we will explore how circuits can be constructed to perform computation in this section.</p>
+
+<h1 id="Quantum_Circuits">Quantum Circuits</h1>
+<!--bookmark: Describe quantum circuits, and note wires as carrying information and gates as operations-->
+<p>Now that we've covered the <a href="#Fundamental_Postulates_of_Quantum_Mechanics">basics of quantum mechanics</a>, <a href="#Quantum_Bits">qubits</a>, and <a href="#Further_Representations_of_Qubits">methods of representing them</a>, we will explore how circuits can be constructed to perform computation in this section.</p>
     <p>As noted previously while describing the <a href="#Evolution">2nd postulate on the evolution of closed systems</a>, the evolution of individual qubits can be described by gates which act on qubit states. Such unitary gates, both single qubit and multi-qubit, can be used with qubits to construct quantum circuits.</p>
     <p>This section first will start out with <a href="#Single_Qubit_Gates">single qubit gates</a>, before expanding to <a href="#Multi_Qubit_Gates">multi-qubit gates</a>, providing examples and visualisations throughout.
     <!--and <a href="#Measurement_Gates">measurement operations</a>.</p>-->
