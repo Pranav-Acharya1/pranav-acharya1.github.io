@@ -397,8 +397,8 @@ img {
     <!--bookmark: Deutsch-Jozsa Algorithm-->
 
 
-    <h1 id="Fourier_Transforms">Quantum Fourier Transform</h1><!--bookmark: REVIEW, SIMPLIFY and REWRITE. This is a draft.--> 
-    <h2>Fourier Transform</h2>
+    <h1 id="Fourier_Transform">Fourier Transform</h1><!--bookmark: REVIEW, SIMPLIFY and REWRITE. This is a draft.--> 
+    <h2 id="Classical_Fourier_Transform">Classical Fourier Transform</h2>
 
     <!--bookmark: Explain Fourier Transform in quantum algorithms. Show a 3 qubit example with T and S and swap gates. Also further Fourier stuff, such as inverse Fourier circuit, decomposition of controlled $R_k$ gates into rotations and $C_{NOT}$ gates.-->
 
@@ -508,12 +508,16 @@ img {
     </p>
 
 
-    <h2>Quantum Fourier Transform Circuit</h2>
+    <h2 id="QFT_subsection">Quantum Fourier Transform</h2>
 
     <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
 
     <p>In this subsection we will go over the quantum Fourier transform (QFT) circuit, building atop the introduction to the Fourier transform in the preceding subsection. The QFT circuit is an efficient algorithm for applying the Fourier transform to the amplitudes of qubits, and is pivotal to further applications as explored in the following subsections.</p>
     <!--bookmark: TODO: briefly explain other applications, and link to them-->
+    <!--bookmark: EXPLAIN and STRUCTURE this section, providing links to different parts.-->
+
+    <h3 id="QFT_circuit_derivation">Derivation of QFT Circuit</h3>
+
     <p>QFT effectively applies the forward discrete Fourier transform by acting as an operator
     $$\ket{j} \rightarrow \frac{1}{\sqrt{N}}\sum_{k=0}^{N-1} e^{2\pi i \frac{k j}{N}} \ket{k} $$
     </p>
@@ -577,18 +581,69 @@ img {
     \end{align}
     </p>
 
-    <p>Now that we have an equation demonstrating how QFT evolves an $n$ qubit state $\ket{j}$, the next step is implement this operation with gates.</p>
+    <p>Now that we have an equation demonstrating how QFT evolves an $n$ qubit state $\ket{j}$, the next step is implement this evolution with gates.</p>
+
+    <p>Before starting with this, let's define a control-phase gate which applies the following operation $R_{k}$ on a target qubit if the control qubit is $1$:
+    \begin{align}
+    R_k = \begin{bmatrix} 1 & 1 \\ 1 & e^{2 \pi i /2^{k}} \end{bmatrix}
+    \end{align}
+    </p>
+    <p>Starting with the state $$\ket{j} = \ket{j_{1} j_{2} \ldots j_{n}} = \ket{j_1} \otimes \ket{j_2 \ldots j_n}$$</p>
+
+    <p>Let's first apply a Hadamard gate to the first qubit, resulting in
+    $$H\ket{j_1} = \frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_1}\right) \otimes \ket{j_2 \ldots j_n}$$</p>
+
+    <p>The above operation can be seen to hold for two possible values of $j_1$. If $j_1=0$ then $e^{2 \pi i \frac{j_1}{2}}=e^{2 \pi i \frac{1}{2}} =e^{\pi i} = -1$ so $H\ket{1} = \frac{1}{2}(\ket{0}-\ket{1})$ as expected of the Hadamard gate. If instead $j_1=0$ then $e^{2 \pi i \frac{j_1}{2}}=e^{2 \pi i \frac{0}{2}} =e^{0} = 1$, leading to $H\ket{0} = \frac{1}{2}(\ket{0}-\ket{1})$ as also expected of the Hadamard gate.</p>
+
+    <p>Now let's apply $R_2$ (that is with $k=2$) onto the 1st qubit with the second qubit state $\ket{j_2}$ as the control qubit. To keep things simple, states $\ket{j_2 \ldots j_n}$ won't be shown here:
+    \begin{align}
+    R_{2} \frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_1}\right)  &= \begin{bmatrix} 1 & 1 \\ 1 & e^{2 \pi i /2^{2}} \end{bmatrix}  \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\  e^{2 \pi i 0.j_1} \end{bmatrix}  \\ 
+    &= \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\  e^{2 \pi i 0.j_1 } e^{2 \pi i 0.0j_{2}} \end{bmatrix} \\
+    &= \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\  e^{2 \pi i (0.j_1 +  0.0j_{2})} \end{bmatrix} \\
+    &= \frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_1 j_2} \right) \\
+    \end{align}</p>
+
+    <p>This controlled phase operation repeats for the 3rd qubit, except with a controlled $R_3$ gate. This repeats as $p$ increments to $n$, for control qubit $p$ and a controlled $R_p$ gate, leading to the following state for the first qubit
+    $$\frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_1 j_2\ldots j_n} \right)$$</p>
+    <p>The same course of occurs for the 2nd qubit, starting with a Hadamard gate and then applying a controlled $R_2$ gate with the 3rd qubit state $\ket{j_3}$ as the control state. Similarly this continues as $p$ increments all the way to $p=n$ for a controlled $R_{p-1}$ operation controlled by state $\ket{j_{p}}$, leading to
+    $$\frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_2 \ldots j_n} \right)$$</p>
+
+    <p>As this repeats for following qubits, the number of controlled phase operations decreases, with the $n-1$ qubit state of $\ket{j_{n-1}}$ only having a single $R_2$ operation controlled by $\ket{j_n}$ following the application of a Hadamard, leading to 
+    $$\frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_{n-1} j_n} \right)$$</p>
+
+    <p>And for the last qubit only a Hadamard gate is need to transform it
+    $$H\ket{j_n} = \frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_n} \right) $$</p>
+
+
+    <p>This results in the following composite state, including all $n$ qubits
+    $$\frac{1}{\sqrt{2^{n}}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_2 \ldots j_n} \right) \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_2 \ldots j_n} \right) \ldots \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_n} \right) $$</p>
+
+    <p>Note, the order of the states are inverted compared to what $\hat{F}_{QFT}\ket{j}$ results in, so after this swap gates are used to invert the order of the qubit states, resulting in the expected state:
+    $$\hat{F}_{QFT}\ket{j} = \frac{1}{\sqrt{2^n}}  \left( \ket{0} + e^{(2\pi i) 0.j_{n} } \ket{1}\right) \left( \ket{0} + e^{(2\pi i) 0.j_{n-1}j_{n} } \ket{1}\right) \ldots \left( \ket{0} + e^{(2\pi i) 0.j_{1}j_{2}\ldots j_{n} } \ket{1}\right)$$
+    </p>
+
+    <p>The gate operations so far, excluding the swap operations (to keep the size of the figure down), are shown below:</p>
     <!--bookmark: Start explaining the application of gates to reproduce the maths-->
     <img src="Figures/Ch2_Quantum_Algorithms_Figures/qft_circuit_without_swaps.png" alt="First part of the QFT circuit, missing the swaps at the end of the circuit which invert the order of states" width=1000 height=212>
-    <p></p>
-    <!--bookmark: briefly describe QFT equations-->
+    <!--bookmark: Continue explanation-->
+    <h3>Inverse QFT circuit</h3>
+    <p>Now that we are familiar with the circuit formulation of the QFT circuit, let's look at the circuit for the inverse QFT. By definition, the inverse QFT reverts the changes applied by QFT circuit through its component gates. This would mean placing inverted (Hermitian conjugate) gates in the opposite order which the gates were applied in QFT, starting from the end with the swap gates and ending with the Hadamard applied on the 1st qubit.</p>
+    <p>Before we start going through the reverse course of operations, it's worth recognising what these inverse gates are. The swap and Hadamard gates are both Hermitian, that is they are equal to their inverse, as described in the section on <a href="Ch1_basics_of_QC.html#Quantum_Gates">quantum gates</a> in the <a href="Ch1_basics_of_QC">previous chapter</a>.</p>
+
+
+    <h3>Demonstration of QFT</h3>
+
     <!--bookmark: Show a 3/4/5 qubit example phase and swap gates-->
     <!--bookmark: Show Qiskit circuits, and how it changes input values-->
 
+    <!--bookmark: Describe the matrix representation of QFT -->
+    <!--bookmark: Perhaps briefly show the inverse QFT, both as a block and a circuit -->
+
     <!--bookmark: inverse QFT circuit-->
+    
     <!--bookmark: Explain the QFT and its inverse mathematically -->
     <!--bookmark: Show the inverse Fourier circuit.--> 
-
+    <!--bookmark: Demonstrate that it indeed is an inverse, by going through the equations. Note, remember that there are swap gates.-->
 
     <!--bookmark: Explain how it will be used in the QFT circuit section going forward.-->    
 

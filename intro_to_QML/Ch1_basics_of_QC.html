@@ -106,7 +106,7 @@ img {
     <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang.</p>-->
 
     <!--bookmark: Reword the following when done-->
-    <p>This chapter introduces basic concepts of quantum computing: <a href="#Quantum_Bits">quantum bits</a> or 'qubits', the <a href="#Fundamental_Postulates_of_Quantum_Mechanics">fundamental postulates of quantum mechanics</a>, <a href="#Further_Representations_of_Qubits">further representations of quantum states</a> (such as <a href="#Density_Matrices">density operators</a> and the <a href="#Bloch_Sphere">Bloch sphere</a>), and <a href="#Quantum_Circuits">quantum circuits</a> (which are composed of <a href="#Single_Qubit_Gates">single qubit gates</a> and <a href="#Multi_Qubit_Gates">multi-qubit gates</a>).</p>
+    <p>This chapter introduces basic concepts of quantum computing: <a href="#Quantum_Bits">quantum bits</a> or 'qubits', the <a href="#Fundamental_Postulates_of_Quantum_Mechanics">fundamental postulates of quantum mechanics</a>, <a href="#Further_Representations_of_Qubits">further representations of quantum states</a> (such as <a href="#Density_Matrices">density operators</a> and the <a href="#Bloch_Sphere">Bloch sphere</a>), and <a href="#Quantum_Gates">quantum gates</a> (with <a href="#Single_Qubit_Gates">single qubit gates</a> and <a href="#Multi_Qubit_Gates">multi-qubit gates</a>).</p>
 
     <!--bookmark: Explain how the following will be included quantum circuits, and how quantum effects such as entanglement enable action such as the teleportation of quantum states-->
     
@@ -686,7 +686,7 @@ $$\ket{\psi} = \cos(\frac{\theta}{2})\ket{0}+e^{i\phi} \sin(\frac{\theta}{2})\ke
 <!--bookmark: describe how the statistics of measurement is invariant to global phase, but relative phases are important. -->   
 
 
-<h1 id="Quantum_Circuits">Quantum Circuits</h1>
+<h1 id="Quantum_Gates">Quantum Gates</h1>
 <!--bookmark: Describe quantum circuits, and note wires as carrying information and gates as operations-->
 <p>Now that we've covered the <a href="#Fundamental_Postulates_of_Quantum_Mechanics">basics of quantum mechanics</a>, <a href="#Quantum_Bits">qubits</a>, and <a href="#Further_Representations_of_Qubits">methods of representing them</a>, we will explore how circuits can be constructed to perform computation in this section.</p>
     <p>As noted previously while describing the <a href="#Evolution">2nd postulate on the evolution of closed systems</a>, the evolution of individual qubits can be described by gates which act on qubit states. Such unitary gates, both single qubit and multi-qubit, can be used with qubits to construct quantum circuits.</p>
@@ -1068,6 +1068,7 @@ $$\ket{\psi} = \cos(\frac{\theta}{2})\ket{0}+e^{i\phi} \sin(\frac{\theta}{2})\ke
     $$(a\ket{0}+b\ket{1})\otimes(\alpha\ket{0}+\beta\ket{1})$$
     Where the first and second qubit states have been swapped.
     </p>
+    <p>The swap gate is a Hermitian matrix, since it is its own inverse: applying the swap gate twice just reverts qubits back to their initial states.</p>
 
     <p>Another useful multi-qubit gate is the Toffoli gate, also known at the 'controlled-controlled-not' gate, which has two control qubits and swaps the target qubit state when both control qubits are $\ket{1}$.</p>
     <img src="Figures/Ch1_Basics_Figures/toffoli_gate_demonstration.png" alt="Toffoli gate" width=400 height=278>
