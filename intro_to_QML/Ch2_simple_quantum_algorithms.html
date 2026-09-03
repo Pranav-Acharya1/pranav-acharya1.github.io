@@ -535,7 +535,7 @@ img {
     <!--bookmark: CHECK above QFT operator--></p>
     <!--bookmark: that the following binary representation maths and derivation works. And explain why I am using binary fractions-->
     <p>The number $j$ represented by a state $\ket{j}$ can be presented in binary form, as $j = j_1 j_2 \ldots j_n$ which can be expanded out into $j = j_1 2^{n-1} + j_2 2^{n-2} + \ldots + j_n 2^{0}=\sum^{n}_{l=1} j_l 2^{n-l}$. 
-    Binary representation also extends past the decimal point, with $0.j_{l} j_{l+1} \ldots j_{m} = \frac{j_{l}}{2^1} + \frac{j_{l+1}}{2^2} + \ldots \frac{j_m}{2^{m-l+1}} = \sum_{p=l}^{m} j_{p} 2^{-(p-l+1)}$.</p>
+    Binary representation also extends past the decimal point, with $0.j_{l} j_{l+1} \ldots j_{m} = \frac{j_{l}}{2^1} + \frac{j_{l+1}}{2^2} + \ldots + \frac{j_m}{2^{m-l+1}} = \sum_{p=l}^{m} j_{p} 2^{-(p-l+1)}$.</p>
     <p>Using this binary representation for $k=k_1 k_2 \ldots k_n=\sum^{n-1}_{l=0} k_l 2^{n-l} $<!--bookmark: CHECK that the k representation is correct, and explain why it is a fraction--> , one can rearrange the state resulting from application of QFT to $\ket{j}$ as follows<!--bookmark: CHECK and fix any rendering issues, like above the sum sign-->:
     \begin{align}
     \hat{F}_{QFT} \ket{j} &= \frac{1}{\sqrt{2^n}} \sum^{2^{n}-1}_{k=0} \exp \left( 2\pi i \frac{k j}{2^{n}}\right) \ket{k} \\
@@ -559,11 +559,11 @@ img {
     <p>
     The exponential coefficient of $\ket{1}$ can be expanded by substituting in $j=\sum^{n}_{p=1} j_p 2^{n-p}$ , as
     \begin{align}
-    \exp \left( 2\pi i j 2^{-l} \right) &= \exp \left( 2\pi i j \sum^{n}_{p=1} j_p 2^{n-p} 2^{-l} \right)  \\
-     &= \exp \left( 2\pi i j \sum^{n}_{p=1} j_p 2^{(n-l)-p} \right)  \\
-     &= \exp \left( 2\pi i j \left[ \sum^{n-l}_{p=1} j_p 2^{(n-l)-p} +  \sum^{n}_{p=n-l+1} j_p 2^{(n-l)-p} \right] \right) 
+    \exp \left( 2\pi i j 2^{-l} \right) &= \exp \left( 2\pi i  \sum^{n}_{p=1} j_p 2^{n-p} 2^{-l} \right)  \\
+     &= \exp \left( 2\pi i  \sum^{n}_{p=1} j_p 2^{(n-l)-p} \right)  \\
+     &= \exp \left( 2\pi i  \left[ \sum^{n-l}_{p=1} j_p 2^{(n-l)-p} +  \sum^{n}_{p=n-l+1} j_p 2^{(n-l)-p} \right] \right) 
     \end{align}
-    We can observe that $e^{2\pi i x} = 1$ for integer values of $x$, and the first sum only contains integer values (ranging from $j_1 2^{n-l-1}$ to $j_{n-1} 2^{0}$) so the whole sum effectively cancels out as a factor of unity $1$ and can be removed.
+    We can observe that $e^{2\pi i x} = 1$ for integer values of $x$, and the first sum only contains integer values (ranging from $j_1 2^{n-l-1}$ to $j_{n-l} 2^{0}$) so the whole sum effectively cancels out as a factor of unity $1$ and can be removed.
     \begin{align}
     \exp \left( 2\pi i j 2^{-l} \right) &= \exp \left( 2\pi i j \left[ \sum^{n}_{p=n-l+1} j_p 2^{(n-l)-p} \right] \right) \\
     &=    \exp \left( 2\pi i j \left[ \frac{j_{n-l+1}}{2^{1}} + \frac{j_{n-l+2}}{2^{2}} + \ldots + \frac{j_{n}}{2^{l}} \right] \right)
@@ -585,41 +585,41 @@ img {
 
     <p>Before starting with this, let's define a control-phase gate which applies the following operation $R_{k}$ on a target qubit if the control qubit is $1$:
     \begin{align}
-    R_k = \begin{bmatrix} 1 & 1 \\ 1 & e^{2 \pi i /2^{k}} \end{bmatrix}
+    R_k = \begin{bmatrix} 1 & 0 \\ 0 & e^{2 \pi i /2^{k}} \end{bmatrix}
     \end{align}
     </p>
     <p>Starting with the state $$\ket{j} = \ket{j_{1} j_{2} \ldots j_{n}} = \ket{j_1} \otimes \ket{j_2 \ldots j_n}$$</p>
 
     <p>Let's first apply a Hadamard gate to the first qubit, resulting in
-    $$H\ket{j_1} = \frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_1}\right) \otimes \ket{j_2 \ldots j_n}$$</p>
+    $$H\ket{j_1} = \frac{1}{\sqrt{2}} \left( \ket{0} +  e^{2 \pi i 0.j_1}\ket{1}\right) \otimes \ket{j_2 \ldots j_n}$$</p>
 
-    <p>The above operation can be seen to hold for two possible values of $j_1$. If $j_1=0$ then $e^{2 \pi i \frac{j_1}{2}}=e^{2 \pi i \frac{1}{2}} =e^{\pi i} = -1$ so $H\ket{1} = \frac{1}{2}(\ket{0}-\ket{1})$ as expected of the Hadamard gate. If instead $j_1=0$ then $e^{2 \pi i \frac{j_1}{2}}=e^{2 \pi i \frac{0}{2}} =e^{0} = 1$, leading to $H\ket{0} = \frac{1}{2}(\ket{0}-\ket{1})$ as also expected of the Hadamard gate.</p>
+    <p>The above operation can be seen to hold for two possible values of $j_1$. If $j_1=1$ then $e^{2 \pi i \frac{j_1}{2}}=e^{2 \pi i \frac{1}{2}} =e^{\pi i} = -1$ so $H\ket{1} = \frac{1}{2}(\ket{0}-\ket{1})$ as expected of the Hadamard gate. If instead $j_1=0$ then $e^{2 \pi i \frac{j_1}{2}}=e^{2 \pi i \frac{0}{2}} =e^{0} = 1$, leading to $H\ket{0} = \frac{1}{2}(\ket{0}+\ket{1})$ as also expected of the Hadamard gate.</p>
 
     <p>Now let's apply $R_2$ (that is with $k=2$) onto the 1st qubit with the second qubit state $\ket{j_2}$ as the control qubit. To keep things simple, states $\ket{j_2 \ldots j_n}$ won't be shown here:
     \begin{align}
-    R_{2} \frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_1}\right)  &= \begin{bmatrix} 1 & 1 \\ 1 & e^{2 \pi i /2^{2}} \end{bmatrix}  \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\  e^{2 \pi i 0.j_1} \end{bmatrix}  \\ 
+    R_{2} \frac{1}{\sqrt{2}} \left( \ket{0} + e^{2 \pi i 0.j_1}\ket{1} \right)  &= \begin{bmatrix} 1 & 0 \\ 0 & e^{2 \pi i /2^{2}} \end{bmatrix}  \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\  e^{2 \pi i 0.j_1} \end{bmatrix}  \\ 
     &= \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\  e^{2 \pi i 0.j_1 } e^{2 \pi i 0.0j_{2}} \end{bmatrix} \\
     &= \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\  e^{2 \pi i (0.j_1 +  0.0j_{2})} \end{bmatrix} \\
     &= \frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_1 j_2} \right) \\
     \end{align}</p>
 
     <p>This controlled phase operation repeats for the 3rd qubit, except with a controlled $R_3$ gate. This repeats as $p$ increments to $n$, for control qubit $p$ and a controlled $R_p$ gate, leading to the following state for the first qubit
-    $$\frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_1 j_2\ldots j_n} \right)$$</p>
-    <p>The same course of occurs for the 2nd qubit, starting with a Hadamard gate and then applying a controlled $R_2$ gate with the 3rd qubit state $\ket{j_3}$ as the control state. Similarly this continues as $p$ increments all the way to $p=n$ for a controlled $R_{p-1}$ operation controlled by state $\ket{j_{p}}$, leading to
-    $$\frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_2 \ldots j_n} \right)$$</p>
+    $$\frac{1}{\sqrt{2}} \left( \ket{0} + e^{2 \pi i 0.j_1 j_2\ldots j_n} \ket{1} \right)$$</p>
+    <p>The same course of action occurs for the 2nd qubit, starting with a Hadamard gate and then applying a controlled $R_2$ gate with the 3rd qubit state $\ket{j_3}$ as the control state. Similarly this continues as $p$ increments all the way to $p=n$ for a controlled $R_{p-1}$ operation controlled by state $\ket{j_{p}}$, leading to
+    $$\frac{1}{\sqrt{2}} \left( \ket{0} + e^{2 \pi i 0.j_2 \ldots j_n}\ket{1}  \right)$$</p>
 
     <p>As this repeats for following qubits, the number of controlled phase operations decreases, with the $n-1$ qubit state of $\ket{j_{n-1}}$ only having a single $R_2$ operation controlled by $\ket{j_n}$ following the application of a Hadamard, leading to 
-    $$\frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_{n-1} j_n} \right)$$</p>
+    $$\frac{1}{\sqrt{2}} \left( \ket{0} + e^{2 \pi i 0.j_{n-1} j_n} \ket{1} \right)$$</p>
 
     <p>And for the last qubit only a Hadamard gate is need to transform it
-    $$H\ket{j_n} = \frac{1}{\sqrt{2}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_n} \right) $$</p>
+    $$H\ket{j_n} = \frac{1}{\sqrt{2}} \left( \ket{0} + e^{2 \pi i 0.j_n} \ket{1} \right) $$</p>
 
 
     <p>This results in the following composite state, including all $n$ qubits
-    $$\frac{1}{\sqrt{2^{n}}} \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_2 \ldots j_n} \right) \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_2 \ldots j_n} \right) \ldots \left( \ket{0} + \ket{1} e^{2 \pi i 0.j_n} \right) $$</p>
+    $$\frac{1}{\sqrt{2^{n}}} \left( \ket{0} + e^{2 \pi i 0.j_1 \ldots j_n} \ket{1} \right) \left( \ket{0} + e^{2 \pi i 0.j_2 \ldots j_n} \ket{1} \right) \ldots \left( \ket{0} + e^{2 \pi i 0.j_n} \ket{1} \right) $$</p>
 
-    <p>Note, the order of the states are inverted compared to what $\hat{F}_{QFT}\ket{j}$ results in, so after this swap gates are used to invert the order of the qubit states, resulting in the expected state:
-    $$\hat{F}_{QFT}\ket{j} = \frac{1}{\sqrt{2^n}}  \left( \ket{0} + e^{(2\pi i) 0.j_{n} } \ket{1}\right) \left( \ket{0} + e^{(2\pi i) 0.j_{n-1}j_{n} } \ket{1}\right) \ldots \left( \ket{0} + e^{(2\pi i) 0.j_{1}j_{2}\ldots j_{n} } \ket{1}\right)$$
+    <p>Note, the order of the states is inverted compared to what $\hat{F}_{QFT}\ket{j}$ results in, so after this swap gates are used to invert the order of the qubit states, resulting in the expected state:
+    $$\hat{F}_{QFT}\ket{j} = \frac{1}{\sqrt{2^n}}  \left( \ket{0} + \ket{1}e^{(2\pi i) 0.j_{n} } \right) \left( \ket{0} + \ket{1}e^{(2\pi i) 0.j_{n-1}j_{n} } \right) \ldots \left( \ket{0} + \ket{1}e^{(2\pi i) 0.j_{1}j_{2}\ldots j_{n} } \right)$$
     </p>
 
     <p>The gate operations so far, excluding the swap operations (to keep the size of the figure down), are shown below:</p>
@@ -630,11 +630,115 @@ img {
     <p>Now that we are familiar with the circuit formulation of the QFT circuit, let's look at the circuit for the inverse QFT. By definition, the inverse QFT reverts the changes applied by QFT circuit through its component gates. This would mean placing inverted (Hermitian conjugate) gates in the opposite order which the gates were applied in QFT, starting from the end with the swap gates and ending with the Hadamard applied on the 1st qubit.</p>
     <p>Before we start going through the reverse course of operations, it's worth recognising what these inverse gates are. The swap and Hadamard gates are both Hermitian, that is they are equal to their inverse, as described in the section on <a href="Ch1_basics_of_QC.html#Quantum_Gates">quantum gates</a> in the <a href="Ch1_basics_of_QC">previous chapter</a>.</p>
 
+    <p>Conversely, the inverse of a controlled-phase gate which applies $R_k$ onto a target qubit $\ket{b}$ with a control qubit $\ket{a}$ is a similar operation except with $R_{\tilde{k}}$ which is defined as 
+    \begin{align}
+    R_{\tilde{k}}  &= \begin{bmatrix} 1 & 0 \\ 0 & e^{-2 \pi i /2^{k}} \end{bmatrix}
+    \end{align}
+    This can be seen by applying both gates and returning to the initial state as follows:</p>
 
+    <p>First the initial state is
+    $$\ket{a}\ket{b}$$
+    Then $R_k$ is applied onto $\ket{b}$ with a control qubit $\ket{a}$
+    $$\ket{a} (R_{k})^{a} \ket{b}$$
+    Then $R_{\tilde{k}}$ is applied onto the second qubit with the first as the control qubit
+    $$\ket{a} (R_{\tilde{k}})^{a} (R_{k})^{a} \ket{b}$$
+    $$\ket{a} (R_{\tilde{k}}R_{k})^{a} \ket{b}$$
+    Above $R_{\tilde{k}} R_{k}=I$, as shown by the following
+    \begin{align}
+    R_{\tilde{k}} R_{k}  &= \begin{bmatrix} 1 & 0 \\ 0 & e^{-2 \pi i /2^{k}} \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & e^{2 \pi i /2^{k}} \end{bmatrix} \\
+    &= \begin{bmatrix} 1 & 0 \\ 0 & e^{-2 \pi i /2^{k}} e^{2 \pi i /2^{k}} \end{bmatrix}   \\ 
+    &= \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\\
+    &= I
+    \end{align}
+    Substituting this back into the composite state leads to
+    $$\ket{a} (I)^{a} \ket{b}$$
+    Which is simply equivalent to returning to the starting state
+    $$\ket{a}\ket{b}$$
+    </p>
+
+
+    <p>Now that we understand inverses, let's start deriving the inverse QFT circuit, beginning with the end result of QFT
+    $$\frac{1}{\sqrt{2^n}}  \left( \ket{0} + e^{(2\pi i) 0.j_{n} } \ket{1}\right) \left( \ket{0} + e^{(2\pi i) 0.j_{n-1}j_{n} } \ket{1}\right) \ldots \left( \ket{0} + e^{(2\pi i) 0.j_{1}j_{2}\ldots j_{n} } \ket{1}\right)$$</p>
+    <p>The last operation carried out during QFT were global swaps, so the inverse of that will be the first operation we carry out now. The inverse of a swap is just another swap, so this similarly reverses the order of qubit states
+    $$\frac{1}{\sqrt{2^{n}}} \left( \ket{0} + e^{2 \pi i 0.j_1 \ldots j_n} \ket{1} \right) \left( \ket{0} + e^{2 \pi i 0.j_2 \ldots j_n} \ket{1} \right) \ldots \left( \ket{0} + e^{2 \pi i 0.j_n} \ket{1} \right) $$</p>
+
+    <p>Now let's focus on the $n$th qubit state and apply the inverse of a Hadamard, $H^{\dagger}=H$, another Hadamard
+    \begin{align}
+    H \frac{1}{\sqrt{2}}\left( \ket{0} + e^{2 \pi i 0.j_n} \ket{1} \right) &= \frac{1}{\sqrt{2}}\left( \ket{0} + e^{2 \pi i 0.j_n} H \ket{1} \right)\\ 
+    &= \frac{1}{\sqrt{2}}\left( \frac{1}{\sqrt{2}}(\ket{0}+\ket{1}) + e^{2 \pi i 0.j_n} \frac{1}{\sqrt{2}}(\ket{0}-\ket{1})\right)\\ 
+    &= \frac{1}{2}\left( (1+e^{2 \pi i 0.j_n})\ket{0} + (1-e^{2 \pi i 0.j_n})\ket{1} \right) 
+    \end{align}
+    We can recover $\ket{j_{n}}$ by recognising that it holds true for either possible value of $j_n$. 
+    </p>
+    <p>If $j_n=0$, so $\ket{j_n}=\ket{0}$, then
+    \begin{align}
+    H \frac{1}{\sqrt{2}}\left( \ket{0} + e^{2 \pi i 0.0} \ket{1} \right) &=  \frac{1}{2}\left( (1+e^{0})\ket{0} + (1-e^{0})\ket{1} \right)\\
+    =& \frac{1}{2}\left( (1+1)\ket{0} + (1-1)\ket{1} \right)\\
+    =& \frac{1}{2}\left( 2\ket{0}  \right)\\
+    =& \ket{0} 
+    \end{align}
+    If instead $j_n=1$, so $\ket{j_n}=\ket{1}$, then
+    \begin{align}
+    H \frac{1}{\sqrt{2}}\left( \ket{0} + e^{2 \pi i 0.1} \ket{1} \right) &=  \frac{1}{2}\left( (1+e^{\pi i})\ket{0} + (1-e^{\pi i})\ket{1} \right)\\
+    =& \frac{1}{2}\left( (1-1)\ket{0} + (1-(-1))\ket{1} \right)\\
+    =& \frac{1}{2}\left( 2\ket{1}  \right)\\
+    =& \ket{1} 
+    \end{align}
+    Hence the $n$th qubit is $\ket{j_n}$
+    </p>
+
+
+    <p>Now let's include the $(n-1)$th qubit together with the $n$th qubit, which together are
+    $$\frac{1}{\sqrt{2}} \left( \ket{0} + e^{(2\pi i) 0.j_{n-1}j_{n}}\ket{1}\right) \ket{j_n}$$</p>
+
+    <p>Applying $R_{\tilde{2}}$ with the $n$th qubit ($\ket{j_n}$) as the control qubit and the $(n-1)$th qubit as the target qubit results in
+    $$\frac{1}{\sqrt{2}} \left( \ket{0} \ket{j_n}+ e^{(2\pi i) 0.j_{n-1}j_{n}} R_{\tilde{2}}\ket{1}  \ket{j_n} \right) $$
+    This is a result of recognising that $R_{\tilde{p}}\ket{0}=\ket{0}$, where because the target qubit is $\ket{0}$ the application of $R_{\tilde{p}}$ does not accumulate phase.
+    </p>
+
+    <p>Just like with the Hadamard gate we can go through what happens for the two possible values of $\ket{j_n}$. If $\ket{j_n}=\ket{0}$, then
+    \begin{align}
+    & \frac{1}{\sqrt{2}} \left( \ket{0} \ket{0} + e^{(2\pi i) 0.j_{n-1}0} \ket{1} \ket{0} \right)\\
+    &= \frac{1}{\sqrt{2}} \left( \ket{0} + e^{(2\pi i) 0.j_{n-1}} \ket{1} \right) \ket{0}
+    \end{align}
+    If instead $\ket{j_n}=\ket{1}$
+    \begin{align}
+    & \frac{1}{\sqrt{2}} \left( \ket{0} \ket{1} + e^{(2\pi i) 0.j_{n-1} 1 } e^{-(2\pi i) 0.01 }\ket{1}  \ket{1} \right)\\
+    &= \frac{1}{\sqrt{2}} \left( \ket{0}  + e^{(2\pi i) ( 0.j_{n-1}1 - 0.01)  } \ket{1}  \right) \ket{1}\\
+    &= \frac{1}{\sqrt{2}} \left( \ket{0}  + e^{(2\pi i) ( 0.j_{n-1})  } \ket{1}  \right) \ket{1}\\
+    \end{align}
+    Which together leaves us with 
+    $$\frac{1}{\sqrt{2}} \left( \ket{0}  + e^{(2\pi i) ( 0.j_{n-1})  } \ket{1}  \right) \ket{j_n}$$
+    </p>
+
+    <p>Applying the Hadamard gate to $(n-1)$th qubit results in same operation as for the $n$th qubit, leading to
+    $$\ket{j_{n-1}}\ket{j_n}$$
+    </p>
+    <p>Now let's repeat the same series of actions with the $(n-2)th$ qubit to get a feel for how this scales up as the number of controlled-phase gates increases. We start with
+    $$\frac{1}{\sqrt{2}}\left( \ket{0} + e^{2 \pi i 0.j_{n-2}j_{n-1}j_n } \ket{1} \right) \ket{j_{n-1}}\ket{j_n} $$
+    </p>
+    <p>Then we apply $R_{\tilde{3}}$ with the $n$th qubit ($\ket{j_n}$) as the control qubit and the $(n-2)$th qubit as the target qubit, which similar to before effectively removes a factor of $e^{2 \pi i \frac{j_n}{2^3}}=e^{2 \pi i 0.00j_n}$, leading to 
+    $$\frac{1}{\sqrt{2}}\left( \ket{0} + e^{2 \pi i 0.j_{n-2}j_{n-1} } \ket{1} \right) \ket{j_{n-1}}\ket{j_n} $$
+    </p>
+    <p>Then we apply $R_{\tilde{2}}$ with the $n$th qubit ($\ket{j_{n-1}}$) as the control qubit and the $(n-2)$th qubit as the target qubit, which removes a factor of  $e^{2 \pi i \frac{j_{n-1}}{2^2}}=e^{2 \pi i 0.0j_{n-1}}$, resulting in
+    $$\frac{1}{\sqrt{2}}\left( \ket{0} + e^{2 \pi i 0.j_{n-2} } \ket{1} \right) \ket{j_{n-1}}\ket{j_n} $$
+    </p>
+    
+    <p>Again like before, the Hadamard is applied to the $(n-2)$th qubit transforming it into 
+    $$\ket{j_{n-2}}\ket{j_{n-1}}\ket{j_n}$$ </p>
+
+    <p>These steps continue all the way until the 1st qubit, decrementing down the number of qubits. To summarise, for the $p$th qubit controlled-phase operations ranging from $R_{\tilde{n+1-p}}$ to $R_{\tilde{2}}$ are applied, with a control state $\ket{j_l}$ for applying a gate $R_{\tilde{l-p}}$ to qubit $p$, followed by a Hadamard gate which transforms into $\ket{j_p}$.
+    </p>
+
+    <p>The resulting inverse QFT circuit, excluding the global swaps at the start, is shown below</p>
+    <!--bookmark: Create inverse circuit and show-->
+
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/inverse_qft_circuit_without_swaps.png" alt="Latter part of the QFT circuit, missing the swaps at the start of the circuit which invert the order of states" width=1000 height=228>
     <h3>Demonstration of QFT</h3>
 
+    <p>This subsubsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
     <!--bookmark: Show a 3/4/5 qubit example phase and swap gates-->
-    <!--bookmark: Show Qiskit circuits, and how it changes input values-->
+    <!--bookmark: Show Qiskit circuits, and how it changes input values. Note this isn't necessarily a full visualisation of individual Hadamard and controlled phase gates, and can be a single block as noted in Qiskit. I can also link to a jupyter notebook as well.-->
 
     <!--bookmark: Describe the matrix representation of QFT -->
     <!--bookmark: Perhaps briefly show the inverse QFT, both as a block and a circuit -->
