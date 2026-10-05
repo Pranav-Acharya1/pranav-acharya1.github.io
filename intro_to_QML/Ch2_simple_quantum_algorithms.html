@@ -758,8 +758,41 @@ img {
 
     <!--bookmark: Explain how it will be used in the QFT circuit section going forward.-->    
 
-    <h2>Phase Estimation</h2>
-    <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
+    <h2 id="phase_estimation">Phase Estimation</h2>
+
+    <p>Now that we've introduced the <a href="#inverse_QFT_circuit">inverse QFT</a> we'll go over a key application of it used within larger quantum algorithms, 'phase estimation'.</p>
+    <p>Phase estimation approximates an exponential factor, or 'phase', $\varphi$ within the eigenvalue $e^{2\pi i \varphi}$ of a given unitary operator $U$ when it acts on the eigenvector $\ket{u}$</p>
+    <p>As part of conditions for performing phase estimation, we assume that we have 'black boxes'/'oracles' which are capable of preparing the $\ket{u}$ state and performing controlled-$U^{2^{j}}$ operations.</p>
+    <p>The purpose of phase estimation then, is to discover the phase $\phi$ hidden inside the 'black box' of the unitary operator $U$. </p>
+    <p>For the controlled-$U^{2^{j}}$ gate, when the control qubit state is $\ket{1}$ and the target qubits are $\ket{u}$, the control qubit state is multiplied by the eigenvalue of $e^{2\pi i 2^{j}}$, as demonstrated below with a control qubit in the state $\ket{+}$,</p>
+    \begin{align}
+    & \frac{1}{\sqrt{2}} ( \ket{0}\ket{u} + \ket{1}U^{2^{j}}\ket{u}) \\
+    =& \frac{1}{\sqrt{2}} ( \ket{0}\ket{u} + \ket{1} e^{2\pi i 2^{j}} \ket{u}) \\ 
+    =& \frac{1}{\sqrt{2}} ( \ket{0}\ket{u} + e^{2\pi i 2^{j}} \ket{1} \ket{u}) \\
+    =& \frac{1}{\sqrt{2}} ( \ket{0} + e^{2\pi i 2^{j}} \ket{1})\ket{u}
+    \end{align}
+    <p>Similar to the case of the two qubit <a href="#deutsch_jozsa_algorithm">Deutsch's algorithm</a>, the state which ends up being modified by a controlled-unitary operation is the control qubit state. This mechanism is called 'phase-kickback', and introduces a factor of $e^{2\pi i 2^{j}}$ into the control qubit in this case.</p >
+    <p>We can make use of the phase-kickback mechanism of controlled-$U^{2^{j}}$ gates for different values of $j$ to effectively extract phase data from the eigenstate of $\ket{u}$, as seen in the circuit below where the $n$th control qubit out of $t$ controls for gate $U^{2^{t-n}}$:</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/phase_estimation_circuit_without_inverse_QFT.png" alt="First part of the phase estimate circuit, missing the inverse QFT at the end. There are 't' control qubits." width=1000 height=507 >
+
+    <p>This results in the target qubits preserving the $\ket{u}$ state, and the control qubits becoming
+    $$\frac{1}{\sqrt{2^t}} (\ket{0}+  e^{2\pi i 2^{t-1}\varphi}) (\ket{0}+  e^{2\pi i 2^{t-2}\varphi}) \ldots (\ket{0}+  e^{2\pi i 2^{0}\varphi})  $$</p>
+
+    <p>We can estimate $\varphi$ with $t$ qubits as $\tilde{\varphi} =0.\varphi_1 \varphi_2 \ldots \varphi_t$, and substitute it into the above state, which results in
+    $$\frac{1}{\sqrt{2^t}} (\ket{0}+  e^{2\pi i 0.\varphi_t}) (\ket{0}+  e^{2\pi i 0.\varphi_{t-1}\varphi_t }) \ldots (\ket{0}+  e^{2\pi i 0.\varphi_1 \varphi_2 \ldots \varphi_t })  $$</p>
+    <p>Note, that like with the <a href="#QFT_subsection">previous subsection</a> on QFT, we have removed factors of $e^{2\pi i}$ since that just results in a multiplication by $1$.</p>
+
+    <p>This state is effectively just $\hat{F}_{QFT}\ket{\tilde{\varphi}}$ (as described at the end of the <a href="#QFT_circuit_derivation">QFT subsubsection</a>) so by performing the inverse QFT $\hat{F^{\dagger}}_{QFT}$ operation we can achieve $\tilde{\varphi}$. A simplified complete phase estimation circuit, including the measurement of $\tilde{\varphi}$ is shown below</p>
+
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/simplified_phase_estimation_circuit.png" alt="A simplified diagram of a phase estimation circuit" width=1000 height=457>
+
+    <!--
+    <p>$\tilde{\varphi}$ is an estimate so we need to decide how many $n$ qubits of precision to estimate to. Measurement of quantum states is probabilistic, which adds to the number of qubits required by $\text{log} \left( 2 + \frac{1}{\epsilon} \right)$ to measure the correct phase with a probability of at least $1-\epsilon$, resulting in $$t=n + \text{log} \left( 2 + \frac{1}{\epsilon} \right)$$</p>
+    <p>A detailed derivation of the bounding of probabilities which leads to this value can be found in subsection 5.2.1 of 'Quantum Computation and Quantum Information'. </p> -->
+
+    <!--bookmark: Todo: understand how exactly more qubits are added -->
+
+    <!--bookmark: Briefly explain number of states needed for accuracy, linking to free further reading (which (I check)-->
     <h2>Order Finding and Factoring</h2>
     <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
     <h2>Risk to RSA</h2>
