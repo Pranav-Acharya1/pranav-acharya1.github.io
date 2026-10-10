@@ -512,7 +512,7 @@ img {
 
     <h2 id="QFT_subsection">Quantum Fourier Transform</h2>
     <p>In this subsection we will go over the quantum Fourier transform (QFT) circuit, building atop the introduction to the Fourier transform in the <a href="#Classical_Fourier_Transform">preceding subsection</a>. The QFT circuit is an efficient algorithm for applying the Fourier transform to the amplitudes of qubits, and is pivotal to further applications as explored in the following subsections.</p>
-    <p>Within this subsection, we will first <a href="#QFT_circuit_derivation">derive QFT</a>, then <a href="#QFT_circuit_derivation">derive the inverse QFT</a>.</p>
+    <p>Within this subsection, we will first <a href="#QFT_circuit_derivation">derive QFT</a>, <a href="#QFT_on_3_qubit_state">demonstrate</a> how a 3 qubit state evolves under QFT, then <a href="#QFT_circuit_derivation">derive the inverse QFT</a>.</p>
     <p>Beyond this, a demonstration of the QFT and inverse QFT in Qiskit is available for further viewing in the following <a href="https://github.com/Pranav-Acharya1/intro-to-quantum-machine-learning/blob/main/Ch2_Quantum_Algorithms/QFT_demonstration.ipynb">Jupyter notebook</a>.</p>
     <!--bookmark: TODO: briefly explain other applications, and link to them-->
     <!--bookmark: EXPLAIN and STRUCTURE this section, providing links to different parts.-->
@@ -628,7 +628,7 @@ img {
     <img src="Figures/Ch2_Quantum_Algorithms_Figures/qft_circuit_without_swaps.png" alt="First part of the QFT circuit, missing the swaps at the end of the circuit which invert the order of states" width=1000 height=212>
     <!--bookmark: Continue explanation-->
 
-    <h3>Demonstration of QFT acting on a 3 qubit state</h3>
+    <h3 id="QFT_on_3_qubit_state">Demonstration of QFT acting on a 3 qubit state</h3>
 
     <p>To better understand QFT let's go through how QFT evolves a 3 qubit state, $\ket{101}$.</p>
 
