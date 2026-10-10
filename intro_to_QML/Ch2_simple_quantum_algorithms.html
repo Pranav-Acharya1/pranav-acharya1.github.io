@@ -627,6 +627,53 @@ img {
     <!--bookmark: Start explaining the application of gates to reproduce the maths-->
     <img src="Figures/Ch2_Quantum_Algorithms_Figures/qft_circuit_without_swaps.png" alt="First part of the QFT circuit, missing the swaps at the end of the circuit which invert the order of states" width=1000 height=212>
     <!--bookmark: Continue explanation-->
+
+    <h3>Demonstration of QFT acting on a 3 qubit state</h3>
+
+    <p>To better understand QFT let's go through how QFT evolves a 3 qubit state, $\ket{101}$.</p>
+
+    <p>Fundamentally, QFT as a Fourier Transform changes the way data is represented. Mathematically for a general state $\ket{j}$ this is 
+        $$\hat{F}_{QFT}\ket{j} = \frac{1}{\sqrt{2^n}}  \left( \ket{0} + \ket{1}e^{(2\pi i) 0.j_{n} } \right) \left( \ket{0} + \ket{1}e^{(2\pi i) 0.j_{n-1}j_{n} } \right) \ldots \left( \ket{0} + \ket{1}e^{(2\pi i) 0.j_{1}j_{2}\ldots j_{n} } \right)$$
+    </p>
+    <p>This can be visualised as a change from the computational basis states {$\ket{0}$,$\ket{1}$} as seen below</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/blochvectors_of_101.png" width=1000 height=320 alt="Blochvector representation of qubits in the '101' state">
+    <p>After the QFT this information is transformed to be encoded into states on the 'x-y' plane (like {$\ket{-}$,$\ket{+}$}) which rotate along the 'z' axis of the Blochsphere, as seen below</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/blochvectors_of_QFT_transform_of_101.png" width=1000 height=320 alt="Blochvector representation of qubits in the '101' state after the Quantum Fourier Transform has been applied">
+    <p>Specifically, information is encoded as rotations from the $\ket{+}$ state. As a brief reminder, such rotations can be achieved with the $R_Z$ gate, which for rotations of $\frac{\pi}{2}$ and $\frac{\pi}{4}$ rotations (with $2\pi$ being a full rotation) are the S and T gates which are demonstrated below</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/s_gate_rotations.png" alt="Annotated Bloch Sphere demonstrating the rotational effect of the S gate around the z axis" width="400" height="400">
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/rz_pi4_rotation.png" alt="Annotated Bloch Sphere demonstrating the rotational Z gate" width="400" height="400">
+
+
+    <p>For $\ket{101}$ the state after QFT is
+    \begin{align}
+    \hat{F}_{QFT}\ket{j_{1} j_{2} j_{3}} &= \frac{1}{\sqrt{2^3}}  \left( \ket{0} + \ket{1}e^{(2\pi i) 0.j_{3} } \right) \left( \ket{0} + \ket{1}e^{(2\pi i) 0.j_{2}j_{3} } \right) \left( \ket{0} + \ket{1}e^{(2\pi i) 0.j_{1}j_{2}j_{3} } \right)\\
+    \hat{F}_{QFT}\ket{1 0 1} &= \frac{1}{\sqrt{2^3}}  \left( \ket{0} + \ket{1}e^{(2\pi i) 0.1 } \right) \left( \ket{0} + \ket{1}e^{(2\pi i) 0.01 } \right) \left( \ket{0} + \ket{1}e^{(2\pi i) 0.101 } \right)\\
+    \hat{F}_{QFT}\ket{1 0 1} &= \frac{1}{\sqrt{2^3}}  \left( \ket{0} + \ket{1}e^{(2\pi i) \frac{1}{2} } \right) \left( \ket{0} + \ket{1}e^{(2\pi i) \frac{1}{4} } \right) \left( \ket{0} + \ket{1}e^{(2\pi i) \frac{5}{8} } \right)
+    \end{align}
+    </p>
+
+    <p>As can be seen in the phases of different qubits, what effectively happens is that as you move from the last qubit to earlier qubits the phase doubles for each qubit, but whole numbers multiples of $2 \pi$ are dropped since they are equivalent to staying in place.</p>
+    <p>For the 3rd qubit, $\frac{5}{8}$ rotation (of $2 \pi$) occur. Then for the 2nd qubit this doubles to $\frac{5}{4}=1+\frac{1}{4}$ rotations. Finally for the 1st qubit $\frac{5}{2}=2 + \frac{1}{2}$ rotations occur.</p>
+
+    <p>To further develop our intuition, let's increment from $\ket{101}$, where the value of the binary representation within the ket vector is $j= 1\times 2^{2} + 0\times 2^{1} + 1\times 2^{0} = 5$, to $\ket{110}$ which has a corresponding value of $j=6$ and perform QFT again.
+\begin{align}
+\hat{F}_{QFT}\ket{1 1 0} &= \frac{1}{\sqrt{2^3}}  \left( \ket{0} + \ket{1}e^{(2\pi i) 0.0 } \right) \left( \ket{0} + \ket{1}e^{(2\pi i) 0.10 } \right) \left( \ket{0} + \ket{1}e^{(2\pi i) 0.110 } \right)\\
+    \hat{F}_{QFT}\ket{1 1 0} &= \frac{1}{\sqrt{2^3}}  \left( \ket{0} + \ket{1}e^{0} \right) \left( \ket{0} + \ket{1}e^{(2\pi i) \frac{2}{4} } \right) \left( \ket{0} + \ket{1}e^{(2\pi i) \frac{6}{8} } \right)\\
+    \hat{F}_{QFT}\ket{1 1 0} &= \frac{1}{\sqrt{2^3}}  \left( \ket{0} + \ket{1}e^{0} \right) \left( \ket{0} + \ket{1}e^{(2\pi i) \frac{1}{2} } \right) \left( \ket{0} + \ket{1}e^{(2\pi i) \frac{3}{4} } \right)
+    \end{align}</p>
+
+    <p>So for qubit 3 a further rotation of $\frac{1}{2^3} 2 \pi = \frac{1}{8} 2 \pi $ occurs, for qubit 2 a further rotation of $\frac{1}{2^2} 2 \pi = \frac{1}{4} 2 \pi $ occurs, and qubit 2 a further rotation of $\frac{1}{2^1} 2 \pi = \frac{1}{2} 2 \pi $ occurs.</p>
+    <p>This results in the following Bloch states:</p>
+
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/blochvectors_of_QFT_transform_of_110.png" width=1000 height=320 alt="Blochvector representation of qubits in the '101' state after the Quantum Fourier Transform has been applied">
+    <!--<p>In the case of the state $\ket{101}$, a heuristic to arrive at the rotational angles (from $\ket{+}$) required for $\hat{F}_{QFT}\ket{101}$ is to identify the corresponding value of the binary representation ($j =\sum^{n}_{l=1} j_l 2^{n-l}$) and dividing it by $2^{n-l+1}$ for qubit $l$.</p>
+    <p>For $\ket{101}$, the value of the binary representation within the ket vector is $j= 1\times 2^{2} + 0\times 2^{1} + 1\times 2^{0} = 5$.</p>
+    <p>So for qubit 1, $\frac{5}{2}$ rotations are performed. Since whole number rotations don't mean anything, it means that the first qubit needs to be rotated $\frac{1}{2}$ times</p>-->
+
+    <!--bookmark: <p>As a brief reminder, rotations along the </p>
+-->
+<!--bookmark: Find out what happens when QFT is applied to an entangled state--> 
+
     <h3 id="inverse_QFT_circuit">Inverse QFT circuit</h3>
     <p>Now that we are familiar with the circuit formulation of the QFT circuit, let's look at the circuit for the inverse QFT. By definition, the inverse QFT reverts the changes applied by QFT circuit through its component gates. This would mean placing inverted (Hermitian conjugate) gates in the opposite order which the gates were applied in QFT, starting from the end with the swap gates and ending with the Hadamard applied on the 1st qubit.</p>
     <p>Before we start going through the reverse course of operations, it's worth recognising what these inverse gates are. The swap and Hadamard gates are both Hermitian, that is they are equal to their inverse, as described in the section on <a href="Ch1_basics_of_QC.html#Quantum_Gates">quantum gates</a> in the <a href="Ch1_basics_of_QC">previous chapter</a>.</p>
@@ -738,9 +785,7 @@ img {
 
 
     <p>A demonstration of the QFT and inverse QFT in Qiskit code is available in the following <a href="https://github.com/Pranav-Acharya1/intro-to-quantum-machine-learning/blob/main/Ch2_Quantum_Algorithms/QFT_demonstration.ipynb">Jupyter notebook</a>.</p>
-    <!--<h3>Demonstration of QFT</h3>
-    <p>This subsubsection is currently a work in progress.</p>
-    <p>A useful feature of Qiskit is that they can be decomposed</p>-->
+
 
 
 
@@ -758,9 +803,17 @@ img {
 
     <!--bookmark: Explain how it will be used in the QFT circuit section going forward.-->    
 
+
+
+
+    <h1 id="QFT_Applications">Quantum Fourier Transform Applications</h1>
+    <p>This section is currently a work in progress.<!--bookmark: Remove when completed--></p>
+    <!--bookmark: todo: review this section to make it understandable, including explaining everything gradually.-->
+    <!-- todo: explain the quantum advantage: <p>This section will be rather maths theory heavy, but nonetheless is explored because it concerns a key advantage quantum computers hold.</p>-->
+
     <h2 id="phase_estimation">Phase Estimation</h2>
 
-    <p>Now that we've introduced the <a href="#inverse_QFT_circuit">inverse QFT</a> we'll go over a key application of it used within larger quantum algorithms, 'phase estimation'.</p>
+    <p>Let's look at an application for <a href="#QFT_subsection">QFT</a>, specifically <a href="#inverse_QFT_circuit">inverse QFT</a>, as a process used in larger quantum algorithms: 'phase estimation'.</p>
     <p>Phase estimation approximates an exponential factor, or 'phase', $\varphi$ within the eigenvalue $e^{2\pi i \varphi}$ of a given unitary operator $U$ when it acts on the eigenvector $\ket{u}$</p>
     <p>As part of conditions for performing phase estimation, we assume that we have 'black boxes'/'oracles' which are capable of preparing the $\ket{u}$ state and performing controlled-$U^{2^{j}}$ operations.</p>
     <p>The purpose of phase estimation then, is to discover the phase $\phi$ hidden inside the 'black box' of the unitary operator $U$. </p>
@@ -786,26 +839,46 @@ img {
 
     <img src="Figures/Ch2_Quantum_Algorithms_Figures/simplified_phase_estimation_circuit.png" alt="A simplified diagram of a phase estimation circuit" width=1000 height=457>
 
+
+
+
+    <!--bookmark: Show a working example, mathematically then with images. Explore how extra control qubits increase correct measurement probability -->
+    <!--bookmark: Todo: understand how exactly more qubits are added -->
+    <!--bookmark: Briefly explain number of states needed for accuracy, linking to free further reading (which (I check)-->
+
+
     <!--
     <p>$\tilde{\varphi}$ is an estimate so we need to decide how many $n$ qubits of precision to estimate to. Measurement of quantum states is probabilistic, which adds to the number of qubits required by $\text{log} \left( 2 + \frac{1}{\epsilon} \right)$ to measure the correct phase with a probability of at least $1-\epsilon$, resulting in $$t=n + \text{log} \left( 2 + \frac{1}{\epsilon} \right)$$</p>
     <p>A detailed derivation of the bounding of probabilities which leads to this value can be found in subsection 5.2.1 of 'Quantum Computation and Quantum Information'. </p> -->
 
-    <!--bookmark: Todo: understand how exactly more qubits are added -->
+    <h2>Order Finding</h2>
+    <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>    
+    <!--bookmark: Show a working example, mathematically then with images -->
 
-    <!--bookmark: Briefly explain number of states needed for accuracy, linking to free further reading (which (I check)-->
-    <h2>Order Finding and Factoring</h2>
+    <h2>Factoring</h2>
+    <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>    
+    <!--bookmark: Show a working example, mathematically then with images -->
+    
+
+    <h2 id="Shor_Algorithm_subsection">Shor's Algorithm</h2>
+    <!--bookmark: Look into Shor's Algorithm-->
     <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
+
+    <!--bookmark: Get a working example in the Jupyter notebook-->
+
     <h2>Risk to RSA</h2>
     <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
-    <h2>General Applications</h2>
-    <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
+
     <!--bookmark: Basics of order finding and factoring as it relates to cracking RSA. Also perhaps LEARN ABOUT and briefly note post-quantum cryptography.-->
-    <!--bookmark: Briefly not general application of Quantum Fourier Transform-->
 
-    <!--bookmark: Look into Shor's Algorithm-->
 
-    <h1 id="Shor_Algorithm">Shor's Algorithm</h1>
-    <p>This section is currently a work in progress.<!--bookmark: Remove when completed--></p>
+
+    <h2>General Applications of QFT</h2>
+    <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
+    <!--bookmark: Read about and explain how this supports a broad class of problems with exponential speed up, with Grove's supporting those with quadratic speed up. Then check and see if other classes needed to be added to this -->
+    <!--bookmark: Briefly note general application of Quantum Fourier Transform. Hidden subgroup problem-->
+    <!--bookmark: Specific hidden subgroup problems: period finding and discrete logarithms -->
+
 
     <h1 id="Grover_Algorithm">Grover's Quantum Search Algorithm</h1>
     <p>This section is currently a work in progress.<!--bookmark: Remove when completed--></p>
@@ -813,19 +886,20 @@ img {
     <!--bookmark: Quantum simulation and quantum search as quantum simulation-->
     <!--bookmark: Quantum Counting-->
     
+    <!--bookmark: Get a working example in the Jupyter notebook-->
 
     <!--<h1 id="Current_State_of_Things"></h1>-->
 
     <p><!--bookmark: Explain the current state of quantum algoriths, dating this statement, and how things are going. Refer to other resources to support points made, and MAKE SURE they are defensible. Similarly, do not hold overly strong positions, and qualify as needed.--></p>
 <h1 id="Further_Comprehension">Further Comprehension</h1>
-    <p>To internalise the concepts presented here, it helps to write out derivations with pen-and-paper.</p>
-    <p>The source YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the course is freely available, along with <a href="https://github.com/Qiskit/platypus/tree/main/notebooks/summer-school/2021">lecture notes</a>, and definitely worth checking out if you prefer learning in a lecture format. Specifically, I based this chapter on lectures 2.1 and 2.2.</p>
-    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not freely available, it is worth going through this or another textbook (or a similar resource) and solve questions with pen-and-paper to build a more rigorous understanding after going through this tutorial. In the case of 'Quantum Computation and Quantum Information', I would recommend going through chapters 1, 5 and 6<!--bookmark: explain what is in these two chapters, and explain how they relate to this tutorial-->.
-    
+    <p>To internalise the concepts presented here, it helps to write out derivations with pen-and-paper, and to consult multiple sources to see how each addresses the same concepts from slightly different points of view.</p>
+    <p>The YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the Qiskit 2021 Summer School course is freely available, along with <a href="https://github.com/Qiskit/platypus/tree/main/notebooks/summer-school/2021">lecture notes</a>, and definitely worth checking out if you prefer learning in a lecture format. Specifically, lectures 2.1 and 2.2 cover the Deutsch-Jozsa and Grover's search algorithms.</p>
+    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not freely available, it is worth going through this or another textbook (or a similar resource) and solve questions with pen-and-paper to build a more rigorous understanding after going through this tutorial. In the case of 'Quantum Computation and Quantum Information', I would recommend going through chapters 1, 5 and 6.</p>
+    <!--bookmark: Add sources consulted for Shor's algorithm and Number theory.-->
+<!--bookmark: explain what is in these two chapters, and explain how they relate to this tutorial-->.
 
     <!--bookmark:    chapter 1, which an overview of quantum computing, and chapter 2 which introduces the maths of quantum mechanics. For further reading on top of this, chapter 4 which introduces quantum circuits with qubits is worth going through, especially with the exercises which will help build intuition for quantum circuits.-->
-	    </p>
-    <!--bookmark: Perhaps recommend resources for quantum circuits and 'simple demonstration of Quantum effects' sections.-->
+	        <!--bookmark: Perhaps recommend resources for quantum circuits and 'simple demonstration of Quantum effects' sections.-->
     <!--bookmark: recommend resources. Check them out. -->
 </body>
 </html>
