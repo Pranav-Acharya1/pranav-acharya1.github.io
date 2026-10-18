@@ -676,7 +676,7 @@ img {
 
     <h3 id="inverse_QFT_circuit">Inverse QFT circuit</h3>
     <p>Now that we are familiar with the circuit formulation of the QFT circuit, let's look at the circuit for the inverse QFT. By definition, the inverse QFT reverts the changes applied by QFT circuit through its component gates. This would mean placing inverted (Hermitian conjugate) gates in the opposite order which the gates were applied in QFT, starting from the end with the swap gates and ending with the Hadamard applied on the 1st qubit.</p>
-    <p>Before we start going through the reverse course of operations, it's worth recognising what these inverse gates are. The swap and Hadamard gates are both Hermitian, that is they are equal to their inverse, as described in the section on <a href="Ch1_basics_of_QC.html#Quantum_Gates">quantum gates</a> in the <a href="Ch1_basics_of_QC">previous chapter</a>.</p>
+    <p>Before we start going through the reverse course of operations, it's worth recognising what these inverse gates are. The swap and Hadamard gates are both Hermitian, that is they are equal to their inverse, as described in the section on <a href="Ch1_basics_of_QC.html#Quantum_Gates">quantum gates</a> in the <a href="Ch1_basics_of_QC.html">previous chapter</a>.</p>
 
     <p>Conversely, the inverse of a controlled-phase gate which applies $R_k$ onto a target qubit $\ket{b}$ with a control qubit $\ket{a}$ is a similar operation except with $R_{\tilde{k}}$ which is defined as 
     \begin{align}
@@ -813,6 +813,11 @@ img {
     <!--bookmark: todo: Explain this section and how things are arranged, and link to everything -->
     <!-- todo: explain the quantum advantage: <p>This section will be rather maths theory heavy, but nonetheless is explored because it concerns a key advantage quantum computers hold.</p>-->
 
+    <p><a href="#QFT_subsection">QFT</a> is a key tool that can be leveraged by quantum algorithms to potentially speed up calculations compared to classical algorithms, including the famed Shor's algorithm for factoring large numbers. This section will go through how exactly this achieved in multiple steps, split among subsections. First, the use of <a href="#phase_estimation">phase estimation</a> to extract the exponential power within the coefficient of $\ket{1}$ will be worked through. Then phase estimation will be utilised in the quantum solution to the problem of <a href="#order_finding">order-finding</a>, which itself will be extended towards the factoring of large numbers. With all of these pieces together, <a href="#Shor_Algorithm_subsection">Shor's Algorithm</a><!--bookmark: TODO: UPDATE THIS DESCRIPTION BASED ON THE SHOR'S ALGORITHM SUBSECTION--> will be demonstrated, and the <a href="#rsa_risk">risk</a> to the widely used RSA encryption standard will be elaborated on. Finally, the <a href="#general_applications_of_QFT">general applications</a> of QFT will be explained. 
+    </p>
+
+
+
     <h2 id="phase_estimation">Phase Estimation</h2>
 
     <p>Let's look at an application for <a href="#QFT_subsection">QFT</a>, specifically <a href="#inverse_QFT_circuit">inverse QFT</a>, as a process used in larger quantum algorithms: 'phase estimation'.</p>
@@ -842,24 +847,23 @@ img {
     <img src="Figures/Ch2_Quantum_Algorithms_Figures/simplified_phase_estimation_circuit.png" alt="A simplified diagram of a phase estimation circuit" width=1000 height=457>
 
 
-
-
     <!--bookmark: Show a working example, mathematically then with images. Explore how extra control qubits increase correct measurement probability -->
     <!--bookmark: Todo: understand how exactly more qubits are added -->
     <!--bookmark: Briefly explain number of states needed for accuracy, linking to free further reading (which (I check)-->
 
 
-    <p>$\tilde{\varphi}$ is an estimate so we need to decide how many $n$ qubits of precision to estimate to. Measurement of quantum states is probabilistic, which adds to the number of qubits required by $\text{log} \left( 2 + \frac{1}{\epsilon} \right)$ to measure the correct phase with a probability of at least $1-\epsilon$, resulting in $$t=n + \text{log} \left( 2 + \frac{1}{\epsilon} \right)$$</p>
+    <p>$\tilde{\varphi}$ is an estimate so we need to decide how many $n$ qubits of precision to estimate to. Measurement of quantum states is probabilistic, which adds to the number of qubits required by $\text{log}_{2} \left( 2 + \frac{1}{\epsilon} \right)$ to measure the correct phase with a probability of at least $1-\epsilon$, resulting in $$t=n + \text{log}_{2} \left( 2 + \frac{1}{\epsilon} \right)$$</p>
     <p>A detailed derivation of the bounding of probabilities which leads to this value can be found in subsection 5.2.1 of 'Quantum Computation and Quantum Information'. </p>
 
     <p>A demonstration of phase estimation, along with how increasing measurement qubits increases precision and accuracy is shown in the following <a href="https://github.com/Pranav-Acharya1/intro-to-quantum-machine-learning/blob/main/Ch2_Quantum_Algorithms/Phase_Estimation.ipynb">Jupyter notebook</a>.</p>
 
 
     <h2 id="order_finding">Order Finding</h2>
-    <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>    
+    <!--bookmark: Polish this subsection-->
     <!--bookmark: Show a working example, mathematically then with images -->
 
-    <p>A key application of phase estimation is order finding, which is the problem of finding the smallest positive integer power $r$ needed to raise a positive integer $x$ till it equals 1 modulo $N$, or in other words $$x^{r}=1 \ (\mathrm{mod}\ N)= 1+kN$$
+    <p>A key application of phase estimation is order finding, which is the problem of finding the smallest positive integer power $r$ needed to raise a positive integer $x$ until it equals 1 modulo $N$, where $x$ and $N$ share no common factors greater than 1 (otherwise know as being <a href="https://en.wikipedia.org/wiki/Coprime_integers">co-prime</a>). Another were of expressing this is
+		    $$x^{r}=1 \ (\mathrm{mod}\ N)= 1+kN$$
     Where $k$ is either 0 or an integer. As can be seen above, order finding makes use of <a href="https://en.wikipedia.org/wiki/Modular_arithmetic">modular arithmetic</a>.</p>
     <p>Modular arithmetic deals with remainders, so for example
     $$50 \ (\mathrm{mod}\ 7) = 1 + 49 \ (\mathrm{mod}\ 7) =  1 + 7\times 7 \ (\mathrm{mod}\ 7) = 1 $$</p>
@@ -882,9 +886,9 @@ img {
     <img src="Figures/Ch2_Quantum_Algorithms_Figures/modular_powers_3_mod_10.png" alt="Sequence of powers of 3 (mod 10) from powers of 0 to 11" width=1000 height=625>
 
 
-    <p>As explored further in following subsections, order-finding is a key problem demonstrating an advantage for quantum algorithm through the application of QFT, which can be applied to the problem of <a href="#factoring">factoring</a> and thus <a href="#Shor_Algorithm_subsection">Shor's algorithm</a>, which is a <a href="#rsa_risk">risk to RSA encryption</a>. The periodic nature we see here, also hints at a class of <a href="#general_applications_of_QFT">general applications of QFT</a> which can be accelerated by quantum algorithms utilising QFT.</p><!--bookmark: Review this --> 
+    <p>As explored further in following subsections, order-finding is a key problem demonstrating an advantage for quantum algorithm through the application of QFT, which can be applied to the problem of <a href="#factoring">factoring</a> and thus <a href="#Shor_Algorithm_subsection">Shor's algorithm</a>,<!--bookmark: TODO: UPDATE THIS DESCRIPTION BASED ON THE SHOR'S ALGORITHM SUBSECTION-->  which is a <a href="#rsa_risk">risk to RSA encryption</a>. The periodic nature we see here, also hints at a class of <a href="#general_applications_of_QFT">general applications of QFT</a> which can be accelerated by quantum algorithms utilising QFT.</p><!--bookmark: Review this --> 
 
-    <p>Now that we've ascertained the importance of Quantum order-finding, let's explore how it works, starting with the following oracle $U$ and eigenvector $\ket{u_s}$
+    <p>Now that we've ascertained the importance of Quantum order-finding, let's explore how it works, starting with the following oracle $U$ and its eigenvector $\ket{u_s}$
     \begin{align}
     U\ket{y} &= \ket{ xy \ (\mathrm{mod}\ N) }\\
     \ket{u_s} &= \frac{1}{\sqrt{r}} \sum^{r-1}_{k=0} e^{-2\pi i \frac{sk}{r}} \ket{x^{k} \ (\mathrm{mod}\ N) } 
@@ -900,7 +904,7 @@ img {
     Which upon substitution of $k^\prime=k+1$ becomes 
     $$ U \ket{u_s} = e^{2\pi i \frac{s}{r}} \frac{1}{\sqrt{r}} \sum^{r}_{k=1} e^{-2\pi i \frac{sk^{\prime}}{r}} \ket{x^{k^{\prime}} \ (\mathrm{mod}\ N) } $$
     </p>
-    <p>The one thing stopping us from directly extracting an eigenvalue is that the limits of the sum have changed, though this can be resolved by rearranging the last term of the sum for $k^{\prime}=r$, $e^{-2\pi i \frac{sr}{r}} \ket{x^{k^{r}} \ (\mathrm{mod}\ N) }$ to correspond to $k^{\prime}=0$. For the exponential factor, we can recognise that $e^{-2\pi i \frac{sr}{r}} = e^{-2\pi i s} = e^{0}$ since $s$ is an integer, so it can be rearranged as $e^{-2\pi i \frac{s \times 0 }{r}}$ to correspond to $k^{\prime}=0$. For the vector argument, we instead utilise the periodic nature of the modular power to get $\ket{x^{k^{r}} \ (\mathrm{mod}\ N) } = \ket{x^{k^{0+r}} \ (\mathrm{mod}\ N) }  = \ket{x^{k^{0}} \ (\mathrm{mod}\ N) }$. Together, this means that the limits of the sum can be changed so
+    <p>The one thing stopping us from directly extracting an eigenvalue is that the limits of the sum have changed, though this can be resolved by rearranging the last term of the sum for $k^{\prime}=r$, $e^{-2\pi i \frac{sr}{r}} \ket{x^{k^{r}} \ (\mathrm{mod}\ N) }$ to correspond to $k^{\prime}=0$. For the exponential factor, we can recognise that $e^{-2\pi i \frac{sr}{r}} = e^{-2\pi i s} = e^{0}$ since $s$ is an integer, so it can be rearranged as $e^{-2\pi i \frac{s \times 0 }{r}}$ to correspond to $k^{\prime}=0$. For the ket vector argument, we instead utilise the periodic nature of the modular power to get $\ket{x^{k^{r}} \ (\mathrm{mod}\ N) } = \ket{x^{k^{0+r}} \ (\mathrm{mod}\ N) }  = \ket{x^{k^{0}} \ (\mathrm{mod}\ N) }$. Together, this means that the limits of the sum can be changed so
 
     \begin{align}
     U \ket{u_s} &= e^{2\pi i \frac{s}{r}} \frac{1}{\sqrt{r}} \sum^{r-1}_{k=0} e^{-2\pi i \frac{sk^{\prime}}{r}} \ket{x^{k^{\prime}} \ (\mathrm{mod}\ N) } \\
@@ -919,11 +923,11 @@ img {
     and the following iterative rules for $2 \leq n \leq N $
     \begin{align}
     p_n &= a_{n} p_{n-1} + p_{n-2}\\
-    q_1 &= a_{n} q_{n-1} + q_{n-1}
+    q_1 &= a_{n} q_{n-1} + q_{n-2}
     \end{align}
     </p>
 
-    <p>To grasp how the continued fractions algorithm, let's go through step-by-step with $\frac{31}{13}$ (which is $2.384615384615384615\ldots = 2.\overline{384615}$ ). Here we will utilise $b_{n}$ to define the remainder at each step for ease of understanding, while also noting and updating the value of $p_n$ and $q_n$.
+    <p>To grasp how the continued fractions algorithm functions, let's go through step-by-step with $\frac{31}{13}$ (which is $2.384615384615384615\ldots = 2.\overline{384615}$ ). Here we will utilise $b_{n}$ to define the remainder at each step for ease of understanding, while also noting and updating the value of $p_n$ and $q_n$.
     </p>
 
     <p>Let's start with the first step for $n=0$
@@ -931,14 +935,14 @@ img {
     \frac{31}{13} &= 2 + \frac{5}{13} \\
     a_{0} &= 2 \\
     b_{0} &= \frac{5}{13} \\
-    p_0 &= a_0=\\ 
+    p_0 &= a_0=2\\ 
     q_0 &= 1
     \end{align}
     After this, we will need to invert the remainder $b_{0}$ so the numerator becomes $1$ as follows
     $$b_{0} = \frac{1}{ \frac{13}{5}}$$ 
-    We can then split the denominator of $b_{0}^{-1}$
+    We can then split the denominator of $b_{0}$
     $$b_{0} = \frac{1}{ 2+ \frac{3}{5}}$$ 
-    This can then be substituted back in
+    $b_0$ can then be substituted back in
     $$ \frac{31}{13} = 2 + \frac{1}{ 2+ \frac{3}{5}}  $$
     The values of $p_0$ and $q_0$ are
     \begin{align}
@@ -947,7 +951,7 @@ img {
     \end{align}
     </p>
 
-    <p>For $n=1$ we will repeat this whole process
+    <p>For $n=1$ we will repeat this whole process, except this time using $p_1= 1+a_{0} a_{1}$
     \begin{align}
     \frac{31}{13} &= 2 + \frac{1}{2+\frac{3}{5}}\\
     a_{1} &= 2 \\
@@ -972,7 +976,7 @@ img {
     \end{align}
     </p>
     
-    <p>For $n=3$, we find that there is no need to invert $b_{3}$ to get a numerator of 1
+    <p>For $n=3$,
     \begin{align}
     \frac{31}{13} &= 2 + \frac{1}{2+\frac{1}{ 1 + \frac{1}{ 1 + \frac{1}{2}}}}\\
     a_{3} &= 1 \\
@@ -980,7 +984,7 @@ img {
     p_3 &= a_{3} p_{2} + p_{1} = 1 \times 7 + 5 = 12\\ 
     q_3 &= a_{3} q_{2} + q_{1} = 1 \times 3 + 2 = 5
     \end{align}
-    We find that there is no need to invert $b_{3}$ to get a numerator of 1, so there is also no need to split the denominator in the next step of $n=4$, making $n=4 the final step.
+    We find that there is no need to invert $b_{3}$ to get a numerator of 1, so there is also no need to split the denominator in the next step of $n=4$, making $n=4$ the final step.
     </p>
 
     <p>For $n=4$, the final step:
@@ -996,22 +1000,103 @@ img {
     <!--bookmark: Note conditions for the continued fractions algorithm clearly, including convergence, and precision. -->
 
 
-    <p>Further details on the continued fractions algorithm<!--bookmark: note here--> </p>
+    <!--<p>Further details on the continued fractions algorithm</p>-->
+
+    <!--bookmark: Explain the U gates a bit more-->
+
+    <p>Let's get back to looking at the operator $U$ and eigenvector $\ket{u_s}$.</p>
+    <p>$U$ gates can be used to evolve a state $\ket{y  \ (\mathrm{mod}\ N)}$ to $\ket{x^{z} y  \ (\mathrm{mod}\ N) }$ for an arbitrary $z=z_{n} 2^{n-1} + z_{t-1} 2^{n-2} + \ldots z_{1} 2^{0}$. This can be achieved by applying $n$ gates: $$U^{z} = U^{z_{n} 2^{n-1}} U^{ z_{t-1} 2^{n-2}} \ldots U^{z_{1} 2^{0}} $$
+    <!--bookmark: complete --> </p>
+
+    <p>We can't be assumed to know $\ket{u_s}$ since we need $r$ to define it
+    $$\ket{u_s} = \frac{1}{\sqrt{r}} \sum^{r-1}_{k=0} e^{-2\pi i \frac{sk}{r}} \ket{x^{k} \ (\mathrm{mod}\ N) } $$
+    Thankfully we can use $\ket{1}$ instead, because $\ket{u_s}$ can be summed to equal $\ket{1}$
+    <!--bookmark: Explain why we don't necessarily know u--> 
+    \begin{align}
+    \frac{1}{\sqrt{r}} \sum^{r-1}_{s=0} \ket{u_s} &= \frac{1}{\sqrt{r}} \sum^{r-1}_{s=0} \frac{1}{\sqrt{r}} \sum^{r-1}_{k=0} e^{-2\pi i \frac{sk}{r}} \ket{x^{k} \ (\mathrm{mod}\ N) }\\
+    &= \frac{1}{r} \sum^{r-1}_{k=0} \left(\sum^{r-1}_{s=0} e^{-2\pi i \frac{sk}{r}} \right) \ket{x^{k} \ (\mathrm{mod}\ N) } 
+    \end{align}</p>
+
+    <p>
+    Above, $\sum^{r-1}_{s=0} e^{-2\pi i \frac{sk}{r}}=r \delta_{k,0}$, where $\delta_{k,0}$ is the Kronecker delta which is $1$ only if $k=0$ (and $0$ otherwise). This conclusion can be arrived at by recognising that if $k=0$ then the exponential is $e^{-2\pi i \frac{s\times 0}{r}}=e^{0}=1$ so the sum is $\sum^{r-1}_{s=0} 1 = r$, but if $k\neq0$ then the sum is $0$. The latter is a little more complicated to derive, but makes use of the sum of <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>, as described briefly before.
+    </p>
+
+    <p>We can define a variable $c^{s}=e^{-2\pi i \frac{sk}{r}} = (e^{-2\pi i \frac{k}{r}})^{s}$, and the sum is now $\sum^{r-1}_{s=0} c^{s}$, a sum of a geometric series. By subtracting the product of $c$ and $\sum^{r-1}_{s=0} c^{s}$ from $\sum^{r-1}_{s=0} c^{s}$, there are only two terms which don't cancel out, namely $-c^{r-1} \times c = -c^{r}$ from the first sum and $c^{0}=1$ from the second sum, so we have
+    \begin{align}
+    \sum^{r-1}_{s=0} c^{s} - c \sum^{r-1}_{s=0} c^{s} &= 1 - c^{r} \\
+    (1-c) \sum^{r-1}_{s=0} c^{s} &= 1 - c^{r} \\
+    \sum^{r-1}_{s=0} c^{s} &= \frac{1-c^{r}}{1-c}
+    \end{align}
+    Here, $c^{r}=e^{-2\pi i \frac{r k}{r}} = e^{-2\pi i k} = e^{0} = 1$ (because $k$ is an integer) so the numerator $ 1 - c^{r} = 0$, and therefore the sum itself is zero. On the other hand, the denominator does not go to zero, because $k\neq 0$ so $ c = e^{-2\pi i \frac{k}{r}} \neq e^{0}=1$ and hence $1-c \neq 0$. This all means that for $k\neq 0$ the sum is $0$.
+    </p>
+
+    <p>Going back to the sum of $\ket{u_s}$ by substituting in the Kronecker delta, we have
+    \begin{align}
+    \frac{1}{\sqrt{r}} \sum^{r-1}_{s=0} \ket{u_s} &= \frac{1}{r} \sum^{r-1}_{k=0} r \delta_{k,0} \ket{x^{k} \ (\mathrm{mod}\ N)} \\
+    &=  \sum^{r-1}_{k=0} \delta_{k,0} \ket{x^{k} \ (\mathrm{mod}\ N)} \\
+    &=  \ket{x^{0} \ (\mathrm{mod}\ N)}\\
+    &=  \ket{1 \ (\mathrm{mod}\ N)}\\
+    &= \ket{1} 
+    \end{align}
+    Note here, that $\ket{1 \ (\mathrm{mod}\ N)}$ is a multi-qubit state with all qubits initialised to $1$. As we will see soon, we can rearrange quantum states to substitute in our sum of $\ket{u_s}$.
+    </p>
+
+    <p>Let's remember that we're utilising the <a href="#phase_estimation">phase estimation algorithm</a> for quantum order-finding, so there will be some similar steps.</p>
+    <p>We begin with a $n$ qubit list control qubits initialised to $0$, and a $L$ qubit list of target qubits initialised to $1$. After applying Hadamard gates to each of the control qubits we arrive at
+    $$\frac{1}{\sqrt{2^{n}}} \left( \sum^{2^{n}-1}_{k=0} \ket{k} \right) \ket{1} $$
+    The application of $U^{k}$ gates controlled by $k$ then leads to 
+    $$\frac{1}{\sqrt{2^{n}}}  \sum^{2^{n}-1}_{k=0}  \left(\ket{k} U^{k} \ket{1} \right) = \frac{1}{\sqrt{2^{n}}} \sum^{2^{n}-1}_{k=0} \ket{k} \ket{x^{k} \ (\mathrm{mod}\ N) } $$
+    <!--After applying -->
+    </p>
+
+    <p>We can then rearrange the left side of the above equation, and substitute in our sum of $\ket{u_s}$ to achieve 
+    \begin{align}
+    \frac{1}{\sqrt{2^{n}}}  \sum^{2^{n}-1}_{k=0}  \ket{k} U^{k}  \left( \frac{1}{\sqrt{r}} \sum^{r-1}_{s=0} \ket{u_s}  \right) \\
+    = \frac{1}{\sqrt{2^{n}}}  \sum^{2^{n}-1}_{k=0}  \ket{k}  \frac{1}{\sqrt{r}} \sum^{r-1}_{s=0} U^{k} \ket{u_s} 
+    \end{align}</p>
+
+    <p>Applying $U^{k}$ to the eigenvector $\ket{u_s}$ results in the eigenvalue of $U$ with $\ket{u_s}$, $e^{2\pi i \frac{s}{r}}$ , being applied $k$ times, leading to a multiplication by $e^{2\pi i \frac{s}{r}\times k } = e^{2\pi i k \frac{s}{r}}$. This means that the quantum state is
+
+    \begin{align}
+    \frac{1}{\sqrt{2^{n}}}  \sum^{2^{n}-1}_{k=0}  \ket{k}  \frac{1}{\sqrt{r}} \sum^{r-1}_{s=0} e^{2\pi i k \frac{s}{r}} \ket{u_s} \\
+    = \frac{1}{\sqrt{2^{n}}}  \sum^{2^{n}-1}_{k=0} \frac{1}{\sqrt{r}} \sum^{r-1}_{s=0} e^{2\pi i k \frac{s}{r}} \ket{k}  \ket{u_s} 
+    \end{align}
+    </p>
+
+
+    <p>Like with <a href="#phase_estimation">phase estimation algorithm</a>, we can perform an <a href="#inverse_QFT_circuit">inverse QFT</a> to extract an estimation of the phase factor $\frac{s}{r}$, for which we can apply the continued fraction algorithm to estimate the order $r$.</p>
+    <!--bookmark: Fill in description about controlled unitary gate with demonstration of how it is show somewhere above-->
+    <!--bookmark: Discuss precision, including with continuous fractions. Then note the number of qubits needed for each side.-->
+
+
+    <p>The precision, and thus number of bits used, is defined by the number of bits taken up by $N$ (which is co-prime to $x$), $L=\log_{2}N$. $L$ feeds into the number of control bits $t$ needed. 
+    Without going too far into details (which are discussed in subsection 5.3.1 of 'Quantum Computation and Quantum Information'), the general idea is that $2L + 1$ bits are needed for the continued fractions algorithm to approximate $\frac{s}{r}$, and this slots into the precision for <a href="#phase_estimation">phase estimation</a> for an error rate of $\epsilon$ to result in
+    $$t=2L+ 1  + \text{log}_{2} \left( 2 + \frac{1}{\epsilon} \right) =2\log_2 (N)+ 1  + \text{log}_{2} \left( 2 + \frac{1}{\epsilon} \right) $$</p>
+
+    <p>The following simplified quantum circuit represents the quantum order-finding process we discussed in this subsection:</p>
+    <img src="Figures/Ch2_Quantum_Algorithms_Figures/simplified_order_finding_circuit.png" width=1000 height=412 alt="Simplified quantum order finding circuit">
+    <!--bookmark: Go through the order-finding algorithm -->
+
+
+    <!--bookmark: Explain complexity theory for computations, and how Order finding compares with the current implementation and better case implementations (with links) -->
+    <!--bookmark: State that this has potential to work in polynomial time unlike classically -->
 
 
 
-    <!--bookmark: When finding order, is this a multiple or not? -->
-    <!--bookmark: Note how it is done in Qiskit-->
-    <!--bookmark: Review and understand, then Explain that the extracted phase might not be exactly $\frac{s}{r}$   -->
+    <!--bookmark: Further understand the shape of the vectors, and figure out how to explain that there are 'L' states in $\ket{1}$-->    
+    <!--bookmark: Demonstrate the rearrangement of the relation with a sum of U acting on \ket{1}-->
 
     <!--bookmark: Explain the eigenvector $\ket{u}$ briefly-->
     <!--bookmark: Describe the substtitution of \ket{1} for \ket{u} -->
     <!--bookmark: Explain how gates can perform modular exponeniation, with a demonstration-->
 
+    <!--bookmark: Fill in description about controlled unitary gate with demonstration of how it is show somewhere above-->
+    <!--bookmark: visualise the control qubits in a graph again-->
 
-    <!--bookmark: Go through the order-finding algorithm -->
-	    
-    <!--bookmark: State that this has potential to work in polynomial time unlike classically -->
+    <!--bookmark: When finding order, is this a multiple or not? -->
+    <!--bookmark: Note how it is done in Qiskit-->
+    <!--bookmark: Review and understand, then Explain that the extracted phase might not be exactly $\frac{s}{r}$   -->
+
 
 
 
@@ -1029,7 +1114,7 @@ img {
     <!--bookmark: Look into Shor's Algorithm-->
     <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
 
-    <!--bookmark: Get a working example in the Jupyter notebook-->
+    <!--bookmark: Get a working example in the Jupyter notebook, which also demonstrates Order finding and factoring-->
     <!--bookmark: Describe the substtitution of \ket{1} for \ket{u} -->
 
     <!--bookmark: Explain how Order finding is related to the Shor's Algorithm-->
@@ -1067,7 +1152,7 @@ img {
     <p>The YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the Qiskit 2021 Summer School course is freely available, along with <a href="https://github.com/Qiskit/platypus/tree/main/notebooks/summer-school/2021">lecture notes</a>, and definitely worth checking out if you prefer learning in a lecture format. Specifically, lectures 2.1 and 2.2 cover the Deutsch-Jozsa and Grover's search algorithms.</p>
     <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not freely available, it is worth going through this or another textbook (or a similar resource) and solve questions with pen-and-paper to build a more rigorous understanding after going through this tutorial. In the case of 'Quantum Computation and Quantum Information', I would recommend going through chapters 1, 5 and 6.</p>
     <!--bookmark: Add sources consulted for Shor's algorithm and Number theory.-->
-<!--bookmark: explain what is in these two chapters, and explain how they relate to this tutorial-->.
+<!--bookmark: explain what is in these two chapters, and explain how they relate to this tutorial-->
 
     <!--bookmark:    chapter 1, which an overview of quantum computing, and chapter 2 which introduces the maths of quantum mechanics. For further reading on top of this, chapter 4 which introduces quantum circuits with qubits is worth going through, especially with the exercises which will help build intuition for quantum circuits.-->
 	        <!--bookmark: Perhaps recommend resources for quantum circuits and 'simple demonstration of Quantum effects' sections.-->
