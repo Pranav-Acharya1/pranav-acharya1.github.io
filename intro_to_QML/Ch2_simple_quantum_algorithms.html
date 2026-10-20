@@ -1077,6 +1077,14 @@ img {
     <img src="Figures/Ch2_Quantum_Algorithms_Figures/simplified_order_finding_circuit.png" width=1000 height=412 alt="Simplified quantum order finding circuit">
     <!--bookmark: Go through the order-finding algorithm -->
 
+    <p>To summarise, the following steps are taken during quantum order-finding</p>
+    <ol>
+	    <li>Initialise $L$ ($\geq log_{2} N$) qubits in the first register of control qubits to $\ket{0}$ and $t$ ($=2L+ 1  + \text{log}_{2} \left( 2 + \frac{1}{\epsilon} \right)$) qubits in the second register of target qubits $\ket{0}$, and pick an integer $x$ co-prime to $N$</li>
+	    <li>Create a superposition of states in the first register through Hadamard gates, $\frac{1}{\sqrt{2^{n}}} \left( \sum^{2^{n}-1}_{k=0} \ket{k} \right) \ket{1} $</li>
+	    <li>Apply control-$U^{k}$ gates to the second register using the first register as control qubits, to prepare $\frac{1}{\sqrt{2^{n}}} \sum^{2^{n}-1}_{k=0} \ket{k} \ket{x^{k} \ (\mathrm{mod}\ N) }$, which can also be presented as $\frac{1}{\sqrt{2^{n}}}  \sum^{2^{n}-1}_{k=0} \frac{1}{\sqrt{r}} \sum^{r-1}_{s=0} e^{2\pi i k \frac{s}{r}} \ket{k}  \ket{u_s}$ </li>
+	    <li>Apply the inverse Fourier Transform, and measure the first register to record an estimate of the phase $\frac{s}{r}$</li>
+	    <li>Apply the continued fractions algorithm to extract order $r$ from the denominator of the phase estimate</li>
+</ol>
 
     <!--bookmark: Explain complexity theory for computations, and how Order finding compares with the current implementation and better case implementations (with links) -->
     <!--bookmark: State that this has potential to work in polynomial time unlike classically -->
@@ -1101,12 +1109,79 @@ img {
 
 
     <h2 id="factoring">Factoring</h2>
-    <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>    
 
-    <!--bookmark: Describe cyclic property of order, and briefly note how this is related to factoring-->
-    <!--bookmark: Note co-primeality and its importance for factoring and Shor's algorithm-->
-    <!--bookmark: Euclid's algorithm-->
+    <p>Factoring a large number $N$ can make use of <a href="#order_finding">order finding</a> when $r$ is an even number. This can be done because $x^{r+s}=r^{s}\ (\mathrm{mod}\ N)$ (for $x$ <a href="https://en.wikipedia.org/wiki/Coprime_integers">co-prime</a> to $N$) means that $x^{r} = 1 + kN$ (for an integer k), and through using the relation $y^{2} = (y-1)(y+1)$ for $y=x^{r/2}$, which together combines to form
+    $$kN = (x^{r/2} - 1) (x^{r/2} + 1)$$
+    This all means that for non-trivial values of $y=x^{r/2}$, meaning $y\neq N-1 \ (\mathrm{mod}\ N) = -1 \ (\mathrm{mod}\ N))$, then both $(x^{r/2} - 1)$ and $(x^{r/2} + 1)$ will be factors of $N$ which are not $N$ or $1$. For a composite number $N$ composed of $m$ distinct factors, the probability that $r$ is even and that $x^{r/2} \neq -1 \ (\mathrm{mod}\ N))$ is at least $1 + \frac{1}{2^{m}}$ (with the derivation in section A4.3 in 'Quantum Computation and Quantum Information' for further reading), so it is likely that this is indeed the case. Assuming this condition is met, then the next step from there is to find the greatest common divider between these factors $(x^{r/2} - 1)$ and $(x^{r/2} + 1)$ and $N$, such as through <a href="https://en.wikipedia.org/wiki/Euclidean_algorithm">Euclid's algorithm</a> as explained below.</p>
+
+
+    <!--bookmark: Go through Euclid's algorithm-->
     
+    <p>Euclid's algorithm works iteratively to find the greatest common divisor (or factor) between two integers $a$ and $b$, otherwise expressed as gcd$(a,b)$. The starting two steps are 
+    \begin{align}
+    a &= b k_{1} + r_{1} \\
+    b &= r_{1} k_{2}  + r_{2} 
+    \end{align} 
+    Where $k_{n}$ is the quotient, or integer multiplier of $b$, and $r_{n}$ is the remainder for a given step $n$. For further steps $n \geq 3$, the iteration formula instead becomes
+    $$r_{n-2} = r_{n-1}k_{n}  + r_{n}$$
+    Which continues until the condition $r_{n}=0$ is reached, whereupon $r_{n-1}$ is determined to be the greatest common divisor of $a$ and $b$. Note here, that if gcd$(a,b)=1$ then $a$ and $b$ are co-prime, so this is a useful test for such.</p>
+
+    <p>To grasp Euclid's algorithm, it's worth going through an example such as to find the greatest common divisor for $a=1068$ and $b=464$.</p>
+    <p>For $n=1$, we use $a = b k_{1} + r_{1}$ 
+    \begin{align}
+    
+    a &=  b k_{1}+ r_{1}\\
+    1068 &= 464 k_{1} + r_{1}\\
+    1068 &= 464 \times 2 + 140 \\
+    k_{1} &= 2, \quad r_{1} = 140
+    \end{align}
+    For $n=2$, we use $b = r_{1} k_{2}  + r_{2} $
+    \begin{align}
+    b &= r_{1} k_{2}  + r_{2} \\
+    464 &= 140 k_{2} + r_{2} \\
+    464 &= 140 \times 3 + 44 \\
+    k_2 &= 3, \quad r_2 = 44
+    \end{align}   
+    For $n=3$, we introduce the iterative rule $r_{n-2} = r_{n-1}k_{n}  + r_{n}$
+    \begin{align}
+    r_{1} &= r_{2} k_{3} + r_{3}\\
+    140 &= 44 k_{3} + r_{3} \\
+    140 &= 44 \times 3 + 8 \\
+     k_{3} &= 3, \quad r_{3} = 8
+    \end{align}
+    For $n=4$,
+    \begin{align}
+    r_{2} &= r_{3} k_{4} + r_{4}\\
+    44 &= 8 k_{4} + r_{4} \\
+    44 &= 8 \times 5 + 4 \\
+     k_{4} &= 5, \quad r_{4} = 4
+    \end{align}
+    For $n=5$,
+    \begin{align}
+    r_{3} &= r_{4} k_{5} + r_{5}\\
+    8 &= 4 k_{5} + r_{5} \\
+    8 &= 4 \times 2 + 0 \\
+     k_{5} &= 2, \quad r_{5} = 0
+    \end{align}
+    Here $r_{5}=0$ so the algorithm ends and we take the penultimate remainder $r_{4}=4$ as the greatest common divisor of $1068$ and $464$.
+    </p>
+
+
+    <p>For factorisation of a number $N$, before implementing order-finding, realistically it is helpful to classically screen for if the factor $2$ when $N$ is even, and whether $N$ is a power of a positive integer $a$ (as $a^{b}$ for $b\geq 2$). The implementation of order finding would also likely have to be repeated multiple times, both to account for failing to meet the conditions ($r$ is even and that $x^{r/2} \neq -1 \ (\mathrm{mod}\ N))$ ) and to capture all the factors of $N$.</p>
+    
+    <p>Bring everything together, the steps are to repeat the following until all the factors of $N$ are collected
+    <ol>
+	    <li>Check if $N$ is even, if so return $2$ as a factor</li>
+	    <li>Check if $N$ can be expressed as $a^{b}$ for positive integers $a$ and $b$, and $b \geq 2$. If this matches, return $a$ and focus on factoring $a$</li>
+	    <li>Randomly choose an integer $x$ which is $1 \lt x \lt N$ and find gcd$(x,N)$. If gcd$(x,N) \geq 1$ then return it as a factor and restart this step, otherwise proceed to the next step with co-prime $x$ and $N$</li>
+	    <li>Use quantum order-finding to find the order $r$ in $x^{r}=1 \ (\mathrm{mod}\ N)$</li>
+	    <li>If $r$ is even and $x^{r/2} \neq -1 \ (\mathrm{mod}\ N))$, then compute and return gcd$(x^{r/2} - 1,N)$ and gcd$(x^{r/2} + 1,N)$. Otherwise, this algorithm fails and return to step 3</li>
+	    
+    </ol>
+    </p>
+    <!--bookmark: Explain how $r$ is likely be even, and how and what it means for both $(x^{r/2} - 1)$ and $(x^{r/2} + 1)$ to have non-trivial factors of $N$ -->
+    <!--bookmark: What does it look like when the algorithm fails?-->
+    <!--bookmark: Describe cyclic property of order, and briefly note how this is related to factoring-->
 
     <!--bookmark: Show a working example, mathematically then with images -->
 
@@ -1117,6 +1192,7 @@ img {
     <!--bookmark: Get a working example in the Jupyter notebook, which also demonstrates Order finding and factoring-->
     <!--bookmark: Describe the substtitution of \ket{1} for \ket{u} -->
 
+    <!--bookmark: Note co-primeality and its importance for factoring and Shor's algorithm-->
     <!--bookmark: Explain how Order finding is related to the Shor's Algorithm-->
 
     <!--bookmark: Shor's Period finding algorithm as well-->
@@ -1150,7 +1226,7 @@ img {
 <h1 id="Further_Comprehension">Further Comprehension</h1>
     <p>To internalise the concepts presented here, it helps to write out derivations with pen-and-paper, and to consult multiple sources to see how each addresses the same concepts from slightly different points of view.</p>
     <p>The YouTube <a href="https://youtube.com/playlist?list=PLOFEBzvs-VvqJwybFxkTiDzhf5E11p8BI&si=_pPJiyTyLhwUquoi">playlist</a> of the Qiskit 2021 Summer School course is freely available, along with <a href="https://github.com/Qiskit/platypus/tree/main/notebooks/summer-school/2021">lecture notes</a>, and definitely worth checking out if you prefer learning in a lecture format. Specifically, lectures 2.1 and 2.2 cover the Deutsch-Jozsa and Grover's search algorithms.</p>
-    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not freely available, it is worth going through this or another textbook (or a similar resource) and solve questions with pen-and-paper to build a more rigorous understanding after going through this tutorial. In the case of 'Quantum Computation and Quantum Information', I would recommend going through chapters 1, 5 and 6.</p>
+    <p>Another recommended resource which I've consulted when writing this, is the seminal textbook 'Quantum Computation and Quantum Information' (10th Anniversary Edition) by Michael Nielsen and Isaac Chuang. While this is unfortunately not freely available, it is worth going through this or another textbook or similar text resource (like Ronald de Wolf's <a href="https://arxiv.org/abs/1907.09415">Quantum Computing Lecture Notes</a>) and solve questions with pen-and-paper to build a more rigorous understanding after going through this tutorial. In the case of 'Quantum Computation and Quantum Information', I would recommend going through chapters 1, 5 and 6.</p>
     <!--bookmark: Add sources consulted for Shor's algorithm and Number theory.-->
 <!--bookmark: explain what is in these two chapters, and explain how they relate to this tutorial-->
 
