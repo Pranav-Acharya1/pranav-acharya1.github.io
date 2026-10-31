@@ -813,7 +813,7 @@ img {
     <!--bookmark: todo: Explain this section and how things are arranged, and link to everything -->
     <!-- todo: explain the quantum advantage: <p>This section will be rather maths theory heavy, but nonetheless is explored because it concerns a key advantage quantum computers hold.</p>-->
 
-    <p><a href="#QFT_subsection">QFT</a> is a key tool that can be leveraged by quantum algorithms to potentially speed up calculations compared to classical algorithms, including the famed Shor's algorithm for factoring large numbers. This section will go through how exactly this achieved in multiple steps, split among subsections. First, the use of <a href="#phase_estimation">phase estimation</a> to extract the exponential power within the coefficient of $\ket{1}$ will be worked through. Then phase estimation will be utilised in the quantum solution to the problem of <a href="#order_finding">order-finding</a>, which itself will be extended towards the factoring of large numbers. With all of these pieces together, <a href="#Shor_Algorithm_subsection">Shor's Algorithm</a><!--bookmark: TODO: UPDATE THIS DESCRIPTION BASED ON THE SHOR'S ALGORITHM SUBSECTION--> will be demonstrated, and the <a href="#rsa_risk">risk</a> to the widely used RSA encryption standard will be elaborated on. Finally, the <a href="#general_applications_of_QFT">general applications</a> of QFT will be explained. 
+    <p><a href="#QFT_subsection">QFT</a> is a key tool that can be leveraged by quantum algorithms to potentially speed up calculations compared to classical algorithms, including the famed Shor's algorithm for factoring large numbers. This section will go through how exactly this achieved in multiple steps, split among subsections. First, the use of <a href="#phase_estimation">phase estimation</a> to extract the exponential power within the coefficient of $\ket{1}$ will be worked through. Then phase estimation will be utilised in the quantum solution to the problem of <a href="#order_finding">order-finding</a>, which itself will be extended towards the factoring of large numbers. With all of these pieces together, <a href="#Shor_Algorithm_subsection">Shor's Algorithm for factoring</a><!--bookmark: TODO: UPDATE THIS DESCRIPTION BASED ON THE SHOR'S ALGORITHM SUBSECTION--> will be demonstrated, and the <a href="#rsa_risk">risk</a> to the widely used RSA encryption standard will be elaborated on. Finally, the <a href="#general_applications_of_QFT">general applications</a> of QFT will be explained. 
     </p>
 
 
@@ -886,7 +886,7 @@ img {
     <img src="Figures/Ch2_Quantum_Algorithms_Figures/modular_powers_3_mod_10.png" alt="Sequence of powers of 3 (mod 10) from powers of 0 to 11" width=1000 height=625>
 
 
-    <p>As explored further in following subsections, order-finding is a key problem demonstrating an advantage for quantum algorithm through the application of QFT, which can be applied to the problem of <a href="#factoring">factoring</a> and thus <a href="#Shor_Algorithm_subsection">Shor's algorithm</a>,<!--bookmark: TODO: UPDATE THIS DESCRIPTION BASED ON THE SHOR'S ALGORITHM SUBSECTION-->  which is a <a href="#rsa_risk">risk to RSA encryption</a>. The periodic nature we see here, also hints at a class of <a href="#general_applications_of_QFT">general applications of QFT</a> which can be accelerated by quantum algorithms utilising QFT.</p><!--bookmark: Review this --> 
+    <p>As explored further in following subsections, order-finding is a key problem demonstrating an advantage for quantum algorithm through the application of QFT, which can be applied to the problem of <a href="#Shor_Algorithm_subsection">factoring integers</a>,<!--bookmark: TODO: UPDATE THIS DESCRIPTION BASED ON THE SHOR'S ALGORITHM SUBSECTION-->  which is a <a href="#rsa_risk">risk to RSA encryption</a>. The periodic nature we see here, also hints at a class of <a href="#general_applications_of_QFT">general applications of QFT</a> which can be accelerated by quantum algorithms utilising QFT.</p><!--bookmark: Review this --> 
 
     <p>Now that we've ascertained the importance of Quantum order-finding, let's explore how it works, starting with the following oracle $U$ and its eigenvector $\ket{u_s}$
     \begin{align}
@@ -1071,7 +1071,7 @@ img {
 
     <p>The precision, and thus number of bits used, is defined by the number of bits taken up by $N$ (which is co-prime to $x$), $L=\log_{2}N$. $L$ feeds into the number of control bits $t$ needed. 
     Without going too far into details (which are discussed in subsection 5.3.1 of 'Quantum Computation and Quantum Information'), the general idea is that $2L + 1$ bits are needed for the continued fractions algorithm to approximate $\frac{s}{r}$, and this slots into the precision for <a href="#phase_estimation">phase estimation</a> for an error rate of $\epsilon$ to result in
-    $$t=2L+ 1  + \text{log}_{2} \left( 2 + \frac{1}{\epsilon} \right) =2\log_2 (N)+ 1  + \text{log}_{2} \left( 2 + \frac{1}{\epsilon} \right) $$</p>
+    $$t=2L+ 1  + \text{log}_{2} \left( 2 + \frac{1}{2\epsilon} \right) =2\text{log}_{2} (N)+ 1  + \text{log}_{2} \left( 2 + \frac{1}{2\epsilon} \right) $$</p>
 
     <p>The following simplified quantum circuit represents the quantum order-finding process we discussed in this subsection:</p>
     <img src="Figures/Ch2_Quantum_Algorithms_Figures/simplified_order_finding_circuit.png" width=1000 height=412 alt="Simplified quantum order finding circuit">
@@ -1079,9 +1079,9 @@ img {
 
     <p>To summarise, the following steps are taken during quantum order-finding</p>
     <ol>
-	    <li>Initialise $L$ ($\geq log_{2} N$) qubits in the first register of control qubits to $\ket{0}$ and $t$ ($=2L+ 1  + \text{log}_{2} \left( 2 + \frac{1}{\epsilon} \right)$) qubits in the second register of target qubits $\ket{0}$, and pick an integer $x$ co-prime to $N$</li>
-	    <li>Create a superposition of states in the first register through Hadamard gates, $\frac{1}{\sqrt{2^{n}}} \left( \sum^{2^{n}-1}_{k=0} \ket{k} \right) \ket{1} $</li>
-	    <li>Apply control-$U^{k}$ gates to the second register using the first register as control qubits, to prepare $\frac{1}{\sqrt{2^{n}}} \sum^{2^{n}-1}_{k=0} \ket{k} \ket{x^{k} \ (\mathrm{mod}\ N) }$, which can also be presented as $\frac{1}{\sqrt{2^{n}}}  \sum^{2^{n}-1}_{k=0} \frac{1}{\sqrt{r}} \sum^{r-1}_{s=0} e^{2\pi i k \frac{s}{r}} \ket{k}  \ket{u_s}$ </li>
+	    <li>Initialise $L$ ($\geq \text{log}_{2} N$) qubits in the second register of target qubits to $\ket{1}$ and $t$ ($=2L+ 1  + \text{log}_{2} \left( 2 + \frac{1}{2\epsilon} \right)$) qubits in the first register of control qubits $\ket{0}$, and pick an integer $x$ co-prime to $N$</li>
+	    <li>Create a superposition of states in the first register through Hadamard gates, $\frac{1}{\sqrt{2^{t}}} \left( \sum^{2^{t}-1}_{k=0} \ket{k} \right) \ket{1} $</li>
+	    <li>Apply control-$U^{k}$ gates to the second register using the first register as control qubits, to prepare $\frac{1}{\sqrt{2^{t}}} \sum^{2^{t}-1}_{k=0} \ket{k} \ket{x^{k} \ (\mathrm{mod}\ N) }$, which can also be presented as $\frac{1}{\sqrt{2^{t}}}  \sum^{2^{t}-1}_{k=0} \frac{1}{\sqrt{r}} \sum^{r-1}_{s=0} e^{2\pi i k \frac{s}{r}} \ket{k}  \ket{u_s}$ </li>
 	    <li>Apply the inverse Fourier Transform, and measure the first register to record an estimate of the phase $\frac{s}{r}$</li>
 	    <li>Apply the continued fractions algorithm to extract order $r$ from the denominator of the phase estimate</li>
 </ol>
@@ -1107,8 +1107,8 @@ img {
 
 
 
+    <h2 id="Shor_Algorithm_subsection">Shor's Algorithm for Factoring</h2>
 
-    <h2 id="factoring">Factoring</h2>
 
     <p>Factoring a large number $N$ can make use of <a href="#order_finding">order finding</a> when $r$ is an even number. This can be done because $x^{r+s}=r^{s}\ (\mathrm{mod}\ N)$ (for $x$ <a href="https://en.wikipedia.org/wiki/Coprime_integers">co-prime</a> to $N$) means that $x^{r} = 1 + kN$ (for an integer k), and through using the relation $y^{2} = (y-1)(y+1)$ for $y=x^{r/2}$, which together combines to form
     $$kN = (x^{r/2} - 1) (x^{r/2} + 1)$$
@@ -1179,33 +1179,151 @@ img {
 	    
     </ol>
     </p>
-    <!--bookmark: Explain how $r$ is likely be even, and how and what it means for both $(x^{r/2} - 1)$ and $(x^{r/2} + 1)$ to have non-trivial factors of $N$ -->
-    <!--bookmark: What does it look like when the algorithm fails?-->
-    <!--bookmark: Describe cyclic property of order, and briefly note how this is related to factoring-->
 
-    <!--bookmark: Show a working example, mathematically then with images -->
 
-    <h2 id="Shor_Algorithm_subsection">Shor's Algorithm</h2><!--bookmark: Edit subtitle as required--> 
-    <!--bookmark: Look into Shor's Algorithm-->
-    <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
+
+    <p>Now let's better grasp Shor's algorithm by manually going through the factoring of 15. Note that this is less rigorous and more for the sake of demonstrating Shor's algorithm</p>
+    <p>Firstly, 15 is not even, and secondly it cannot be be expressed as $a^{b}$ where $b \geq 2$.</p>
+
+    <p>For the third step, we need to choose a random integer $1 \lt x \lt N$ and check if gcd$(x,N) = 1$. Here, let's go with $x=7$. gcd$(7,15)$ gives us $1$ so we know $x=7$ is co-prime to $N=15$ and continue onto the fourth step of quantum order finding of $x^{r}=1 \ (\mathrm{mod}\ N)$.</p>
+
+    <p>For <a href="#order_finding">quantum order finding</a>, let's determine the number of qubits we need in each register. For the second register we need $L$ target qubits where $L \geq \text{log}_{2} N = \text{log}_{2} 15 \approx 3.91$ so we can choose $L=4$. To determine the number of control qubits $t$ in the first register we need to choose the level of error in phase estimation $\epsilon$ we're comfortable with. Let's go with $\epsilon=0.25$ so $t=2L+ 1  + \text{log}_{2} \left( 2 + \frac{1}{2 \epsilon} \right) = 2 \times 4 + 1 + \text{log}_{2} (2 + \frac{1}{2}) = 8 + 1 + \text{log}_{2} 4 = 9 + 2 = 11$. This means that we start off with 11 qtubis in the $0$ state, and 4 qubits in the $1$, which can be represented as
+    $$\ket{0}_{11} \ket{0}_{4}$$
+    Note that above subscript are included, noting the number of qubits, to more clearly distinguish the two qubit registers.</p>
+    <p>Then Hadamard gates are applied on all 11 qubits in the first register, leading to 
+    $$\frac{1}{\sqrt{2^{11}}} \sum^{2^{11} - 1}_{k=0}  \ket{k}_{11} \ket{0}_{4}$$</p>
+
+    <p>As laid out in <a href="#order_finding">quantum order finding</a> we can then apply control-U gates to achieve
+    $$\frac{1}{\sqrt{2^{11}}} \sum^{2^{11} - 1}_{k=0}  \ket{k}_{11} \ket{7^{k} \ (\mathrm{mod}\ 15  }_{4}$$
+    </p>
+
+    <p>Let's briefly look at the values of $\ket{7^{k} \ (\mathrm{mod}\ 15$ for different values:
+    \begin{align}
+    7^{0} \ (\mathrm{mod}\ 15) &= 1 \ (\mathrm{mod}\ 15)  \\
+    7^{1} \ (\mathrm{mod}\ 15) &= 7 \ (\mathrm{mod}\ 15)  \\
+    7^{2} \ (\mathrm{mod}\ 15) &= 49 \ (\mathrm{mod}\ 15) &= 4 \ (\mathrm{mod}\ 15)  \\
+    7^{3} \ (\mathrm{mod}\ 15) &= 343 \ (\mathrm{mod}\ 15) &= 13 \ (\mathrm{mod}\ 15)\\
+    7^{4} \ (\mathrm{mod}\ 15) &= 2401 \ (\mathrm{mod}\ 15) &= 1 \ (\mathrm{mod}\ 15)\\
+    7^{5} \ (\mathrm{mod}\ 15) &= 16807 \ (\mathrm{mod}\ 15) &= 7 \ (\mathrm{mod}\ 15)\\
+    7^{6 } \ (\mathrm{mod}\ 15) &= 117649 \ (\mathrm{mod}\ 15) &= 4 \ (\mathrm{mod}\ 15)\\
+    7^{7 } \ (\mathrm{mod}\ 15) &= 823543 \ (\mathrm{mod}\ 15) &= 13 \ (\mathrm{mod}\ 15)\\
+    7^{8 } \ (\mathrm{mod}\ 15) &= 57764801 \ (\mathrm{mod}\ 15) &= 1 \ (\mathrm{mod}\ 15)\\
+    &\ldots
+    \end{align}</p>
+
+    <p>We can already observe cyclic behaviour and the order, but for the sake of showcasing Shor's factoring algorithm we will continue. These values mean that the sum can begin to be expanded as 
+
+    $$\frac{1}{\sqrt{2048}} \sum^{2^{11} - 1}_{k=0}  \ket{0}_{11} \ket{1}_{4} +  \ket{1}_{11} \ket{7}_{4} + \ket{2}_{11} \ket{4}_{4}\\
+    + \ket{3}_{11} \ket{13 }_{4} + \ket{4 }_{11} \ket{1 }_{4} + \ket{5 }_{11} \ket{7 }_{4} \\
+    + \ket{6 }_{11} \ket{4 }_{4} + \ket{7 }_{11} \ket{13 }_{4} + \ket{8 }_{11} \ket{1 }_{4} + \ldots 
+    $$
+    This cyclic behaviour means that the sum can be rewritten as follows, with a corresponding modification of the sum limits 
+    $$\frac{1}{\sqrt{2048}} \sum^{2^{9} - 1}_{k=0}  \ket{4k}_{11} \ket{1}_{4} +  \ket{4k+ 1}_{11} \ket{7}_{4} + \ket{4k + 2}_{11} \ket{4}_{4} +  \ket{4k+ 3}_{11} \ket{13}_{4} $$
+    </p>
+
+    <p>There are four possible values for the second register now, and it will not undergo further modifications. For ease of following the calculations, we can assume that we measure the second register at this point in time rather than at the end of the algorithm, and follow the calculations with one of four values. For this demonstration, we will assume we have measured 4, so our first register is now in the following state
+    $$\frac{1}{\sqrt{2^{9}}} \sum^{2^{9} - 1}_{k=0}  \ket{4k + 2}_{11}$$
+    </p>
+    <p>Then, let's apply the inverse QFT, which results in
+    $$\frac{1}{\sqrt{2^{9}}} \sum^{2^{9} - 1}_{k=0}  \frac{1}{\sqrt{2^{11}}} \sum^{2^{11} - 1}_{z=0}  e^{(-2\pi i) (\frac{z}{2^{11}}) (4k + 2)}  \ket{z}_{11}$$
+    This can be rearranged so $k$ terms are separated as follows:
+    $$\frac{1}{2^{10}}  \sum^{2^{11} - 1}_{z=0}  e^{(-2\pi i) (\frac{z}{2^{10}}) }   \sum^{2^{9} - 1}_{k=0} e^{(-2\pi i) (\frac{z}{2^{9}}) k } \ket{z}_{11}   $$
+    </p>
+
+    <p>For the sum over $k$, we can make a similar argument as before in the <a href="#order_finding">previous subsection</a>, and only accept values where the exponential power is an integer multiple of $-2\pi$ (as $e^{2\pi i s}=e^{0}=1$ for integer $s$). This reduces to values of $\frac{z}{2^{9}}=\frac{z}{512}$ which result in integers. Considering the limits of the sum over $z$, $z$ can take values of 0, 512, 1024, and 1536.</p>
+
+    <p>As an aside we cannot take other values of $z$ as seen by defining $c=e^{-2\pi i \frac{z}{512}}$, which allows us to use the following relation for arithmetic sums
+    $$\sum^{511}_{s=0} c^{s} = \frac{1-c^{512}}{1-c}$$
+    For values of z other than zero or multiples of 512 we have $c \neq e^{0} = 1$ so the denominator $1-c$ is non-zero, while instead for the numerator $1 - e^{-2 \pi i \frac{512}{512}} = 1 - e^{-2\pi i}= 1- e^{0} = 1-1 =0$. This means that the sum over $k$ is only non-zero when $z$ is 0, 512, 1024, or 1536.
+    </p>
+
+    <p>So after this, we end up with
+    $$\frac{1}{2^{10}} \left(  e^{(-2\pi i) (\frac{0}{2^{10}})} \times 2^{9} \ket{0}_{11}  +   e^{(-2\pi i) (\frac{512}{2^{10}})} \times 2^{9} \ket{512}_{11} \\
+    + e^{(-2\pi i) (\frac{1024}{2^{10}})} \times 2^{9} \ket{1024}_{11}  + e^{(-2\pi i) (\frac{1536}{2^{10}})} \times 2^{9} \ket{1536}_{11} 
+    \right) $$
+    After cancelling out powers of 2 we get
+    $$\frac{1}{2} \left(  e^{0} \ket{0}_{11}  +   e^{- \frac{\pi}{2} i} \ket{512}_{11} + e^{-\pi i}\ket{1024}_{11}  + e^{-\frac{3\pi}{2} i} \ket{1536}_{11}  \right) $$
+    Which can also be expressed as
+    $$\frac{1}{2} \left(\ket{0}_{11} - i \ket{512}_{11} - \ket{1024}_{11} + i \ket{1536}_{11}  \right) $$
+    </p>
+
+    <p>Now we can measure the first register and get one of these states and then perform phase estimation. Let's say we measure $e^{- (2 \pi i ) \frac{3}{4}} \ket{1536}_{11}$ and perform phase estimation, which results in $\frac{3}{4}$.</p>
+    <!--todo: bookmark: address the negative phase, which leads to a positive fraction-->
+    <p>We can then use the continued fractions algorithm
+    $$\frac{3}{4} = \frac{1}{\frac{4}{3}} = \frac{1}{1+\frac{1}{3}}$$
+    From this $a_0=0$, $a_1=1$ and $a_2=3$. This all results in the following calculations
+    \begin{align}
+    p_0 &= a_0 = 0\\
+    q_0 &= 1 \\
+    p_1 &= 1 + a_0 a_1 = 1 + 0 \times 1 = 1 \\
+    q_1 &= a_1 = 1\\
+    p_2 & = a_2 p_1 + p_0 = 3 \times 1 + 0 = 3\\
+    q_2 &= a_2 q_1 + q_0 = 3\times 1 + 1 = 4
+    \end{align}
+    So the determined fraction is $\frac{p_2}{q_2}$ = $\frac{3}{4}$, and the order is the denominator $r=q_2=4$.
+    </p>
+
+    <p>The order $r=4$ is even and $x^{\frac{r}{2}}=7^{2}=49$, which modulo 15 results in $4 \ (\mathrm{mod}\ 15) \neq -1 \ (\mathrm{mod}\ 15)$, so the algorithm can continue to the next step.</p>
+
+    <p>Skipping over the algorithmic depiction of Euclid's algorithm, we find that
+    $$\text{gcd}(x^{\frac{r}{2}}-1, N) = \text{gcd}(48, 15) = 3$$
+    And
+    $$\text{gcd}(x^{\frac{r}{2}}+1, N) = \text{gcd}(50, 15) = 5$$
+    We can find that both of these factors together compose $N=15$ as $3\times 5 =15$, so we have finished factorising $N$.
+    Note, that if instead we measure the phase of $\ket{0}_{11}$ we cannot perform the continued fraction algorithm.</p>
+
+
+    <p>Shor's algorithm is a key demonstration of a quantum algorithm scaling better than classically known alternatives, such as the <a href="https://en.wikipedia.org/wiki/General_number_field_sieve">general number field sieve</a> algorithm for integer factorisation. Specifically in the case of factorising an integer $N$ <a href="https://en.wikipedia.org/wiki/General_number_field_sieve">general number field sieve</a> can expect to need roughly $e^{c (\text{log}(N))^{\frac{1}{3}} (\text{log}\text{log}(N))^{\frac{2}{3}} }$ operations where $c$ is a constant, whereas  <a href="https://en.wikipedia.org/wiki/Shor%27s_algorithm">Shor's algorithm</a> can instead scale with $(\text{log}N)^{2} (\text{log}\text{log}N) (\text{log}\text{log}\text{log}N)$ operations. The exponential scaling needed to classically factor large integers is what RSA has relied on to secure communications so far, yet the far easier scaling of Shor's algorithm poses a risk to its very security. To better understand the risk Shor's algorithm poses to RSA, we will briefly describe it in the following subsection.</p>
+
 
     <!--bookmark: Get a working example in the Jupyter notebook, which also demonstrates Order finding and factoring-->
-    <!--bookmark: Describe the substtitution of \ket{1} for \ket{u} -->
-
-    <!--bookmark: Note co-primeality and its importance for factoring and Shor's algorithm-->
-    <!--bookmark: Explain how Order finding is related to the Shor's Algorithm-->
-
     <!--bookmark: Shor's Period finding algorithm as well-->
+    <!--bookmark: Explain how $r$ is likely be even, and how and what it means for both $(x^{r/2} - 1)$ and $(x^{r/2} + 1)$ to have non-trivial factors of $N$ -->
 
+    <!--todo: bookmark: Explain what these control-U gates actually are in this example, and rules for their form --> 
     <h2 id="rsa_risk">Risk to RSA</h2>
-    <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
+
+    <p>This subsection briefly goes over how RSA (Rivest-Shamir-Adleman) cryptosystem encrypts and decrypts information, which makes it clear how both order-finding and factorisation can crack RSA. For a further in depth understanding, including how decryption functions within RSA, I recommend going through appendices 4 and 5 of 'Quantum Computation and Quantum Information' or through other sources explaining RSA.</p>
+
+    <p>First we need to choose two large prime numbers $p$ and $q$, which multiply to form $n=pq$.</p>
+    <p><a href="https://en.wikipedia.org/wiki/Euler's_totient_function">Euler's totient function</a> $\varphi$ measures the number of positive integers that are co-prime and smaller than the input. For primes $p$ and $q$ that means $\varphi(p) = p-1$ and $\varphi(q) = q-1$. Euler's totient has a multiplicative property so for co-prime $a$ and $b$, $\varphi(ab) =\varphi(a)\varphi(b)$, which means that $\varphi(n)=\varphi(pq)=\varphi(q)\varphi(q)=(p-1)(q-1)$.</p>
+    <p>We need to randomly pick a public exponent $e$ which is co-prime to $\varphi(n)$, and then calculate its multiplicative inverse modulo $\varphi(n)$ which is the private exponent $d$. This relation between $e$ and $d$ can also be expressed as $ed = 1 + k\varphi(n)$ for an integer $k$. These together form the public key pair $P=(n, e)$ and the private key pair $S=(n,d)$. </p>
+
+
+    <!--bookmark: Explain public and private key details-->
+
+    <p>This separation of keys with RSA means that the public key can be widely and publicly shared to encrypt messages, and theoretically only with the private key can one reasonably decrypt data contained in messages.</p>
     <!--bookmark: Explain how RSA works, with a brief algorithm explaining it-->
+
+    <p>Encryption works on a message $M$ of at most log$(n)$ bits (note that larger messages can be broken up into sub-messages fitting this size limit) by raising the power with the public exponent $e$ modulo $n$
+    $$E(M) = M^{e} \ (\mathrm{mod}\ n)$$
+    Whereas the decryption requires raising by a secret exponent $d$
+    \begin{align}
+    D(M) &= E(M)^{d} \ (\mathrm{mod}\ n) \\
+    &= M^{ed}  \ (\mathrm{mod}\ n) \\
+    &= M  \ (\mathrm{mod}\ n) 
+    \end{align}
+    </p>
+    <!--bookmark: explain: 
+    The specifics of the transformation from the penultimate to last lines are somewhat beyond the scope of this tutorial, but as noted above can be understood by going through appendices 4 and 5 of 'Quantum Computation and Quantum Information', or indeed other available resources explaining RSA.
+    -->
     <!--bookmark: note the ways RSA can be cracked, including finding the inverse or factoring -->
-    <!--bookmark: Basics of order finding and factoring as it relates to cracking RSA. Also perhaps LEARN ABOUT and briefly note post-quantum cryptography.-->
+
+    <p>As seen through how RSA functions based on raising with powers, and through utilising a Euler totient $\varphi(n)$ with an argument of $n=pq$, there are two ways quantum algorithms can crack RSA.</p>
+    <p>One way is to use order finding to discover a multiplicative inverse to $e$, $d^{\prime}$ (which isn't necessarily $d$) which you can then decrypt messages with. Assuming $M^{e}$ is co-prime to $n$ (if it isn't we can use this to extract a common factor which can be used in the second method), then we can find the order $r$ which achieves $(M^{e})^{r} = 1 \ (\mathrm{mod}\ n) $, then define $ed^{\prime} = 1 + k r$ for an integer $k$.<!--todo: bookmark: expand this explanation--> </p>
+
+    <p>The second method of cracking RSA is to use Shor's algorithm to factor $n$ to return $p$ and $q$, and thus arrive at $\varphi(n)=(p-1)(q-1)$, which makes it easy to compute the secret key $d$.</p>
+    <!--todo: bookmark: expand the scope of this explanation perhaps?-->
     <!--bookmark: Post quantum cryptography-->
+    
+    <p>Due to the risk of quantum algorithms such as Shor's algorithm, <a href="https://en.wikipedia.org/wiki/Post-quantum_cryptography">post quantum crypography</a> are being developed to secure against them.</p>
+
+    <!--bookmark: How exactly the private key decrypts stuff. I can go deep into the maths-->
+    <!--bookmark: Basics of order finding and factoring as it relates to cracking RSA. Also perhaps LEARN ABOUT and briefly note post-quantum cryptography.-->
 
     <h2 id="general_applications_of_QFT">General Applications of QFT</h2>
     <p>This subsection is currently a work in progress.<!--bookmark: Remove when completed--></p>
+
     <!--bookmark: Read about and explain how this supports a broad class of problems with exponential speed up, with Grove's supporting those with quadratic speed up. Then check and see if other classes needed to be added to this -->
     <!--bookmark: Briefly note general application of Quantum Fourier Transform. Hidden subgroup problem-->
     <!--bookmark: Explain how periodicity links with hidden subgroup problems, linking back to the order finding subsection-->
@@ -1215,11 +1333,17 @@ img {
     <h1 id="Grover_Algorithm">Grover's Quantum Search Algorithm</h1>
     <p>This section is currently a work in progress.<!--bookmark: Remove when completed--></p>
     <!--bookmark: Grover's Algorithm-->
+    <!--bookmark: Learn about and describe promise characteristic that allows an exponential speed up-->
+
+
     <!--bookmark: Quantum simulation and quantum search as quantum simulation-->
+    
+
+
     <!--bookmark: Quantum Counting-->
     
-    <!--bookmark: Get a working example in the Jupyter notebook-->
 
+    <!--bookmark: Get a working example in the Jupyter notebook-->
     <!--<h1 id="Current_State_of_Things"></h1>-->
 
     <p><!--bookmark: Explain the current state of quantum algoriths, dating this statement, and how things are going. Refer to other resources to support points made, and MAKE SURE they are defensible. Similarly, do not hold overly strong positions, and qualify as needed.--></p>
